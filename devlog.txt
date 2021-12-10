@@ -1,0 +1,8 @@
+HaroldHuggers - Owen Yaggy, Justin Morril, William Chen, Zhao yu Lin
+SoftDev
+P01 -- A website making meaningful use of frontend frameworks and RESTful APIs
+2022-XX-XX
+
+owenY -- 2021-12-10 06:50
+Revised design doc, printed, and uploaded on github
+Printed team flag
