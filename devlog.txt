@@ -9,3 +9,8 @@ Revised design doc, printed, and uploaded on github
 - Provided more clarity on features (e.g. customization)
 - Renamed it Design Doc v1
 Printed team flag
+
+owenY -- 2021-12-10 18:30
+Renamed design doc
+Created "pitch" on readme
+Added file structure to github
