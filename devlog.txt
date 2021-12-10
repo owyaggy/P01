@@ -5,4 +5,7 @@ P01 -- A website making meaningful use of frontend frameworks and RESTful APIs
 
 owenY -- 2021-12-10 06:50
 Revised design doc, printed, and uploaded on github
+- Corrected typos
+- Provided more clarity on features (e.g. customization)
+- Renamed it Design Doc v1
 Printed team flag
