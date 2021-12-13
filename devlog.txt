@@ -14,3 +14,7 @@ owenY -- 2021-12-10 18:30
 Renamed design doc
 Created "pitch" on readme
 Added file structure to github
+
+zhaoL -- 2021-12-12 19:17
+Added initial requirements.txt
+started html and css
