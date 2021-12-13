@@ -20,11 +20,12 @@
   <body>
     <div id="content">
     {% block content %}
+    <!-- nav bar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-danger">
         <div class="container-fluid">
             <a class="navbar-brand" href="#"><img class="img-fluid me-lg-5"
                     src="https://freepngimg.com/thumb/universe/30418-2-black-hole-transparent-image.png"
-                    alt="Black hole icon" width="30" height="30"> LoremIpsum: Owen Yaggy & Justin Morrill</a>
+                    alt="Black hole icon" width="30" height="30"> [Website Name]</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                 aria-label="Toggle navigation">
@@ -41,11 +42,12 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">
-                            Dropdown
+                            Subpages
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li><a class="dropdown-item" href="#">Fun Zone</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#">Random Recommendations</a></li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
@@ -53,7 +55,7 @@
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link disabled">Disabled</a>
+                        <a class="nav-link disabled">Settings</a>
                     </li>
                 </ul>
                 <form class="d-flex">
@@ -63,7 +65,7 @@
             </div>
         </div>
     </nav>
-
+    <!-- end nav bar -->
     <p class="important">
       Welcome on my awesome homepage.
     {% endblock %}</div>
