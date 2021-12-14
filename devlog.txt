@@ -18,3 +18,10 @@ Added file structure to github
 zhaoL -- 2021-12-12 19:17
 Added initial requirements.txt
 started html and css
+
+zhaoL -- 2021-12-13 08:40
+Added base template and child templates
+
+zhaoL -- 2021-12-14 8:40
+-worked on register in auth.py
+-added comments to yesterday's work for easy use in the future
