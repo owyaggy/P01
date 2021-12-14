@@ -6,11 +6,16 @@ app.secret_key = os.urandom(32) #create random key
 @app.route('/')
 @app.route("/home")
 def home():
+
     return render_template('home.html')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     return render_template('login.html')
+
+@app.route('/preferences')
+def preferences():
+    return render_template('preferences.html')
 
 @app.route('/news')
 def news():
