@@ -1,13 +1,12 @@
-{% extends "base.html" %}
+{% extends "base.html" %} <!-- extends the base template -->
 {% block title %}Index{% endblock %}
 {% block head %}
-  {{ super() }}
+  {{ super() }}<!-- calls the super of the block with the name "head" -->
   <style type="text/css">
     .important { color: #336699; }
   </style>
 {% endblock %}
 {% block content %}
-
-  {{super() }}
+  {{super() }} <!-- calls the super of the block with the name "content" -->
   <h1>Index</h1>
 {% endblock %}
