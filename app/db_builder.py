@@ -23,7 +23,7 @@ def createTables():
     db.commit()
     db.close()
 
-def register(template_name, username, password, user_ID, user_password database):
+def register(template_name, username, password, user_ID, user_password, database):
     error = "ERROR: "
     error += validate(user_ID, request.args[username])
     error += validate(user_password, request.args[password])
@@ -37,6 +37,31 @@ def register(template_name, username, password, user_ID, user_password database)
 
     return render_template(template_name, error = error)
     # return render_template('response.html', user = session.get("userID"))
+def validate(name, value):
+    error_message = ""
+    if name == "userID":
+        if value == "" or value == " " or value == None:
+            error_message += " | Username cannot be blank"
+        if check_existence("username", value):
+            error_message += " | Username already exists"
+        if len(value) > 50:
+            error_message += " | Username cannot exceed 50 characters"
+    if error_message == "":
+        return "";
+    else:
+        return error_message + " |"
+        
+def check_existence(c_name, value):
+    with sqlite3.connect(DB_FILE) as db:
+        c = db.cursor()
+        c.execute("SELECT " + c_name + " FROM userinfo WHERE " +c_name + " LIKE '%" + value + "%';")
+        listUsers = c.fetchall()
+        print(listUsers)
+        if (len(listUsers) == 0):
+            return False
+        return True
+
+
 
 #not useful rn
 # def insert(table_name, username, password): #insert user and password into table
