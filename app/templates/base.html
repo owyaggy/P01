@@ -20,6 +20,24 @@
   <body>
     <div id="content">
     {% block content %}
+    <form action="/auth">
+      <p>
+        &emsp; Username:
+      </p>
+        &emsp; <input type="text" name="username">
+      <p>
+        &emsp; Password:
+      </p>
+        &emsp; <input type="text" name="password">
+      <br>
+      <br>
+        &emsp; <input type="submit" name="sub1" value = "Log-in">
+    </form>
+
+    <form action = "/reg1">
+      <br>
+      &emsp;<input type = "submit" name = "register" value = "Not registered? Click here">
+    </form>
     <!-- nav bar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-danger">
         <div class="container-fluid">
@@ -74,5 +92,13 @@
       &copy; Copyright 2010 by <a href="http://domain.invalid/">you</a>.
       {% endblock %}
     </div>
+
+    <!-- Body -->
+    <div class="container-fluid">
+      {%for widget in widgets%}
+
+      {%endfor%}
+    </div>
+    <!-- End Body -->
   </body>
 </html
