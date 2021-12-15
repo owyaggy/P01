@@ -18,4 +18,11 @@ The hardest part of any day is starting it. [Daily Drop] exists to provide all t
 [Daily Drop]: [Drop of Daily]
 
 # Launch Codes
-* Coming soon!
+1. Open a command line shell.
+2. Clone this repository with `git clone https://github.com/owyaggy/p01.git`
+4. Create a virtual environment with `python3 -m venv /path/to/venv` (where /path/to/venv is whereever you want the virtual environment to be and what it's called)
+6. Activate the virtual envrionment with `source <venv>/bin/activate` (where <venv> is the path to the venv)
+7. Run `pip install -r requirements.txt`
+8. Cd into /p01/app
+9. Run `python __init__.py`
+10. Enter `localhost:5000` into a web broswer
