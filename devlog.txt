@@ -1,7 +1,7 @@
 HaroldHuggers - Owen Yaggy, Justin Morril, William Chen, Zhao yu Lin
 SoftDev
 P01 -- A website making meaningful use of frontend frameworks and RESTful APIs
-2022-XX-XX
+2022-01-04
 
 owenY -- 2021-12-10 06:50
 Revised design doc, printed, and uploaded on github
@@ -19,9 +19,20 @@ zhaoL -- 2021-12-12 19:17
 Added initial requirements.txt
 started html and css
 
+owenY -- 2021-12-14 08:00
+Added routes to __init__.py
+Removed routes.py
+
 zhaoL -- 2021-12-13 08:40
 Added base template and child templates
 
 zhaoL -- 2021-12-14 8:40
 -worked on register in auth.py
 -added comments to yesterday's work for easy use in the future
+
+owenY -- 2021-12-15 08:00
+Updated design doc to remove routes.py from structure
+
+zhaoL -- 2021-12-15 8:17
+- create table function in db_builder
+- update readme with team name and launch code
