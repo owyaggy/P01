@@ -23,7 +23,7 @@ def createTables():
     db.commit()
     db.close()
 
-def register(template_name, username, password, user_ID, user_password database):
+def register(template_name, username, password, user_ID, user_password, database):
     error = "ERROR: "
     error += validate(user_ID, request.args[username])
     error += validate(user_password, request.args[password])
