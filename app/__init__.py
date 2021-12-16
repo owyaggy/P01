@@ -10,14 +10,14 @@ def logged_in():
     return session.get('username') is not None
 
 ### NEEDS TO BE REPLACED BY FUNCTION IN DB_BUILDER ###
-theme="dark"
+theme="info"
 
 @app.route('/')
 @app.route("/home")
 def home():
     # available widgets:
     # weather, news, recommendations, stocks, fun, sports, space
-    widgets = ['weather', 'news', 'recommendations', 'stocks', 'fun', 'sports', 'space', 'test'] # a complete list of all widgets
+    widgets = ['weather', 'news', 'recommendations', 'fun', 'sports', 'space', 'stocks', 'stocks', 'stocks', 'test'] # a complete list of all widgets
     # theme based on bootstrap colors [primary, secondary, success, danger, warning, info, light, dark]
     #theme = "dark" # should be replaced by function getting user theme from database
     if logged_in():
