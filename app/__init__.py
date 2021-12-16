@@ -1,8 +1,7 @@
 from flask import Flask, render_template, redirect, url_for, request, session
 import os
 
-import db_builder
-
+from db_builder import validate, check_existence
 app = Flask(__name__)    #create Flask object
 app.secret_key = os.urandom(32) #create random key
 
@@ -64,8 +63,9 @@ def space():
     return render_template('space.html', name="Space", theme=theme)
 
 @app.route('/reg1', methods= ["GET", "POST"])
-def register():
-    return render_template('register.html', name="Space", theme=theme)
+def reg2():
+    register("home.html",)
+
 
 if __name__ == "__main__":
     app.debug = True
