@@ -63,6 +63,10 @@ def sports():
 def space():
     return render_template('space.html', name="Space", theme=theme)
 
+@app.route('/reg1', methods= ["GET", "POST"])
+def register():
+    return render_template('register.html', name="Space", theme=theme)
+
 if __name__ == "__main__":
     app.debug = True
     app.run()
