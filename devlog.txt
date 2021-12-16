@@ -36,3 +36,14 @@ Updated design doc to remove routes.py from structure
 zhaoL -- 2021-12-15 8:17
 - create table function in db_builder
 - update readme with team name and launch code
+
+owenY -- 2021-12-15 11:30
+updated base.html:
+- added subpage links to dropdown menu
+- removed logo and search bar
+- moved settings to the right, added link
+updated home.html:
+- home.html now effectively uses base.html
+- displays an array of placeholder widgets modifiable by backend
+- widgets link to subpages
+Created templates for every subpage
