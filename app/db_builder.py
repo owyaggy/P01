@@ -1,6 +1,6 @@
 import sqlite3
 
-DB_file = "discobandit.db"
+DB_FILE = "discobandit.db"
 
 
 def createTables():
@@ -18,12 +18,12 @@ def createTables():
     facts INTEGER,
     space INTEGER,
     sports INTEGER,
-    time INTEGER):"""
+    time INTEGER);"""
     )
     db.commit()
     db.close()
 
-def register(template_name, username, password, user_ID, user_password, database):
+def register(template_name,template_name2, username, password, user_ID, user_password, database):
     error = "ERROR: "
     error += validate(user_ID, request.args[username])
     error += validate(user_password, request.args[password])
@@ -35,7 +35,7 @@ def register(template_name, username, password, user_ID, user_password, database
         return render_template(template_name,user = request.args[username])
             # ADD USERID TO THE DB HERE
 
-    return render_template(template_name, error = error)
+    return render_template(template_name2, error = error)
     # return render_template('response.html', user = session.get("userID"))
 def validate(name, value):
     error_message = ""
@@ -66,6 +66,7 @@ def check_existence(c_name, value):
             return False
         return True
 
+createTables()
 
 
 #not useful rn
