@@ -1,11 +1,6 @@
 <!DOCTYPE html>
-<!--
-BlueGreen (Edwin Zheng, Shriya Anand, Zhaoyu Lin)
-SoftDev
-K15: Sessions Greetings
-Oct 20, 2021
--->
 
+{% extends "base.html" %}
 
 <html>
 
@@ -14,28 +9,19 @@ Oct 20, 2021
   </head>
 
   <body>
-    <h1>
-      OrangeLemon
-      Shriya, Zhaoyu, Edwin, William
-    </h1>
     <form action="/reg2" methods = ['GET', 'POST']>
-      <p>
-        &emsp; Username:
-      </p>
-        &emsp; <input type="text" name="regUser">
-      <p>
-        &emsp; Password:
-      </p>
-        &emsp; <input type="text" name="regPass">
+      <label for="Username" class="form-label">Username:</label>
+        <input type="text" placeholder = "Username" name="regUser">
+      <label for="Password" class="form-label">Password:</label>
+        <input type="text" placeholder = "Enter Password" name="regPass">
+      <label for="Confirm" class="form-label">Confirm Password:</label>
+        <input type="text" placeholder = "Confirm Password" name="conPass">
       <br>
       <br>
-        &emsp; <input type="submit" name="regSub" value = "Register">
+        <input type="submit" name="regSub" value = "Register">
     </form>
 
       <p> {{error}}
       </p>
-
-
-  </body>
 
 </html>
