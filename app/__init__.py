@@ -64,11 +64,15 @@ def space():
 
 @app.route('/reg1', methods= ["GET", "POST"])
 def reg1():
-    return render_template("register.html", name = "Register", theme = theme)
-@app.route('/reg2', methods= ["GET", "POST"])
+    return render_template("register.html", name = "Reg1", theme = theme)
+@app.route('/reg2', methods= ["GET", "POST"])#displays login page
 def reg2():
-    register("home.html","register.html","regUser","regPass","userID","password","userinfo")
+    request_user = request.args['regUser']
+    request_password = request.args['regPass']
+    print(f"Hello*********, {request_user}")
+    print(f"Hello*********, {request_password}")
 
+    return render_template('response.html',user = request_user, name = "Logged in", theme = theme)
 
 if __name__ == "__main__":
     app.debug = True
