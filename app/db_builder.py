@@ -1,4 +1,6 @@
 import sqlite3
+from flask import Flask, render_template, redirect, url_for, request, session
+import os
 
 DB_FILE = "discobandit.db"
 
@@ -23,20 +25,21 @@ def createTables():
     db.commit()
     db.close()
 
-def register(template_name,template_name2, username, password, user_ID, user_password, database):
+def register(request_user,request_password, session_ID):
     error = "ERROR: "
-    error += validate(user_ID, request.args[username])
-    error += validate(user_password, request.args[password])
+    error += validate("userID", request_user)
+    error += validate("password", request_password)
     if (error == "ERROR: "):
-        #if userID and password is valid, store in database
-        session[user_ID] = request.args[username]
-        insert(database, request.args[username], request.args[password])
+        #if userID is valid, store in database
+        session["userID"] = request_user
+        insert("userinfo", request_user, request_password)
 
-        return render_template(template_name,user = request.args[username])
+        return render_template('response.html',user = request_user, name = "Logged in", theme = theme)
             # ADD USERID TO THE DB HERE
 
-    return render_template(template_name2, error = error)
+    return render_template('register.html', error = error)
     # return render_template('response.html', user = session.get("userID"))
+
 def validate(name, value):
     error_message = ""
     if name == "userID":
@@ -49,8 +52,8 @@ def validate(name, value):
     if name == "password":
         if len(value) < 8 or len(value) > 50:
             error_message += " | Password must only have between 8 and 50 characters"
-        if(value != request.args['cpass']):
-            error_message += " | Passwords must match"
+        # if(value != request.args['pass']):
+        #     error_message += " | Passwords must match"
     if error_message == "":
         return "";
     else:
@@ -70,10 +73,10 @@ createTables()
 
 
 #not useful rn
-# def insert(table_name, username, password): #insert user and password into table
-#     with sqlite3.connect(DB_FILE) as db:
-#             #open if file exists, otherwise create
-#             c = db.cursor()
-#             c.execute("INSERT INTO " + table_name + "(username,password) VALUES (?,?)",(username,password) )
-#             db.commit()
-#             msg = "Record successfully added"
+def insert(table_name, username, password): #insert user and password into table
+    with sqlite3.connect(DB_FILE) as db:
+            #open if file exists, otherwise create
+            c = db.cursor()
+            c.execute("INSERT INTO " + table_name + "(username,password) VALUES (?,?)",(username,password) )
+            db.commit()
+            msg = "Record successfully added"

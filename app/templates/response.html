@@ -1,0 +1,91 @@
+{% extends "base.html" %} <!-- extends the base template -->
+
+{% block content %}
+
+<h3> Login here: </h3>
+
+Hello, {{user}}
+
+
+
+<div class="container-fluid">
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+      {% for widget in widgets %}
+        <div class="col sm-6">
+            <div class="card m-3">
+                <div class="card-body">
+                    {# widgets: weather, news, recommendations, stocks, fun, sports, space #}
+                    {% if widget == "weather" %}
+                    <h5 class="card-title">Weather Widget</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">Coming soon</h6>
+                    <p class="card-text mb-0">
+                        The weather today is way too cold. You probably don't even want to know the temperature. If you
+                        do, however, we'll be able to tell you soon!
+                    </p>
+                    <a href="/weather"><button class="btn btn-outline-{{ theme }} btn-sm mt-0">See More</button></a>
+                    {% elif widget == "news" %}
+                    <h5 class="card-title">News Widget</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">Coming soon</h6>
+                    <p class="card-text mb-0">
+                        I have great news for you! Soon, real news headlines will be provided here by the New York Times
+                        API.
+                    </p>
+                    <a href="/news"><button class="btn btn-outline-{{ theme }} btn-sm">See More</button></a>
+                    {% elif widget == "recommendations" %}
+                    <h5 class="card-title">Recommendations Widget</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">Coming soon</h6>
+                    <p class="card-text mb-0">
+                        I have great recommendations for you! Soon, real recommendations will be provided here by an API.
+                    </p>
+                    <a href="/recommendations"><button class="btn btn-outline-{{ theme }} btn-sm">See More</button></a>
+                    {% elif widget == "stocks" %}
+                    <h5 class="card-title">Stocks Widget</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">Coming soon</h6>
+                    <p class="card-text mb-0">
+                        I have great news for you! Soon, real stocks will be provided here by an API.
+                    </p>
+                    <a href="/stocks"><button class="btn btn-outline-{{ theme }} btn-sm">See More</button></a>
+                    {% elif widget == "fun" %}
+                    <h5 class="card-title">Fun Widget</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">Coming soon</h6>
+                    <p class="card-text mb-0">
+                        I have great news for you! Soon, real fun stuff will be provided here by an API.
+                    </p>
+                    <a href="/fun"><button class="btn btn-outline-{{ theme }} btn-sm">See More</button></a>
+                    {% elif widget == "sports" %}
+                    <h5 class="card-title">Sports Widget</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">Coming soon</h6>
+                    <p class="card-text mb-0">
+                        I have great news for you! Soon, real sports scores will be provided here by an API.
+                    </p>
+                    <a href="/sports"><button class="btn btn-outline-{{ theme }} btn-sm">See More</button></a>
+                    {% elif widget == "space" %}
+                    <h5 class="card-title">Space Widget</h5>
+                    <img class="card-img-top" src="https://apod.nasa.gov/apod/image/2112/GeminidFireball_AlvinWu.jpg" alt="NASA Astronomy Picture of the Day">
+                    <p class="card-text mb-0">
+                    <a href="/space"><button class="btn btn-outline-{{ theme }} btn-sm">See More</button></a>
+                    {% else %}
+                    <h5 class="card-subtitle mb-2 text-muted">
+                        Hmmmm… something's not right here
+                    </h5>
+                    <p class="card-text">
+                        It seems like someone tried to use a widget that isn't available.
+                    </p>
+                    <p class="card-subtitle text-muted">
+                        No widget called "{{ widget }}" exists
+                    </p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="row pb-3">
+        <div class="col pb-3"></div>
+    </div>
+    <div class="row pb-3">
+        <div class="col pb-3"></div>
+    </div>
+</div>
+
+{% endblock %}
