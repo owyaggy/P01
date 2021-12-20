@@ -47,3 +47,7 @@ updated home.html:
 - displays an array of placeholder widgets modifiable by backend
 - widgets link to subpages
 Created templates for every subpage
+
+owenY -- 2021-12-20 08:00
+Implemented NASA API into working site
+Worked on formatting for homepage
