@@ -6,8 +6,6 @@ def nasa_apod():
     
     with open("keys/nasa_key.txt") as api_key:
     	key = api_key.read().rstrip('\n')
-
-    print("https://api.nasa.gov/planetary/apod?api_key="+key)
     	
     api_request = requests.get("https://api.nasa.gov/planetary/apod?api_key="+key)
     info = {}
@@ -19,8 +17,21 @@ def nasa_apod():
     # could potentially be customizable via function arguments (e.g. number of images)
     return info
     
-def weather_api():
-    """Returns """
-    return "something"
-    
-print (nasa_apod())
+def weather_api(city):
+    """Returns weather for the city"""
+
+    with open("keys/weather_key.txt") as api_key:
+        key = api_key.read().rstrip('\n')
+
+    api_request = requests.get("http://api.openweathermap.org/data/2.5/weather?q="+city+"&appid="+key)
+    info = {}
+
+    print(api_request.json())
+
+    if api_request.status_code == 200:
+        info["description"] = api_request.json()["weather"][0]["description"]
+        kelvin_temp = api_request.json()["main"]["temp"]
+        info["temp"] = int((kelvin_temp - 273.15) * 1.8 + 32.5)
+    return info
+
+print(weather_api("New+York+City"))
