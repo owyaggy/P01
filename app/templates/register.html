@@ -2,11 +2,7 @@
 
 {% extends "base.html" %}
 
-<html>
-
-  <head>
-    <title> REGISTER PAGE </title>
-  </head>
+{% block content %}
 
   <body>
     <form action="/reg2" methods = ['GET', 'POST']>
@@ -23,5 +19,8 @@
 
       <p> {{error}}
       </p>
+    </body>
+
+{% endblock %}
 
 </html>
