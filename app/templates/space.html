@@ -1,1 +1,9 @@
 {% extends "base.html" %} <!-- extends the base template -->
+
+{% block content %}
+
+<img class="img-fluid" src="{{ img }}" alt="NASA Astronomy Picture of the Day">
+<h5 class="active">{{ title }}</h5>
+<p class="active">{{ desc }}</p>
+
+{% endblock %}
