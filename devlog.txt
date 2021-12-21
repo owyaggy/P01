@@ -47,3 +47,19 @@ updated home.html:
 - displays an array of placeholder widgets modifiable by backend
 - widgets link to subpages
 Created templates for every subpage
+
+zhaoL -- 2021-12-16 8:46
+-commenting for base.html
+-fixed comma error in init.py
+-updated the registering process
+
+zhaoL -- 2021-12-17 8:26
+-linked register and home pg
+-NameError: name 'request' is not defined
+-update discobandit to create a data table
+
+zhaoL -- 2021-12-20 8:40
+-response.html
+  -resposne pg for logging in sucessfully
+-session and request for register
+  -passing in session and request from __init__.py instead of letting db_builder call them.
