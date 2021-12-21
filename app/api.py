@@ -34,4 +34,4 @@ def weather_api(city):
         info["temp"] = int((kelvin_temp - 273.15) * 1.8 + 32.5)
     return info
 
-print(weather_api("New+York+City"))
+#print(weather_api("New+York+City"))

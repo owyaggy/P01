@@ -14,13 +14,13 @@
   </head>
   <body>
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-{{ theme }} sticky-md-top">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-{{ theme['main'] }} sticky-md-top">
         <div class="container-fluid">
-            <a class="navbar-brand" href="/">Daily Drop</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+            <a class="navbar-brand text-{{ theme['text'] }}" href="/">Daily Drop</a>
+            <button class="navbar-toggler {{ theme['text'] }}" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                 aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+                <span class="navbar-toggler-icon {{ theme['text'] }}"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -76,11 +76,12 @@
             <div class="col pb-3"></div>
         </div>
     </div>
+    <!-- End Footing -->
 
     <!-- Footer -->
     <div class="position-fixed bottom-0  mt-auto py-3 bg-{{ theme }}" style="width: 100%">
         <div class="container">
-            <span class="text-muted">&copy; 2022 Harold Huggers Inc. View us on <a class="text-muted" href="https://github.com/owyaggy/p01">Github</a>.</span>
+            <span class="text-{{ theme['text'] }}">&copy; 2022 Harold Huggers Inc. View us on <a class="theme['text']-50" href="https://github.com/owyaggy/p01">Github</a>.</span>
         </div>
     </div>
     <!-- End Footer -->

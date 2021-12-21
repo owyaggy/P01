@@ -10,7 +10,7 @@ def logged_in():
     return session.get('username') is not None
 
 ### NEEDS TO BE REPLACED BY FUNCTION IN DB_BUILDER ###
-theme="primary"
+theme = dict(main='primary', text='success')
 
 @app.route('/')
 @app.route("/home")
