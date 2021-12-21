@@ -2,7 +2,7 @@ from flask import Flask, render_template, redirect, url_for, request, session
 import os
 
 from api import *
-from db_builder import validate, check_existence, register
+from db_builder import validate, check_existence, register, insert, printTable
 app = Flask(__name__)    #create Flask object
 app.secret_key = os.urandom(32) #create random key
 
@@ -78,7 +78,8 @@ def reg2():
     request_password = request.args['regPass']
     print(f"Hello*********, {request_user}")
     print(f"Hello*********, {request_password}")
-
+    insert("userinfo", "(username)", request_user)
+    printTable()
     return render_template('response.html',user = request_user, name = "Logged in", theme = theme)
 
 if __name__ == "__main__":

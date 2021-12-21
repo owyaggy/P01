@@ -73,10 +73,19 @@ createTables()
 
 
 #not useful rn
-def insert(table_name, username, password): #insert user and password into table
+def insert(table_name, tab_column, value): #insert user and password into table
     with sqlite3.connect(DB_FILE) as db:
             #open if file exists, otherwise create
             c = db.cursor()
-            c.execute("INSERT INTO " + table_name + "(username,password) VALUES (?,?)",(username,password) )
+            query = f"INSERT INTO {table_name} {username} VALUES (?)",({value},)
+            # c.execute("INSERT INTO " + table_name + "(username) VALUES (?)",(value,) )
+            c.execute(query,params)
             db.commit()
             msg = "Record successfully added"
+#prints table for testing
+def printTable():
+    with sqlite3.connect(DB_FILE) as db:
+            #open if file exists, otherwise create
+            c = db.cursor()
+            c.execute("SELECT * FROM userinfo")
+            print(c.fetchall())
