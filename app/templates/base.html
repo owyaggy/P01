@@ -16,44 +16,44 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-{{ theme['main'] }} sticky-md-top">
         <div class="container-fluid">
-            <a class="navbar-brand text-{{ theme['text'] }}" href="/">Daily Drop</a>
+            <a class="navbar-brand text-{{ theme['text'] }} fw-bold" href="/">Daily Drop</a>
             <button class="navbar-toggler {{ theme['text'] }}" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                 aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon {{ theme['text'] }}"></span>
+                <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div class="collapse navbar-collapse bg-{{ theme['main'] }}" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/">Home</a>
+                    <li class="nav-item bg-{{ theme['main'] }}">
+                        <a class="nav-link active text-{{ theme['text'] }}" aria-current="page" href="/">Home</a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                    <li class="nav-item dropdown text-{{ theme['main'] }}">
+                        <a class="nav-link dropdown-toggle text-{{ theme['text'] }} opacity-50" href="#" id="navbarDropdown" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">
                             Subpages
                         </a>
                         <!-- All subpages: weather, news, recommendations, stocks, fun, sports, space -->
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="/weather">Weather</a></li>
+                        <ul class="dropdown-menu bg-{{ theme['main'] }}" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item link-{{ theme['text'] }}" href="/weather">Weather</a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="/news">News</a></li>
+                            <li><a class="dropdown-item link-{{ theme['text'] }}" href="/news">News</a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="/recommendations">Recommendations</a></li>
+                            <li><a class="dropdown-item link-{{ theme['text'] }}" href="/recommendations">Recommendations</a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="/stocks">Stocks</a></li>
+                            <li><a class="dropdown-item link-{{ theme['text'] }}" href="/stocks">Stocks</a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="/fun">Fun</a></li>
+                            <li><a class="dropdown-item link-{{ theme['text'] }}" href="/fun">Fun</a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="/sports">Sports</a></li>
+                            <li><a class="dropdown-item link-{{ theme['text'] }}" href="/sports">Sports</a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="/space">Space</a></li>
+                            <li><a class="dropdown-item link-{{ theme['text'] }}" href="/space">Space</a></li>
                         </ul>
                     </li>
                 </ul>
                 <div class="d-flex">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link active" href="settings">Settings</a>
+                            <a class="nav-link active text-{{ theme['text'] }}" href="settings">Settings</a>
                         </li>
                     </ul>
                 </div>
