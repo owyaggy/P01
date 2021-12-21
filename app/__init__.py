@@ -1,6 +1,7 @@
 from flask import Flask, render_template, redirect, url_for, request, session
 import os
 
+from api import *
 from db_builder import validate, check_existence, register
 app = Flask(__name__)    #create Flask object
 app.secret_key = os.urandom(32) #create random key
@@ -9,7 +10,7 @@ def logged_in():
     return session.get('username') is not None
 
 ### NEEDS TO BE REPLACED BY FUNCTION IN DB_BUILDER ###
-theme="info"
+theme="primary"
 
 @app.route('/')
 @app.route("/home")
@@ -24,7 +25,9 @@ def home():
         widgets = db_builder.enabledWidgets() # get only the selected widgets from the user's preferences
         return render_template('home.html', name="Home", widgets=widgets, theme=theme)
     else:
-        return render_template('home.html', name="Home", widgets=widgets, theme=theme)
+        packages = {} # add new packages here
+        packages['nasa'] = nasa_apod()
+        return render_template('home.html', name="Home", widgets=widgets, theme=theme, packages=packages)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -60,7 +63,11 @@ def sports():
 
 @app.route('/space')
 def space():
-    return render_template('space.html', name="Space", theme=theme)
+    info = nasa_apod()
+    img = info['hd_link']
+    title = info['title']
+    desc = info['description']
+    return render_template('space.html', name="Space", theme=theme, img=img, title=title, desc=desc)
 
 @app.route('/reg1', methods= ["GET", "POST"])
 def reg1():

@@ -63,3 +63,7 @@ zhaoL -- 2021-12-20 8:40
   -resposne pg for logging in sucessfully
 -session and request for register
   -passing in session and request from __init__.py instead of letting db_builder call them.
+
+owenY -- 2021-12-20 08:00
+Implemented NASA API into working site
+Worked on formatting for homepage
