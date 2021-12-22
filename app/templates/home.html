@@ -2,6 +2,11 @@
 
 {% block content %}
 
+<style>
+  .img_max {
+    height: 30px;
+  }
+</style>
 <div class="container-fluid">
     <div class="row row-cols-1 row-cols-md-3 g-4">
       {% for widget in widgets %}
@@ -49,7 +54,9 @@
                     </p>
                     {% elif widget == "space" %}
                     <h5 class="card-title">Space Widget</h5>
-                    <img class="card-img-top" src="{{ packages['nasa']['hd_link'] }}" alt="NASA Astronomy Picture of the Day">
+                    <div class="home_img">
+                      <img class="card-img-top" height="20%" src="{{ packages['nasa']['hd_link'] }}" alt="NASA Astronomy Picture of the Day">
+                    </div>
                     <p class="card-text mb-0">{{ packages['nasa']['title'] }}</p>
                     {% else %}
                     <h5 class="card-subtitle mb-2 text-muted">
