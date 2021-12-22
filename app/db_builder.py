@@ -4,7 +4,10 @@ import os
 
 DB_FILE = "discobandit.db"
 
-
+def updateTheme():
+    theme = dict(main='info', text='secondary')
+    return theme
+theme = updateTheme()
 def createTables():
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
@@ -25,19 +28,19 @@ def createTables():
     db.commit()
     db.close()
 
-def register(request_user,request_password, session_ID):
+def register(request_user,request_password):
     error = "ERROR: "
     error += validate("userID", request_user)
     error += validate("password", request_password)
     if (error == "ERROR: "):
         #if userID is valid, store in database
         session["userID"] = request_user
-        insert("userinfo", request_user, request_password)
-
+        insert(request_user, request_password)
+        print("**** PASS")
         return render_template('response.html',user = request_user, name = "Logged in", theme = theme)
             # ADD USERID TO THE DB HERE
-
-    return render_template('register.html', error = error)
+    print("***** FAIL")
+    return render_template('register.html', error = error, theme = theme)
     # return render_template('response.html', user = session.get("userID"))
 
 def validate(name, value):
@@ -50,7 +53,7 @@ def validate(name, value):
         if len(value) > 50:
             error_message += " | Username cannot exceed 50 characters"
     if name == "password":
-        if len(value) < 8 or len(value) > 50:
+        if len(value) > 50:
             error_message += " | Password must only have between 8 and 50 characters"
         # if(value != request.args['pass']):
         #     error_message += " | Passwords must match"
@@ -73,13 +76,12 @@ createTables()
 
 
 #not useful rn
-def insert(table_name, tab_column, value): #insert user and password into table
+def insert(username,password): #insert user and password into table
     with sqlite3.connect(DB_FILE) as db:
             #open if file exists, otherwise create
             c = db.cursor()
-            query = f"INSERT INTO {table_name} {username} VALUES (?)",({value},)
             # c.execute("INSERT INTO " + table_name + "(username) VALUES (?)",(value,) )
-            c.execute(query,params)
+            c.execute("INSERT INTO userinfo (username,password) VALUES (?,?)",(username,password) )
             db.commit()
             msg = "Record successfully added"
 #prints table for testing

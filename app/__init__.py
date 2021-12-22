@@ -2,7 +2,7 @@ from flask import Flask, render_template, redirect, url_for, request, session
 import os
 
 from api import *
-from db_builder import validate, check_existence, register, insert, printTable
+from db_builder import validate, check_existence, register, insert, printTable, updateTheme
 app = Flask(__name__)    #create Flask object
 app.secret_key = os.urandom(32) #create random key
 
@@ -10,7 +10,7 @@ def logged_in():
     return session.get('username') is not None
 
 ### NEEDS TO BE REPLACED BY FUNCTION IN DB_BUILDER ###
-theme = dict(main='danger', text='success')
+theme = updateTheme()
 
 @app.route('/')
 @app.route("/home")
@@ -78,9 +78,9 @@ def reg2():
     request_password = request.args['regPass']
     print(f"Hello*********, {request_user}")
     print(f"Hello*********, {request_password}")
-    insert("userinfo", "(username)", request_user)
+    return register(request_user,request_password)
     printTable()
-    return render_template('response.html',user = request_user, name = "Logged in", theme = theme)
+    # return render_template('response.html',user = request_user, name = "Logged in", theme = theme)
 
 if __name__ == "__main__":
     app.debug = True
