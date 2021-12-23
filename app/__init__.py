@@ -28,6 +28,8 @@ def home():
     else:
         packages = {} # add new packages here
         packages['nasa'] = nasa_apod()
+        city = "New+York+City"
+        packages['weather'] = weather_api(city)
         return render_template('home.html', name="Home", widgets=widgets, theme=theme, packages=packages)
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -40,6 +42,7 @@ def settings():
 
 @app.route('/weather')
 def weather():
+
     return render_template('weather.html', name="Weather", theme=theme)
 
 @app.route('/news')
