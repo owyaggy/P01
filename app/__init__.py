@@ -28,7 +28,9 @@ def home():
         # widgets = db_builder.enabledWidgets() # get only the selected widgets from the user's preferences
         return render_template('home.html', name="Home", widgets=widgets, theme=theme, packages=packages, username = len(session))
     else:
-        return render_template('home.html', name="Home", widgets=widgets, theme=theme, packages=packages, username = len(session))
+        city = "New+York+City"
+        packages['weather'] = weather_api(city)
+        return render_template('home.html', name="Home", widgets=widgets, theme=theme, packages=packages)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -40,6 +42,7 @@ def settings():
 
 @app.route('/weather')
 def weather():
+
     return render_template('weather.html', name="Weather", theme=theme)
 
 @app.route('/news')

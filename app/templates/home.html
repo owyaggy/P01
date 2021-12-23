@@ -4,7 +4,7 @@
 {{username}}
 <style>
   .img_max {
-    height: 30px;
+    height: 66%;
   }
 </style>
 <div class="container-fluid">
@@ -54,8 +54,8 @@
                     </p>
                     {% elif widget == "space" %}
                     <h5 class="card-title">Space Widget</h5>
-                    <div class="home_img">
-                      <img class="card-img-top" height="20%" src="{{ packages['nasa']['hd_link'] }}" alt="NASA Astronomy Picture of the Day">
+                    <div class="img_max">
+                      <img class="card-img-top" height="100%" src="{{ packages['nasa']['hd_link'] }}" alt="NASA Astronomy Picture of the Day">
                     </div>
                     <p class="card-text mb-0">{{ packages['nasa']['title'] }}</p>
                     {% else %}
@@ -71,7 +71,7 @@
                     {% endif %}
                 </div>
                 <div class = "card-footer">
-                  <a href="/{{widget}}"><button class="btn btn-outline-{{ theme }} btn-sm mt-2">See More</button></a>
+                  <a href="/{{widget}}"><button class="btn btn-{{ theme['main'] }} btn-sm mt-0 px-3">See More</button></a>
                 </div>
             </div>
         </div>
