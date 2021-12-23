@@ -76,3 +76,7 @@ zhaoL - 2021-12-21 08:40
 zhaoL - 2021-12-22 8:40
 -able to register
 -authenticating user info and password
+
+zhaoL - 2021-12-22 08:42
+- Finished reformating homepage so widgets line up
+- Now working on setting max height for widgets so it is consistent and looks good
