@@ -91,3 +91,7 @@ zhaoL -- 2021-12-22 08:42
 
 zhaoL -- 2021-12-12 8:18
 -registering works now
+
+zhaoL -- 2021-12-12 8:40
+-session is now stored
+  -can do stuff based on if there's a user logged in now

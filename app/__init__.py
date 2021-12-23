@@ -21,13 +21,13 @@ def home():
     widgets = ['weather', 'news', 'recommendations', 'fun', 'sports', 'space', 'stocks', 'stocks', 'stocks', 'test'] # a complete list of all widgets
     # theme based on bootstrap colors [primary, secondary, success, danger, warning, info, light, dark]
     #theme = "dark" # should be replaced by function getting user theme from database
+    packages = {} # add new packages here
+    packages['nasa'] = nasa_apod()
     if logged_in():
         username = session['username']
-        widgets = db_builder.enabledWidgets() # get only the selected widgets from the user's preferences
-        return render_template('home.html', name="Home", widgets=widgets, theme=theme)
+        # widgets = db_builder.enabledWidgets() # get only the selected widgets from the user's preferences
+        return render_template('home.html', name="Home", widgets=widgets, theme=theme, packages=packages, username = len(session))
     else:
-        packages = {} # add new packages here
-        packages['nasa'] = nasa_apod()
         city = "New+York+City"
         packages['weather'] = weather_api(city)
         return render_template('home.html', name="Home", widgets=widgets, theme=theme, packages=packages)
@@ -81,6 +81,8 @@ def reg2():
     print(f"Hello*********, {request_password}")
     # clearTable()
     printTable()
+    session["username"] = request_user
+    print(f"session length: {len(session)}")
     return register(request_user,request_password)
 
     # return render_template('response.html',user = request_user, name = "Logged in", theme = theme)
