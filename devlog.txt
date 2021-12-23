@@ -68,15 +68,24 @@ owenY -- 2021-12-20 08:00
 Implemented NASA API into working site
 Worked on formatting for homepage
 
+owenY -- 2021-12-21 08:00
+Simplified how formatting is passed to templates
+Worked on space subpage
+Modified API function to allow multiple NASA images
+
 zhaoL - 2021-12-21 08:40
 -printing table for visualiziation
 -inserting into tables
 -authentication stuff
 
-zhaoL - 2021-12-22 8:40
+owenY -- 2021-12-22 08:00
+Worked on space subpage
+
+zhaoL - 2021-12-22 08:40
 -able to register
 -authenticating user info and password
 
 zhaoL - 2021-12-22 08:42
 - Finished reformating homepage so widgets line up
 - Now working on setting max height for widgets so it is consistent and looks good
+

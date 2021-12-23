@@ -63,11 +63,8 @@ def sports():
 
 @app.route('/space')
 def space():
-    info = nasa_apod()
-    img = info['hd_link']
-    title = info['title']
-    desc = info['description']
-    return render_template('space.html', name="Space", theme=theme, img=img, title=title, desc=desc)
+    info = nasa_apod(3)
+    return render_template('space.html', name="Space", theme=theme, info=info)
 
 @app.route('/reg1', methods= ["GET", "POST"])
 def reg1():
