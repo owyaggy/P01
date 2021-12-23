@@ -3,6 +3,7 @@ import os
 
 from api import *
 from db_builder import validate, check_existence, register, insert, printTable, updateTheme
+from db_builder import clearTable
 app = Flask(__name__)    #create Flask object
 app.secret_key = os.urandom(32) #create random key
 
@@ -75,8 +76,10 @@ def reg2():
     request_password = request.args['regPass']
     print(f"Hello*********, {request_user}")
     print(f"Hello*********, {request_password}")
-    return register(request_user,request_password)
+    # clearTable()
     printTable()
+    return register(request_user,request_password)
+
     # return render_template('response.html',user = request_user, name = "Logged in", theme = theme)
 
 if __name__ == "__main__":

@@ -37,7 +37,8 @@ def register(request_user,request_password):
         session["userID"] = request_user
         insert(request_user, request_password)
         print("**** PASS")
-        return render_template('response.html',user = request_user, name = "Logged in", theme = theme)
+        widgets = ['weather', 'news', 'recommendations', 'fun', 'sports', 'space', 'stocks', 'stocks', 'stocks', 'test']
+        return render_template('response.html',user = request_user, wdigets = widgets, name = "Logged in", theme = theme)
             # ADD USERID TO THE DB HERE
     print("***** FAIL")
     return render_template('register.html', error = error, theme = theme)
@@ -91,3 +92,9 @@ def printTable():
             c = db.cursor()
             c.execute("SELECT * FROM userinfo")
             print(c.fetchall())
+def clearTable():
+    with sqlite3.connect(DB_FILE) as db:
+            #open if file exists, otherwise create
+            c = db.cursor()
+            c.execute("DELETE from userinfo;")
+            db.commit()
