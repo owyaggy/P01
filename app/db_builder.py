@@ -34,7 +34,7 @@ def register(request_user,request_password):
     error += validate("password", request_password)
     if (error == "ERROR: "):
         #if userID is valid, store in database
-        session["userID"] = request_user
+        # session["userID"] = request_user
         insert(request_user, request_password)
         print("**** PASS")
         widgets = ['weather', 'news', 'recommendations', 'fun', 'sports', 'space', 'stocks', 'stocks', 'stocks', 'test']
@@ -72,7 +72,8 @@ def check_existence(c_name, value):
         if (len(listUsers) == 0):
             return False
         return True
-
+def loggin():
+    return true
 createTables()
 
 
