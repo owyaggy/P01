@@ -3,6 +3,7 @@ import os
 
 from api import *
 from db_builder import validate, check_existence, register, insert, printTable, updateTheme
+from db_builder import clearTable
 app = Flask(__name__)    #create Flask object
 app.secret_key = os.urandom(32) #create random key
 
@@ -27,6 +28,8 @@ def home():
     else:
         packages = {} # add new packages here
         packages['nasa'] = nasa_apod()
+        city = "New+York+City"
+        packages['weather'] = weather_api(city)
         return render_template('home.html', name="Home", widgets=widgets, theme=theme, packages=packages)
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -39,6 +42,7 @@ def settings():
 
 @app.route('/weather')
 def weather():
+
     return render_template('weather.html', name="Weather", theme=theme)
 
 @app.route('/news')
@@ -75,8 +79,10 @@ def reg2():
     request_password = request.args['regPass']
     print(f"Hello*********, {request_user}")
     print(f"Hello*********, {request_password}")
-    return register(request_user,request_password)
+    # clearTable()
     printTable()
+    return register(request_user,request_password)
+
     # return render_template('response.html',user = request_user, name = "Logged in", theme = theme)
 
 if __name__ == "__main__":

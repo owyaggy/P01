@@ -3,16 +3,16 @@
 {% block content %}
 
 <div class="container-fluid">
-<div id="carouselExampleCaptions" class="carousel slide container-fluid mx-auto my-3 mx-md-50%" data-bs-ride="carousel">
+<div id="carouselExampleCaptions" class="carousel slide container-fluid mx-auto my-3 mw-100px" data-bs-ride="carousel" style="max-width: 750px;">
   <div class="carousel-indicators">
     <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active bg-{{ theme['main'] }}" aria-current="true" aria-label="Slide 1"></button>
     <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" class="bg-{{ theme['main'] }}" aria-label="Slide 2"></button>
     <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" class="bg-{{ theme['main'] }}" aria-label="Slide 3"></button>
   </div>
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <div class="card">
-        <img class="card-img-top" src="{{ info['hd_link'][0] }}" alt="{{ info['title'][0] }}">
+  <div class="carousel-inner mh-100">
+    <div class="carousel-item active mh-100">
+      <div class="card mh-199">
+        <img height="20%" class="card-img-top" src="{{ info['hd_link'][0] }}" alt="{{ info['title'][0] }}">
         <div class="card-body">
           <h5 class="card-text">{{ info['title'][0] }}</h5>
           <p class="card-text">{{ info['description'][0] }}</p>
@@ -25,7 +25,7 @@
     </div>
     <div class="carousel-item">
       <div class="card">
-        <img class="card-img-top" src="{{ info['hd_link'][1] }}" alt="{{ info['title'][1] }}">
+        <img height="20%" class="card-img-top" src="{{ info['hd_link'][1] }}" alt="{{ info['title'][1] }}">
         <div class="card-body">
           <h5 class="card-text">{{ info['title'][1] }}</h5>
           <p class="card-text">{{ info['title'][1] }}</p>
@@ -38,7 +38,7 @@
     </div>
     <div class="carousel-item">
       <div class="card">
-        <img class="card-img-top" src="{{ info['hd_link'][2] }}" alt="{{ info['title'][2] }}">
+        <img height="20%" class="card-img-top" src="{{ info['hd_link'][2] }}" alt="{{ info['title'][2] }}">
         <div class="card-body">
           <h5 class="card-text">{{ info['title'][2] }}</h5>
           <p class="card-text">{{ info['title'][2] }}</p>
