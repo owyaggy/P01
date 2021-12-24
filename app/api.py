@@ -3,8 +3,7 @@ import requests
 from datetime import datetime
 
 def nasa_apod(count=1):
-    """Returns the NASA astronomy picture of the day"""
-    
+    """Returns the NASA astronomy picture of the day, or {count} random images"""
     with open("keys/nasa_key.txt") as api_key:
         key = api_key.read().rstrip('\n')
 
@@ -28,10 +27,38 @@ def nasa_apod(count=1):
                 info["hd_link"].append(api_request[n]["hdurl"])
                 info["title"].append(api_request[n]["title"])
                 info["description"].append(api_request[n]["explanation"])
-    # could potentially be customizable via function arguments (e.g. number of images)
+    return info
+
+def nytimes_api(days=1):
+    """Returns the most viewed NYTimes articles from the past {days} days"""
+    with open('keys/nytimes_key.txt') as api_key:
+        key = api_key.read().rstrip('\n')
+
+    api_request = requests.get(f'https://api.nytimes.com/svc/mostpopular/v2/viewed/1.json?api-key={key}')
+    info = {}
+
+    # print(f'https://api.nytimes.com/svc/mostpopular/v2/viewed/1.json?api-key={key}')
+
+    if api_request.status_code == 200:
+        info['url'] = list()
+        info['title'] = list()
+        info['abstract'] = list()
+        info['img'] = list()
+        info['caption'] = list()
+        for result in api_request.json()['results']:
+            info['url'].append(result['url'])
+            info['title'].append(result['title'])
+            info['abstract'].append(result['abstract'])
+            try:
+                info['img'].append(result['media'][0]['media-metadata'][2]['url'])
+                info['caption'].append(result['media'][0]['caption'])
+            except:
+                info['img'].append(None)
+                info['caption'].append(None)
     return info
 
 def get_time(utc, minutes=True):
+    """Helper function to convert UTC timestamp to datetime for weather api"""
     dt = utc
     dt = datetime.fromtimestamp(dt)
     if minutes:
@@ -41,6 +68,7 @@ def get_time(utc, minutes=True):
     return dt
 
 def minute_forecast(minutes):
+    """Helper minutely forecast data analysis function for weather api"""
     minute_start = -1
     minute_end = -1
     for minute in range(len(minutes)):
@@ -59,7 +87,6 @@ def minute_forecast(minutes):
 
 def weather_api(city):
     """Returns weather for the city"""
-
     with open("keys/weather_key.txt") as api_key:
         key = api_key.read().rstrip('\n')
 
@@ -83,7 +110,7 @@ def weather_api(city):
     with open('keys/forecast_key.txt') as api_key:
         key = api_key.read().rstrip('\n') # changes key to avoid making two requests per call
 
-    print(f"https://api.openweathermap.org/data/2.5/onecall?lat={info['lat']}&lon={info['lon']}&units={units}&appid={key}")
+    # print(f"https://api.openweathermap.org/data/2.5/onecall?lat={info['lat']}&lon={info['lon']}&units={units}&appid={key}")
     api_request = requests.get(f"https://api.openweathermap.org/data/2.5/onecall?lat={info['lat']}&lon={info['lon']}&units={units}&appid={key}")
     if api_request.status_code == 200:
         info["description"] = api_request.json()['current']["weather"][0]["description"][0].upper() + \
@@ -134,5 +161,4 @@ def weather_api(city):
                 'uvi': day['uvi']
             })
         info['daily'][0]['date'] = 'Today'
-
     return info

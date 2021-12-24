@@ -13,60 +13,55 @@
         <div class="col sm-6">
             <div class="card m-3 h-100">
                 <div class="card-body">
-                    {# widgets: weather, news, recommendations, stocks, fun, sports, space #}
-                    {% if widget == "weather" %}
+                    <!-- widgets: weather, news, recommendations, stocks, fun, sports, space -->
+                    {% if widget == "weather" %} <!-- WEATHER -->
                     <h5 class="card-title">Weather Widget</h5>
-                    <img class="img-thumbnail" src="https://openweathermap.org/img/w/{{ packages['weather']['icon'] }}.png">
+                    <img class="img-thumbnail" src="https://openweathermap.org/img/w/{{ packages['weather']['icon'] }}.png" alt="{{ packages['weather']['description'] }}">
                     <h3>{{ packages['weather']['temp'] }}°F in {{ packages['weather']['city'] }}</h3>
                     <p class="card-text">{{ packages['weather']['description'] }} with a high of {{ packages['weather']['temp_max'] }}°F and a low of {{ packages['weather']['temp_min'] }}°F. It currently feels {{ packages['weather']['feels_like'] }}°F.</p>
                     <p class="card-text mb-0">{{ packages['weather']['minutely'] }}</p>
-                    {% elif widget == "news" %}
+                    {% elif widget == "news" %} <!-- NEWS -->
                     <h5 class="card-title">News Widget</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">Coming soon</h6>
-                    <p class="card-text mb-0">
-                        I have great news for you! Soon, real news headlines will be provided here by the New York Times
-                        API.
-                    </p>
-                    {% elif widget == "recommendations" %}
+                    <div class="img_max">
+                        <img class="card-img-top" height="100%" src="{{ packages['news']['img'][0] }}" alt="{{ packages['news']['caption'][0] }}">
+                    </div>
+                    <h3 class="card-text">{{ packages['news']['title'][0] }}</h3>
+                    <p class="card-text">{{ packages['news']['abstract'][0] }}</p>
+                    <a href="{{ packages['news']['url'][0] }}" class="card-link active link-{{ theme['main'] }}">Read this article.</a>
+                    {% elif widget == "recommendations" %} <!-- RECOMMENDATIONS -->
                     <h5 class="card-title">Recommendations Widget</h5>
                     <h6 class="card-subtitle mb-2 text-muted">Coming soon</h6>
                     <p class="card-text mb-0">
                         I have great recommendations for you! Soon, real recommendations will be provided here by an API.
                     </p>
-                    {% elif widget == "stocks" %}
+                    {% elif widget == "stocks" %} <!-- STOCKS -->
                     <h5 class="card-title">Stocks Widget</h5>
                     <h6 class="card-subtitle mb-2 text-muted">Coming soon</h6>
                     <p class="card-text mb-0">
                         I have great news for you! Soon, real stocks will be provided here by an API.
                     </p>
-                    {% elif widget == "fun" %}
+                    {% elif widget == "fun" %} <!-- FUN -->
                     <h5 class="card-title">Fun Widget</h5>
                     <h6 class="card-subtitle mb-2 text-muted">Coming soon</h6>
                     <p class="card-text mb-0">
                         I have great news for you! Soon, real fun stuff will be provided here by an API.
                     </p>
-                    {% elif widget == "sports" %}
+                    {% elif widget == "sports" %} <!-- SPORTS -->
                     <h5 class="card-title">Sports Widget</h5>
                     <h6 class="card-subtitle mb-2 text-muted">Coming soon</h6>
                     <p class="card-text mb-0">
                         I have great news for you! Soon, real sports scores will be provided here by an API.
                     </p>
-                    {% elif widget == "space" %}
+                    {% elif widget == "space" %} <!-- SPACE -->
                     <h5 class="card-title">Space Widget</h5>
                     <div class="img_max">
                       <img class="card-img-top" height="100%" src="{{ packages['nasa']['hd_link'] }}" alt="NASA Astronomy Picture of the Day">
                     </div>
-                    <p class="card-text mb-0">{{ packages['nasa']['title'] }}</p>
-                    {% else %}
-                    <h5 class="card-subtitle mb-2 text-muted">
-                        Hmmmm… something's not right here
-                    </h5>
-                    <p class="card-text">
-                        It seems like someone tried to use a widget that isn't available.
-                    </p>
-                    <p class="card-subtitle text-muted">
-                        No widget called "{{ widget }}" exists
-                    </p>
+                    <h3 class="card-text mb-0">{{ packages['nasa']['title'] }}</h3>
+                    {% else %} <!-- WIDGET ERROR -->
+                    <h5 class="card-subtitle mb-2 text-muted">Hmmmm… something's not right here</h5>
+                    <p class="card-text">It seems like someone tried to use a widget that isn't available.</p>
+                    <p class="card-subtitle text-muted">No widget called "{{ widget }}" exists</p>
                     {% endif %}
                 </div>
                 <div class = "card-footer">
