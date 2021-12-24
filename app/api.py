@@ -46,9 +46,9 @@ def weather_api(city):
         key = api_key.read().rstrip('\n')
     units = "imperial"
 
-    api_request = requests.get(f"https://api.openweathermap.org/data/2.5/?q={city}&units={units}&appid={key}")
+    print(f"http://api.openweathermap.org/data/2.5/weather?q={city}&units={units}&appid={key}")
+    api_request = requests.get(f"http://api.openweathermap.org/data/2.5/weather?q={city}&units={units}&appid={key}")
     info = {}
-    print(api_request.json())
 
     if api_request.status_code == 200:
         print('success')
@@ -62,7 +62,9 @@ def weather_api(city):
         info['pressure'] = int(api_request.json()['main']['pressure'])
         info['humidity'] = int(api_request.json()['main']['humidity'])
         info['visibility'] = int(api_request.json()['visibility'] * 0.000621371) # convert meters to miles
-        info['wind'] = api_request.json()['wind'] # contains wind.speed, wind.deg (direction), wind.gust
+        info['wind_speed'] = api_request.json()['wind']['speed']
+        info['wind_deg'] = api_request.json()['wind']['deg']
+        info['wind_gust'] = api_request.json()['wind']['gust']
         info['clouds'] = api_request.json()['clouds']['all'] # cloudiness %
         info['icon'] = api_request.json()['weather'][0]['icon']
         info['main'] = api_request.json()['weather'][0]['main']
@@ -71,8 +73,10 @@ def weather_api(city):
         info['sunset'] = time_converter(api_request.json()['sys']['sunset'])
         info['lat'] = api_request.json()['coord']['lat']
         info['lon'] = api_request.json()['coord']['lon']
-    else:
-        print(f'error code: {api_request.status_code}')
+        if 'rain' in api_request.json().keys():
+            info['rain'] = api_request.json()['rain']
+        if 'snow' in api_request.json().keys():
+            info['snow'] = api_request.json()['snow']
 
     '''api_request = requests.get(f"https://api.openweathermap.org/data/2.5?lat={info['lat']}&lon={info['lon']}")
     if api_request.status_code == 200:

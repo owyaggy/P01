@@ -23,6 +23,24 @@
                 <div class="tab-pane fade" id="list-conditions" role="tabpanel" aria-labelledby="list-conditions-list">
                     <img class="img-thumbnail" src="https://openweathermap.org/img/w/{{ info['icon'] }}.png" alt="{{ info['main'] }}">
                     <h3 class="">{{ info['description'] }} today in {{ info['city'] }}</h3>
+                    {% if info['rain'] %}
+                    {% if info['rain']['1h'] and info['rain']['3h'] %}
+                    <p>It has rained {{ info['rain']['1h'] }}mm in the last hour, and {{ info['rain']['3h'] }}mm in the last 3 hours.</p>
+                    {% elif info['rain']['1h'] %}
+                    <p>It has rained {{ info['rain']['1h'] }}mm in the last hour.</p>
+                    {% else %}
+                    <p>It has rained {{ info['rain']['3h'] }}mm in the last 3 hours.</p>
+                    {% endif %}
+                    {% endif %}
+                    {% if info['snow'] %}
+                    {% if info['snow']['1h'] and info['snow']['3h'] %}
+                    <p>It has snowed {{ info['snow']['1h'] }}mm in the last hour, and {{ info['snow']['3h'] }}mm in the last 3 hours.</p>
+                    {% elif info['snow']['1h'] %}
+                    <p>It has snowed {{ info['snow']['1h'] }}mm in the last hour.</p>
+                    {% else %}
+                    <p>It has snowed {{ info['snow']['3h'] }}mm in the last 3 hours.</p>
+                    {% endif %}
+                    {% endif %}
                     <p>The visibility today is {{ info['visibility'] }} miles. The cloud cover is {{ info['clouds'] }}%.</p>
                 </div>
                 <div class="tab-pane fade" id="list-temperature" role="tabpanel" aria-labelledby="list-temperature-list">
@@ -35,13 +53,13 @@
                     <h3>Wind measurements are currently unavailable in {{ info['city'] }}</h3>
                     <p>This often happens at night.</p>
                     {% else %}
-                    <h3>The wind speed is {{ info['wind']['speed'] }} MPH</h3>
-                    <p>The wind has bearing {{ info['wind']['deg'] }}° ({% if info['wind']['deg'] <= 22.5 %}E{% elif info['wind']['deg'] <= 67.5 %}NE{% elif info['wind']['deg'] <= 112.5 %}N{% elif info['wind']['deg'] <= 157.5 %}NW{% elif info['wind']['deg'] <= 202.5 %}W{% elif info['wind']['deg'] <= 247.5 %}SW{% elif info['wind']['deg'] <= 292.5 %}S{% elif info['wind']['deg'] <= 337.5 %}SE{% else %}E{% endif %}).</p>
-                    <p>Wind gusts may reach speeds up to {{ info['wind']['gust'] }} MPH.</p>
+                    <h3>The wind speed is {{ info['wind_speed'] }} MPH</h3>
+                    <p>The wind has bearing {{ info['wind_deg'] }}° ({% if info['wind_deg'] <= 22.5 %}E{% elif info['wind_deg'] <= 67.5 %}NE{% elif info['wind_deg'] <= 112.5 %}N{% elif info['wind_deg'] <= 157.5 %}NW{% elif info['wind_deg'] <= 202.5 %}W{% elif info['wind_deg'] <= 247.5 %}SW{% elif info['wind_deg'] <= 292.5 %}S{% elif info['wind_deg'] <= 337.5 %}SE{% else %}E{% endif %}).</p>
+                    <p>Wind gusts may reach speeds up to {{ info['wind_gust'] }} MPH.</p>
                     {% endif %}
                 </div>
                 <div class="tab-pane fade" id="list-more" role="tabpanel" aria-labelledby="list-more-list">
-                    <h3>Forecast Details for {{ info['city'] }}</h3>
+                    <h3>Weather Details for {{ info['city'] }}</h3>
                     <p>The humidity is {{ info['humidity'] }}%.</p>
                     <p>The pressure is {{ info['pressure'] }} hPa.</p>
                     <p>Sunrise today is {{ info['sunrise'] }} AM, and sunset today is {{ info['sunset'] }} PM.</p>
