@@ -117,9 +117,11 @@ def weather_api(city):
             if int(info['hourly'][-1]['time'][:2]) < 12:
                 info['hourly'][-1]['time'] += " AM"
             else:
-                info['hourly'][-1]['time'] += "PM"
+                info['hourly'][-1]['time'] += " PM"
             if info['hourly'][-1]['time'][:2] == '00':
                 info['hourly'][-1]['time'] = '12' + info['hourly'][-1]['time'][2:]
+            if int(info['hourly'][-1]['time'][:2]) > 12:
+                info['hourly'][-1]['time'] = str(int(info['hourly'][-1]['time'][:2]) - 12) + info['hourly'][-1]['time'][2:]
         info['daily'] = []
         for day in api_request.json()['daily']:
             info['daily'].append({

@@ -10,7 +10,6 @@
                 <a class="list-group-item list-group-item-action" id="list-conditions-list" data-bs-toggle="list" href="#list-conditions" role="tab" aria-controls="list-conditions">Conditions</a>
                 <a class="list-group-item list-group-item-action" id="list-temperature-list" data-bs-toggle="list" href="#list-temperature" role="tab" aria-controls="list-temperature">Temperature</a>
                 <a class="list-group-item list-group-item-action" id="list-wind-list" data-bs-toggle="list" href="#list-wind" role="tab" aria-controls="list-wind">Wind</a>
-                <a class="list-group-item list-group-item-action" id="list-nexthour-list" data-bs-toggle="list" href="#list-nexthour" role="tab" aria-controls="list-nexthour">Next Hour</a>
                 <a class="list-group-item list-group-item-action" id="list-hourly-list" data-bs-toggle="list" href="#list-hourly" role="tab" aria-controls="list-hourly">Hourly</a>
                 <a class="list-group-item list-group-item-action" id="list-daily-list" data-bs-toggle="list" href="#list-daily" role="tab" aria-controls="list-daily">Daily</a>
                 <a class="list-group-item list-group-item-action" id="list-more-list" data-bs-toggle="list" href="#list-more" role="tab" aria-controls="list-more">More</a>
@@ -44,6 +43,7 @@
                     <p>It has snowed {{ info['snow']['3h'] }}mm in the last 3 hours.</p>
                     {% endif %}
                     {% endif %}
+                    <p>{{ info['minutely'] }}</p>
                     <p>The visibility today is {{ info['visibility'] }} miles. The cloud cover is {{ info['clouds'] }}%.</p>
                 </div>
                 <div class="tab-pane fade" id="list-temperature" role="tabpanel" aria-labelledby="list-temperature-list">
@@ -60,10 +60,6 @@
                     <p>The wind has bearing {{ info['wind_deg'] }}° ({% if info['wind_deg'] <= 22.5 %}E{% elif info['wind_deg'] <= 67.5 %}NE{% elif info['wind_deg'] <= 112.5 %}N{% elif info['wind_deg'] <= 157.5 %}NW{% elif info['wind_deg'] <= 202.5 %}W{% elif info['wind_deg'] <= 247.5 %}SW{% elif info['wind_deg'] <= 292.5 %}S{% elif info['wind_deg'] <= 337.5 %}SE{% else %}E{% endif %}).</p>
                     <p>Wind gusts may reach speeds up to {{ info['wind_gust'] }} MPH.</p>
                     {% endif %}
-                </div>
-                <div class="tab-pane fade" id="list-nexthour" role="tabpanel" aria-labelledby="list-nexthour-list">
-                    <h3>Forecast for the next hour in {{ info['city'] }}</h3>
-                    <p>{{ info['minutely'] }}</p>
                 </div>
                 <div class="tab-pane fade" id="list-hourly" role="tabpanel" aria-labelledby="list-hourly-list">
                     <h3>Hourly forecast for the next 10 hours in {{ info['city'] }}</h3>
