@@ -124,7 +124,7 @@ def weather_api(city):
         for day in api_request.json()['daily']:
             info['daily'].append({
                 'date': str(datetime.fromtimestamp(day['dt']))[5:10],
-                'moon_phase': day['moon_phase'],
+                'moon_phase': int(100 * float(day['moon_phase'])),
                 'min': int(day['temp']['min']),
                 'max': int(day['temp']['max']),
                 'description': day['weather'][0]['description'][0].upper() + day['weather'][0]['description'][1:],
