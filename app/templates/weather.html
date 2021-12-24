@@ -3,17 +3,52 @@
 {% block content %}
 
 <div class="container-fluid">
-  <div class="row g-3 align-items-center">
-    <div class="col-auto">
-      <label for="inputPassword6" class="col-form-label">Location</label>
+    <div class="row my-3 mx-auto">
+        <div class="col-4">
+            <div class="list-group" id="list-tab" role="tablist">
+                <a class="list-group-item list-group-item-action active bg-{{ theme['main'] }}" id="list-summary-list" data-bs-toggle="list" href="#list-summary" role="tab" aria-controls="list-summary">Summary</a>
+                <a class="list-group-item list-group-item-action" id="list-conditions-list" data-bs-toggle="list" href="#list-conditions" role="tab" aria-controls="list-conditions">Conditions</a>
+                <a class="list-group-item list-group-item-action" id="list-temperature-list" data-bs-toggle="list" href="#list-temperature" role="tab" aria-controls="list-temperature">Temperature</a>
+                <a class="list-group-item list-group-item-action" id="list-wind-list" data-bs-toggle="list" href="#list-wind" role="tab" aria-controls="list-wind">Wind</a>
+                <a class="list-group-item list-group-item-action" id="list-more-list" data-bs-toggle="list" href="#list-more" role="tab" aria-controls="list-more">More</a>
+            </div>
+        </div>
+        <div class="col-8">
+            <div class="tab-content" id="nav-tabContent">
+                <div class="tab-pane fade show active" id="list-summary" role="tabpanel" aria-labelledby="list-summary-list">
+                    <img class="img-thumbnail" src="http://openweathermap.org/img/w/{{ info['icon'] }}.png" alt="{{ info['main'] }}">
+                    <h3 class="">{{ info['description'] }} today in {{ info['city'] }}</h3>
+                    <p>It's currently {{ info['temp'] }}°F. The high today is {{ info['temp_max'] }}°F and the low is {{ info['temp_min'] }}°F.</p>
+                </div>
+                <div class="tab-pane fade" id="list-conditions" role="tabpanel" aria-labelledby="list-conditions-list">
+                    <img class="img-thumbnail" src="https://openweathermap.org/img/w/{{ info['icon'] }}.png" alt="{{ info['main'] }}">
+                    <h3 class="">{{ info['description'] }} today in {{ info['city'] }}</h3>
+                    <p>The visibility today is {{ info['visibility'] }} miles. The cloud cover is {{ info['clouds'] }}%.</p>
+                </div>
+                <div class="tab-pane fade" id="list-temperature" role="tabpanel" aria-labelledby="list-temperature-list">
+                    <h3>{{ info['temp'] }}°F today in {{ info['city'] }}</h3>
+                    <p>The high is {{ info['temp_max'] }}°F and the low is {{ info['temp_min'] }}°F.</p>
+                    <p>It currently feels {{ info['feels_like'] }}°F.</p>
+                </div>
+                <div class="tab-pane fade" id="list-wind" role="tabpanel" aria-labelledby="list-wind-list">
+                    {% if info['wind'] == None %}
+                    <h3>Wind measurements are currently unavailable in {{ info['city'] }}</h3>
+                    <p>This often happens at night.</p>
+                    {% else %}
+                    <h3>The wind speed is {{ info['wind']['speed'] }} MPH</h3>
+                    <p>The wind has bearing {{ info['wind']['deg'] }}° ({% if info['wind']['deg'] <= 22.5 %}E{% elif info['wind']['deg'] <= 67.5 %}NE{% elif info['wind']['deg'] <= 112.5 %}N{% elif info['wind']['deg'] <= 157.5 %}NW{% elif info['wind']['deg'] <= 202.5 %}W{% elif info['wind']['deg'] <= 247.5 %}SW{% elif info['wind']['deg'] <= 292.5 %}S{% elif info['wind']['deg'] <= 337.5 %}SE{% else %}E{% endif %}).</p>
+                    <p>Wind gusts may reach speeds up to {{ info['wind']['gust'] }} MPH.</p>
+                    {% endif %}
+                </div>
+                <div class="tab-pane fade" id="list-more" role="tabpanel" aria-labelledby="list-more-list">
+                    <h3>Forecast Details for {{ info['city'] }}</h3>
+                    <p>The humidity is {{ info['humidity'] }}%.</p>
+                    <p>The pressure is {{ info['pressure'] }} hPa.</p>
+                    <p>Sunrise today is {{ info['sunrise'] }} AM, and sunset today is {{ info['sunset'] }} PM.</p>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="col-auto">
-      <input type="password" id="inputPassword6" class="form-control" aria-describedby="passwordHelpInline">
-    </div>
-    <div class="col-auto">
-      <span id="passwordHelpInline" class="form-text">
-      </span>
-    </div>
-  </div>
+</div>
 
 {% endblock %}
