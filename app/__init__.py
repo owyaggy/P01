@@ -42,7 +42,8 @@ def settings():
 
 @app.route('/weather')
 def weather():
-
+    city = "New+York+City"
+    info = weather_api(city)
     return render_template('weather.html', name="Weather", theme=theme)
 
 @app.route('/news')
