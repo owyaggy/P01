@@ -89,9 +89,17 @@ zhaoL -- 2021-12-22 08:42
 - Finished reformating homepage so widgets line up
 - Now working on setting max height for widgets so it is consistent and looks good
 
+owenY -- 2021-12-23 08:00
+Finished space subpage
+Started weather subpage
+
 zhaoL -- 2021-12-12 8:18
 -registering works now
 
 zhaoL -- 2021-12-12 8:40
 -session is now stored
   -can do stuff based on if there's a user logged in now
+  
+owenY -- 2021-12-24 02:25
+Finished weather subpage
+Modified weather API call to collect more info
