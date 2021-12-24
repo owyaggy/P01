@@ -23,13 +23,13 @@ def home():
     #theme = "dark" # should be replaced by function getting user theme from database
     packages = {} # add new packages here
     packages['nasa'] = nasa_apod()
+    city = "New+York+City"
+    packages['weather'] = weather_api(city)
     if logged_in():
         username = session['username']
         # widgets = db_builder.enabledWidgets() # get only the selected widgets from the user's preferences
         return render_template('home.html', name="Home", widgets=widgets, theme=theme, packages=packages, username = len(session))
     else:
-        city = "New+York+City"
-        packages['weather'] = weather_api(city)
         return render_template('home.html', name="Home", widgets=widgets, theme=theme, packages=packages)
 
 @app.route('/login', methods=['GET', 'POST'])
