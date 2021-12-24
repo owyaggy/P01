@@ -104,8 +104,9 @@ owenY -- 2021-12-24 02:25
 Finished weather subpage
 Modified weather API call to collect more info
 
-owenY -- 2021-12-24 13:55
+owenY -- 2021-12-24 15:00
 Added NYTimes API and parser
 Added news widget
 Added image accessibility text
 Added view image button to space subpage
+Finished news subpage

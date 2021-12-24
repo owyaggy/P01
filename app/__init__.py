@@ -43,13 +43,13 @@ def settings():
 
 @app.route('/weather')
 def weather():
-    city = "New+York+City"
-    info = weather_api(city)
+    info = weather_api('New+York+City')
     return render_template('weather.html', name="Weather", theme=theme, info=info)
 
 @app.route('/news')
 def news():
-    return render_template('news.html', name="News", theme=theme)
+    info = nytimes_api()
+    return render_template('news.html', name="News", theme=theme, info=info)
 
 @app.route('/recommendations')
 def recommendations():

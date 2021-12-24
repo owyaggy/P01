@@ -1,1 +1,33 @@
 {% extends "base.html" %} <!-- extends the base template -->
+
+{% block content %}
+{{username}}
+<style>
+  .img_max {
+    height: 66%;
+  }
+</style>
+<div class="container-fluid">
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+      {% for i in range(info['num']) %}
+        <div class="col sm-6">
+            <div class="card m-3 h-100">
+                {% if info['img'][i] %}<img  class="card-img-top" src="{{ info['img'][i] }}" alt="{{ info['caption'][i] }}">{% endif %}
+                <div class="card-body overflow-scroll">
+                    <h3 class="card-title">{{ info['title'][i] }}</h3>
+                    <p class="card-text">{{ info['abstract'][i] }}</p>
+                    <a href="{{ info['url'][i] }}" class="card-link active link-{{ theme['main'] }}">Read this article.</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="row pb-3">
+        <div class="col pb-3"></div>
+    </div>
+    <div class="row pb-3">
+        <div class="col pb-3"></div>
+    </div>
+</div>
+
+{% endblock %}
