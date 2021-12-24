@@ -4,12 +4,15 @@
 
 <div class="container-fluid">
     <div class="row my-3 mx-auto">
-        <div class="col-4">
+        <div class="col-4" style="max-width: 200px;">
             <div class="list-group" id="list-tab" role="tablist">
                 <a class="list-group-item list-group-item-action active bg-{{ theme['main'] }}" id="list-summary-list" data-bs-toggle="list" href="#list-summary" role="tab" aria-controls="list-summary">Summary</a>
                 <a class="list-group-item list-group-item-action" id="list-conditions-list" data-bs-toggle="list" href="#list-conditions" role="tab" aria-controls="list-conditions">Conditions</a>
                 <a class="list-group-item list-group-item-action" id="list-temperature-list" data-bs-toggle="list" href="#list-temperature" role="tab" aria-controls="list-temperature">Temperature</a>
                 <a class="list-group-item list-group-item-action" id="list-wind-list" data-bs-toggle="list" href="#list-wind" role="tab" aria-controls="list-wind">Wind</a>
+                <a class="list-group-item list-group-item-action" id="list-nexthour-list" data-bs-toggle="list" href="#list-nexthour" role="tab" aria-controls="list-nexthour">Next Hour</a>
+                <a class="list-group-item list-group-item-action" id="list-hourly-list" data-bs-toggle="list" href="#list-hourly" role="tab" aria-controls="list-hourly">Hourly</a>
+                <a class="list-group-item list-group-item-action" id="list-daily-list" data-bs-toggle="list" href="#list-daily" role="tab" aria-controls="list-daily">Daily</a>
                 <a class="list-group-item list-group-item-action" id="list-more-list" data-bs-toggle="list" href="#list-more" role="tab" aria-controls="list-more">More</a>
             </div>
         </div>
@@ -58,9 +61,73 @@
                     <p>Wind gusts may reach speeds up to {{ info['wind_gust'] }} MPH.</p>
                     {% endif %}
                 </div>
+                <div class="tab-pane fade" id="list-nexthour" role="tabpanel" aria-labelledby="list-nexthour-list">
+                    <h3>Forecast for the next hour in {{ info['city'] }}</h3>
+                    <p>{{ info['minutely'] }}</p>
+                </div>
+                <div class="tab-pane fade" id="list-hourly" role="tabpanel" aria-labelledby="list-hourly-list">
+                    <h3>Hourly forecast for the next 10 hours in {{ info['city'] }}</h3>
+                    <div class="table-responsive">
+                        <table class="table table-hover table-borderless table-{{ theme['main'] }} text-{{ theme['text'] }} me-1">
+                            <thead>
+                            <tr>
+                                <th scope="col">Time</th>
+                                {% for time in info['hourly'] %}<th scope="col">{{ time['time'] }}</th>{% endfor %}
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <th scope="row">Cond.</th>
+                                {% for time in info['hourly'] %}<td><img class="img-thumbnail" style="min-width: 80px;" src="http://openweathermap.org/img/w/{{ time['icon'] }}.png" alt="time['description']"><br>{{ time['description'] }}</td>{% endfor %}
+                            </tr>
+                            <tr>
+                                <th scope="row">Temp.</th>
+                                {% for time in info['hourly'] %}<td>{{ time['temp'] }}°F</td>{% endfor %}
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="list-daily" role="tabpanel" aria-labelledby="list-daily-list">
+                    <h3>Daily forecast for the next 7 days in {{ info['city'] }}</h3>
+                    <div class="table-responsive">
+                        <table class="table table-hover table-borderless table-{{ theme['main'] }} text-{{ theme['text'] }} me-1">
+                            <thead>
+                            <tr>
+                                <th scope="col">Date</th>
+                                {% for date in info['daily'] %}<th scope="col">{{ date['date'] }}</th>{% endfor %}
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <th scope="row">Cond.</th>
+                                {% for date in info['daily'] %}<td><img class="img-thumbnail" style="min-width: 80px;" src="http://openweathermap.org/img/w/{{ date['icon'] }}.png" alt="date['description']"><br>{{ date['description'] }}</td>{% endfor %}
+                            </tr>
+                            <tr>
+                                <th scope="row">High</th>
+                                {% for date in info['daily'] %}<td>{{ date['max'] }}°F</td>{% endfor %}
+                            </tr>
+                            <tr>
+                                <th scope="row">Low</th>
+                                {% for date in info['daily'] %}<td>{{ date['min'] }}°F</td>{% endfor %}
+                            </tr>
+                            <tr>
+                                <th scope="row">UVI</th>
+                                {% for date in info['daily'] %}<td>{{ date['uvi'] }}</td>{% endfor %}
+                            </tr>
+                            <tr>
+                                <th scope="row">Lunar Phase</th>
+                                {% for date in info['daily'] %}<td>{{ date['moon_phase'] }}%</td>{% endfor %}
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
                 <div class="tab-pane fade" id="list-more" role="tabpanel" aria-labelledby="list-more-list">
-                    <h3>Weather Details for {{ info['city'] }}</h3>
+                    <h3>Weather details for {{ info['city'] }}</h3>
+                    <p>The UV Index is {{ info['uvi'] }}.</p>
                     <p>The humidity is {{ info['humidity'] }}%.</p>
+                    <p>The dew point is {{ info['dew_point'] }}°F.</p>
                     <p>The pressure is {{ info['pressure'] }} hPa.</p>
                     <p>Sunrise today is {{ info['sunrise'] }} AM, and sunset today is {{ info['sunset'] }} PM.</p>
                 </div>
