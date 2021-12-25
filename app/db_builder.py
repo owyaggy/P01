@@ -44,6 +44,30 @@ def register(request_user,request_password):
     return render_template('register.html', error = error, theme = theme)
     # return render_template('response.html', user = session.get("userID"))
 
+def authenticate(user,password): #looggin in
+    response = "TRY AGAIN: "
+    if password == "" or password == " " or password == None:
+            response += " Username or password cannot be blank"
+    if(check_existence('username', user) == False or check_existence('password', password) == False): #checks for password
+        response += "incorrect username or password"
+    #checks if user exists and password matches user
+    if(response == "TRY AGAIN: "):
+        session['userID'] = user
+        with sqlite3.connect(DB_FILE) as db:
+            c = db.cursor()
+            c.execute("select BlogID from userinfo WHERE username LIKE '%" + str(session['userID']) + "%';")
+            blogID = c.fetchone()
+            for row in blogID:
+                ID = row
+            c.row_factory = sqlite3.Row
+            ID = str(ID)
+            c.execute("select BlogTitle from bloginfo WHERE BlogID LIKE '%" + ID + "%';")
+            blog = c.fetchall()
+            c.close()
+        widgets = ['weather', 'news', 'recommendations', 'fun', 'sports', 'space', 'stocks', 'stocks', 'stocks', 'test']
+        return render_template('response.html',user = user, wdigets = widgets, name = "Logged in", theme = theme)
+    else:
+        return render_template('login.html', login_fail = response) #Else, return the response telling you what's wrong
 def validate(name, value):
     error_message = ""
     if name == "userID":
