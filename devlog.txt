@@ -109,3 +109,6 @@ Added NYTimes API and parser
 Added news widget
 Added image accessibility text
 Added view image button to space subpage
+
+zhaoL --2021-12-24 22"09
+=added authentication for user login
