@@ -91,7 +91,7 @@ def log():
     widgets = ['weather', 'news', 'recommendations', 'fun', 'sports', 'space', 'stocks', 'stocks', 'stocks', 'test']
     request_user = request.args['regUser']
     print(f"Hello*********, {request_user}")
-    request_password = request.args['regUser']
+    request_password = request.args['regPass']
     
     print(f"Hello*********, {request_password}")
     printTable()
