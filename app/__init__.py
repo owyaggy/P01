@@ -87,12 +87,14 @@ def reg2():#registers a user
     print(f"session length: {len(session)}")
     return register(request_user,request_password) #puts username and pw into database, returns response.html
 @app.route("/auth", methods=['GET', 'POST'])
-def authenticate():
+def log():
     widgets = ['weather', 'news', 'recommendations', 'fun', 'sports', 'space', 'stocks', 'stocks', 'stocks', 'test']
     request_user = request.args['regUser']
-    request_password = request.args['regPass']
     print(f"Hello*********, {request_user}")
+    request_password = request.args['regUser']
+    
     print(f"Hello*********, {request_password}")
+    printTable()
     return authenticate(request_user,request_password)
     # return render_template('response.html',user = request_user, name = "Logged in", theme = theme)
 

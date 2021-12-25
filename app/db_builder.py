@@ -53,17 +53,6 @@ def authenticate(user,password): #looggin in
     #checks if user exists and password matches user
     if(response == "TRY AGAIN: "):
         session['userID'] = user
-        with sqlite3.connect(DB_FILE) as db:
-            c = db.cursor()
-            c.execute("select BlogID from userinfo WHERE username LIKE '%" + str(session['userID']) + "%';")
-            blogID = c.fetchone()
-            for row in blogID:
-                ID = row
-            c.row_factory = sqlite3.Row
-            ID = str(ID)
-            c.execute("select BlogTitle from bloginfo WHERE BlogID LIKE '%" + ID + "%';")
-            blog = c.fetchall()
-            c.close()
         widgets = ['weather', 'news', 'recommendations', 'fun', 'sports', 'space', 'stocks', 'stocks', 'stocks', 'test']
         return render_template('response.html',user = user, wdigets = widgets, name = "Logged in", theme = theme)
     else:
