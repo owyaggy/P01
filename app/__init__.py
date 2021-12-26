@@ -43,7 +43,7 @@ def settings():
 
 @app.route('/weather')
 def weather():
-    cities = ['New York City', 'Los Angeles', 'Chicago', 'Boston', 'London', 'Beijing', 'Moscow', 'Toronto', 'Mexico City', 'Tokyo', 'Shanghai', 'Delhi', 'Sao Paulo']
+    cities = ['New+York+City', 'Los+Angeles', 'Chicago', 'Boston', 'London', 'Beijing', 'Moscow', 'Toronto', 'Mexico+City', 'Tokyo', 'Shanghai', 'Delhi', 'Sao+Paulo']
     try:
         city = request.args['city']
         print(city)

@@ -10,7 +10,7 @@
         <select class="form-select form-select-sm" name="city" aria-label=".form-select-lg example">
           <option selected>Select a location</option>
           {% for city in cities %} <!-- New York City, Los Angeles, Chicago, Boston, London, Beijing, Moscow, Toronto, Mexico City, Tokyo, Shaanghai, Delhi, Sao Paulo  -->
-            <option value={city}>{{city}}</option>
+            <option value={{city}}>{{city}}</option>
           {% endfor %}
         </select>
       </div>
