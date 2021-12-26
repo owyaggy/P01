@@ -11,7 +11,7 @@ def logged_in():
     return session.get('username') is not None
 
 ### NEEDS TO BE REPLACED BY FUNCTION IN DB_BUILDER ###
-theme = updateTheme()
+theme = updateTheme("info","secondary")
 
 @app.route('/')
 @app.route("/home")
@@ -29,8 +29,10 @@ def home():
     if logged_in():
         username = session['username']
         # widgets = db_builder.enabledWidgets() # get only the selected widgets from the user's preferences
-        return render_template('home.html', name="Home", widgets=widgets, theme=theme, packages=packages, username = len(session))
+        theme = updateTheme("success", "secondary") #just for testing
+        return render_template('home.html', name="Home", widgets=widgets, theme=theme, packages=packages, username = session['username'])
     else:
+        theme = updateTheme("info", "secondary")
         return render_template('home.html', name="Home", widgets=widgets, theme=theme, packages=packages)
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -80,19 +82,20 @@ def reg2():#registers a user
     request_user = request.args['regUser']
     request_password = request.args['regPass']
     print(f"Hello*********, {request_user}")
-    print(f"Hello*********, {request_password}")
+    print (f"Hello*********, {request_password}")
     # clearTable()
     printTable()
     session["username"] = request_user #puts user into session
     print(f"session length: {len(session)}")
     return register(request_user,request_password) #puts username and pw into database, returns response.html
 @app.route("/auth", methods=['GET', 'POST'])
-def log():
+def log():#using the loggin button will enter the user into the sesion
     widgets = ['weather', 'news', 'recommendations', 'fun', 'sports', 'space', 'stocks', 'stocks', 'stocks', 'test']
     request_user = request.args['regUser']
     print(f"Hello*********, {request_user}")
     request_password = request.args['regPass']
-    
+    session["username"] = request_user
+    print(f"session length: {len(session)}")
     print(f"Hello*********, {request_password}")
     printTable()
     return authenticate(request_user,request_password)
