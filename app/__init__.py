@@ -27,11 +27,13 @@ def home():
         'news': nytimes_api()
     }
     if logged_in():
+        print("LOGGED IN HOME")
         username = session['username']
         # widgets = db_builder.enabledWidgets() # get only the selected widgets from the user's preferences
-        theme = updateTheme("success", "secondary") #just for testing
-        return render_template('home.html', name="Home", widgets=widgets, theme=theme, packages=packages, username = session['username'])
+        theme = updateTheme("success", "primary") #just for testing
+        return render_template('home.html', name="Home", widgets=widgets, theme=theme, packages=packages, username = username)
     else:
+        print("NOT LOGGED IN HOME")
         theme = updateTheme("info", "secondary")
         return render_template('home.html', name="Home", widgets=widgets, theme=theme, packages=packages)
 
@@ -104,7 +106,7 @@ def log():#using the loggin button will enter the user into the sesion
     print(f"Hello*********, {request_user}")
     request_password = request.args['regPass']
     print(f"Hello*********, {request_password}")
-    printTable()
+    # printTable()
     return authenticate(request_user,request_password)
     # return render_template('response.html',user = request_user, name = "Logged in", theme = theme)
 

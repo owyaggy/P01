@@ -37,11 +37,11 @@ def register(request_user,request_password):
         #if userID is valid, store in database
         # session["userID"] = request_user
         insert(request_user, request_password)
-        print("**** PASS")
+        print("**** Sucessionfully registered")
         widgets = ['weather', 'news', 'recommendations', 'fun', 'sports', 'space', 'stocks', 'stocks', 'stocks', 'test']
         return render_template('response.html',user = request_user, wdigets = widgets, name = "Logged in", theme = theme)
             # ADD USERID TO THE DB HERE
-    print("***** FAIL")
+    print("***** Registration failed")
     return render_template('register.html', error = error, theme = theme)
     # return render_template('response.html', user = session.get("userID"))
 
@@ -53,7 +53,7 @@ def authenticate(user,password): #looggin in
         response += "incorrect username or password"
     #checks if user exists and password matches user
     if(response == "TRY AGAIN: "):
-        session['userID'] = user
+        # session['userID'] = user
         packages = { # add new packages here
         'nasa': nasa_apod(),
         'weather': weather_api('New+York+City'),
@@ -63,7 +63,7 @@ def authenticate(user,password): #looggin in
 
         widgets = ['weather', 'news', 'recommendations', 'fun', 'sports', 'space', 'stocks', 'stocks', 'stocks', 'test']
         # return render_template('response.html',user = user, wdigets = widgets, name = "Logged in", theme = theme)
-        return render_template('home.html', name="Home", widgets=widgets, theme=theme, packages=packages, username = session['username'])
+        return render_template('home.html', name="Home", widgets=widgets, theme=theme, packages=packages, username = user)
         #returns home page with modified theme, kind of scuffed and bad code as of now
     else:
         return render_template('login.html', login_fail = response) #Else, return the response telling you what's wrong
@@ -91,7 +91,7 @@ def check_existence(c_name, value):
         c = db.cursor()
         c.execute("SELECT " + c_name + " FROM userinfo WHERE " +c_name + " LIKE '%" + value + "%';")
         listUsers = c.fetchall()
-        print(listUsers)
+        # print(f"Hello*****, {listUsers}")
         if (len(listUsers) == 0):
             return False
         return True
