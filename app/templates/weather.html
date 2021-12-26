@@ -3,6 +3,23 @@
 {% block content %}
 
 <div class="container-fluid">
+  <br>
+  <form action="/weather" methods=['GET', 'POST' ]>
+    <div class="row my-3 mx-auto">
+      <div class="col">
+        <select class="form-select form-select-sm" name="city" aria-label=".form-select-lg example">
+          <option selected>Select a location</option>
+          {% for city in cities %} <!-- New York City, Los Angeles, Chicago, Boston, London, Beijing, Moscow, Toronto, Mexico City, Tokyo, Shaanghai, Delhi, Sao Paulo  -->
+            <option value={city}>{{city}}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="col-auto">
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </div>
+    </div>
+  </form>
+</div>
     <div class="row my-3 mx-auto">
         <div class="col-4" style="max-width: 200px;">
             <div class="list-group" id="list-tab" role="tablist">

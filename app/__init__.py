@@ -43,9 +43,18 @@ def settings():
 
 @app.route('/weather')
 def weather():
-    city = "New+York+City"
+    cities = ['New York City', 'Los Angeles', 'Chicago', 'Boston', 'London', 'Beijing', 'Moscow', 'Toronto', 'Mexico City', 'Tokyo', 'Shanghai', 'Delhi', 'Sao Paulo']
+    try:
+        city = request.args['city']
+        print(city)
+    except:
+        city = "New York City"
+    print()
+    print()
+    print()
+    print(city)
     info = weather_api(city)
-    return render_template('weather.html', name="Weather", theme=theme, info=info)
+    return render_template('weather.html', name="Weather", theme=theme, info=info, cities=cities)
 
 @app.route('/news')
 def news():
@@ -92,7 +101,7 @@ def log():
     request_user = request.args['regUser']
     print(f"Hello*********, {request_user}")
     request_password = request.args['regPass']
-    
+
     print(f"Hello*********, {request_password}")
     printTable()
     return authenticate(request_user,request_password)
