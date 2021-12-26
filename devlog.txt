@@ -112,3 +112,9 @@ Added view image button to space subpage
 
 zhaoL --2021-12-24 22"09
 =added authentication for user login
+
+
+williamC -- 2021-12-26 1:26
+- Made select form for cities
+- Got Toronto to work
+- Saddened by other options
