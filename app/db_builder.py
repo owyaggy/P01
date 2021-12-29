@@ -1,13 +1,14 @@
 import sqlite3
 from flask import Flask, render_template, redirect, url_for, request, session
 import os
+from api import *
 
 DB_FILE = "discobandit.db"
 
-def updateTheme():
-    theme = dict(main='info', text='secondary')
+def updateTheme(c,t):
+    theme = dict(main=c, text =t)
     return theme
-theme = updateTheme()
+theme = updateTheme("info", "secondary")
 def createTables():
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
@@ -36,14 +37,36 @@ def register(request_user,request_password):
         #if userID is valid, store in database
         # session["userID"] = request_user
         insert(request_user, request_password)
-        print("**** PASS")
+        print("**** Sucessionfully registered")
         widgets = ['weather', 'news', 'recommendations', 'fun', 'sports', 'space', 'stocks', 'stocks', 'stocks', 'test']
         return render_template('response.html',user = request_user, wdigets = widgets, name = "Logged in", theme = theme)
             # ADD USERID TO THE DB HERE
-    print("***** FAIL")
+    print("***** Registration failed")
     return render_template('register.html', error = error, theme = theme)
     # return render_template('response.html', user = session.get("userID"))
 
+def authenticate(user,password): #looggin in
+    response = "TRY AGAIN: "
+    if password == "" or password == " " or password == None:
+            response += " Username or password cannot be blank"
+    if(check_existence('username', user) == False or check_existence('password', password) == False): #checks for password
+        response += "incorrect username or password"
+    #checks if user exists and password matches user
+    if(response == "TRY AGAIN: "):
+        # session['userID'] = user
+        packages = { # add new packages here
+        'nasa': nasa_apod(),
+        'weather': weather_api('New+York+City'),
+        'news': nytimes_api()
+        }
+        theme = updateTheme("danger", "primary") #just for testing
+
+        widgets = ['weather', 'news', 'recommendations', 'fun', 'sports', 'space', 'stocks', 'stocks', 'stocks', 'test']
+        # return render_template('response.html',user = user, wdigets = widgets, name = "Logged in", theme = theme)
+        return render_template('home.html', name="Home", widgets=widgets, theme=theme, packages=packages, username = user)
+        #returns home page with modified theme, kind of scuffed and bad code as of now
+    else:
+        return render_template('login.html', login_fail = response) #Else, return the response telling you what's wrong
 def validate(name, value):
     error_message = ""
     if name == "userID":
@@ -68,7 +91,7 @@ def check_existence(c_name, value):
         c = db.cursor()
         c.execute("SELECT " + c_name + " FROM userinfo WHERE " +c_name + " LIKE '%" + value + "%';")
         listUsers = c.fetchall()
-        print(listUsers)
+        # print(f"Hello*****, {listUsers}")
         if (len(listUsers) == 0):
             return False
         return True

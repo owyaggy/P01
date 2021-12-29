@@ -110,3 +110,19 @@ Added news widget
 Added image accessibility text
 Added view image button to space subpage
 Finished news subpage
+
+zhaoL --2021-12-24 22:09
+-added authentication for user login
+
+zhaoL --2021-12-25 20:00
+-logging in works from registering
+
+zhaoL --2021-12-26 18:40
+-logging in when signed in works on refresh but not exit
+-idea for next session: change checking if login to if a user authenticates or registers,
+if they do that store as var and check that var
+
+williamC -- 2021-12-26 1:26
+- Made select form for cities
+- Got Toronto to work
+- Saddened by other options
