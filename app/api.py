@@ -45,6 +45,7 @@ def nytimes_api(days=1):
         info['abstract'] = list()
         info['img'] = list()
         info['caption'] = list()
+        info['num'] = int(api_request.json()['num_results'])
         for result in api_request.json()['results']:
             info['url'].append(result['url'])
             info['title'].append(result['title'])

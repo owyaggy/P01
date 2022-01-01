@@ -12,7 +12,7 @@
       {% for widget in widgets %}
         <div class="col sm-6">
             <div class="card m-3 h-100">
-                <div class="card-body">
+                <div class="card-body overflow-scroll pb-0">
                     <!-- widgets: weather, news, recommendations, stocks, fun, sports, space -->
                     {% if widget == "weather" %} <!-- WEATHER -->
                     <h5 class="card-title">Weather Widget</h5>
@@ -22,9 +22,7 @@
                     <p class="card-text mb-0">{{ packages['weather']['minutely'] }}</p>
                     {% elif widget == "news" %} <!-- NEWS -->
                     <h5 class="card-title">News Widget</h5>
-                    <div class="img_max">
-                        <img class="card-img-top" height="100%" src="{{ packages['news']['img'][0] }}" alt="{{ packages['news']['caption'][0] }}">
-                    </div>
+                    <img class="card-img-top w-100 h-auto" width="auto" src="{{ packages['news']['img'][0] }}" alt="{{ packages['news']['caption'][0] }}">
                     <h3 class="card-text">{{ packages['news']['title'][0] }}</h3>
                     <p class="card-text">{{ packages['news']['abstract'][0] }}</p>
                     <a href="{{ packages['news']['url'][0] }}" class="card-link active link-{{ theme['main'] }}">Read this article.</a>
@@ -54,9 +52,8 @@
                     </p>
                     {% elif widget == "space" %} <!-- SPACE -->
                     <h5 class="card-title">Space Widget</h5>
-                    <div class="img_max">
-                      <img class="card-img-top" height="100%" src="{{ packages['nasa']['hd_link'] }}" alt="NASA Astronomy Picture of the Day">
-                    </div>
+                    <!--<img class="card-img-top w-100 h-auto mh-50" src="{{ packages['nasa']['hd_link'] }}" alt="NASA Astronomy Picture of the Day">-->
+                    <div class="img_max"><img class="card-img-top" height="100%" src="https://apod.nasa.gov/apod/image/1901/cervin1300vetter.jpg" alt="NASA Astronomy Picture of the Day"></div>
                     <h3 class="card-text mb-0">{{ packages['nasa']['title'] }}</h3>
                     {% else %} <!-- WIDGET ERROR -->
                     <h5 class="card-subtitle mb-2 text-muted">Hmmmm… something's not right here</h5>

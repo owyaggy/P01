@@ -59,7 +59,8 @@ def weather():
 
 @app.route('/news')
 def news():
-    return render_template('news.html', name="News", theme=theme)
+    info = nytimes_api()
+    return render_template('news.html', name="News", theme=theme, info=info)
 
 @app.route('/recommendations')
 def recommendations():
