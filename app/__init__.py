@@ -47,16 +47,13 @@ def settings():
 
 @app.route('/weather')
 def weather():
-    cities = ['New+York+City', 'Los+Angeles', 'Chicago', 'Boston', 'London', 'Beijing', 'Moscow', 'Toronto', 'Mexico+City', 'Tokyo', 'Shanghai', 'Delhi', 'Sao+Paulo']
+    # ONLY WORKS FOR EST TIME ZONE???
+    cities = ['New+York+City', 'Toronto', 'Mexico+City']
     try:
         city = request.args['city']
         print(city)
     except:
-        city = "New York City"
-    print()
-    print()
-    print()
-    print(city)
+        city = "New+York+City"
     info = weather_api(city)
     return render_template('weather.html', name="Weather", theme=theme, info=info, cities=cities)
 
