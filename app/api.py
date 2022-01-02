@@ -163,3 +163,103 @@ def weather_api(city):
             })
         info['daily'][0]['date'] = 'Today'
     return info
+
+def nba_api(year):
+    """Returns the NBA rankings for each division and conference"""
+    with open("keys/nba_key.txt") as api_key:
+        key = api_key.read().rstrip('\n')
+    info = {}
+
+    api_request = requests.get(f"https://api.sportradar.us/nba/trial/v7/en/seasons/{year}/REG/rankings.json?api_key={key}")
+    if api_request.status_code == 200:
+        for conference in api_request.json()["conferences"]:
+            info[conference["name"]] = {}
+            for division in conference["divisions"]:
+                info[conference["name"]][division["name"]] = {}
+                for team in division["teams"]:
+                    if "rank" in team.keys():
+                        info[conference["name"]][division["name"]][team["rank"]["division"]] = team["market"] + " " + team["name"]
+
+    return info
+
+def nhl_api(year):
+    """Returns the NHL rankings for each division and conference"""
+    with open("keys/nhl_key.txt") as api_key:
+        key = api_key.read().rstrip('\n')
+    info = {}
+
+    api_request = requests.get(f"https://api.sportradar.us/nhl/trial/v7/en/seasons/{year}/REG/rankings.json?api_key={key}")
+    if api_request.status_code == 200:
+        for conference in api_request.json()["conferences"]:
+            info[conference["name"]] = {}
+            for division in conference["divisions"]:
+                info[conference["name"]][division["name"]] = {}
+                for team in division["teams"]:
+                    if "rank" in team.keys():
+                        info[conference["name"]][division["name"]][team["rank"]["division"]] = team["market"] + " " + team["name"]
+
+    return info
+
+def mlb_api(year):
+    """Returns the MLB rankings for each division and league"""
+    with open("keys/mlb_key.txt") as api_key:
+        key = api_key.read().rstrip('\n')
+    info = {}
+
+    api_request = requests.get(f"https://api.sportradar.us/mlb/trial/v7/en/seasons/{year}/REG/rankings.json?api_key={key}")
+    if api_request.status_code == 200:
+        for league in api_request.json()["league"]["season"]["leagues"]:
+            info[league["name"]] = {}
+            for division in league["divisions"]:
+                info[league["name"]][division["name"]] = {}
+                for team in division["teams"]:
+                    if "rank" in team.keys():
+                        info[league["name"]][division["name"]][team["rank"]["division"]] = team["market"] + " " + team["name"]
+
+    return info
+
+def nfl_api(year):
+    """Returns the NFL rankings for each division and conference"""
+    with open("keys/nfl_key.txt") as api_key:
+        key = api_key.read().rstrip('\n')
+    info = {}
+
+    api_request = requests.get(f"https://api.sportradar.us/nfl/official/trial/v7/en/seasons/{year}/REG/standings/season.json?api_key={key}")
+    if api_request.status_code == 200:
+        for conference in api_request.json()["conferences"]:
+            info[conference["name"]] = {}
+            for division in conference["divisions"]:
+                info[conference["name"]][division["name"]] = {}
+                for team in division["teams"]:
+                    if "rank" in team.keys():
+                        info[conference["name"]][division["name"]][team["rank"]["division"]] = team["market"] + " " + team["name"]
+
+    return info
+
+def sports_api(year):
+    """Returns the team rankings for nba, nhl, mlb, and nfl"""
+    info = {}
+    info["nba"] = nba_api(year)
+    info["nhl"] = nhl_api(year)
+    info["mlb"] = mlb_api(year)
+    info["nfl"] = nfl_api(year)
+
+    return info
+
+#This only has 100 calls per month, so try not to use too much
+#def stocks_api(symbols):
+#    """Returns latest end-of-day opening, high, low and closing prices for each stock in the list symbols"""
+#    with open("keys/stocks_key.txt") as api_key:
+#        key = api_key.read().rstrip('\n')
+#    info = {}
+#
+#    for symbol in symbols:
+#        info[symbol] = {}
+#        api_request = requests.get(f"http://api.marketstack.com/v1/eod?access_key={key}&symbols={symbol}")
+#        if api_request.status_code == 200:
+#            info[symbol]["open"] = api_request.json()["data"][0]["open"]
+#            info[symbol]["high"] = api_request.json()["data"][0]["high"]
+#            info[symbol]["low"] = api_request.json()["data"][0]["low"]
+#            info[symbol]["close"] = api_request.json()["data"][0]["close"]
+#
+#    return info
