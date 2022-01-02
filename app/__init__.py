@@ -8,7 +8,7 @@ app = Flask(__name__)    #create Flask object
 app.secret_key = os.urandom(32) #create random key
 
 def logged_in():
-    return session.get('username') is not None
+    return "username" in session
 
 ### NEEDS TO BE REPLACED BY FUNCTION IN DB_BUILDER ###
 theme = updateTheme("info","secondary")
