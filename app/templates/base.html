@@ -27,6 +27,11 @@
                     <li class="nav-item bg-{{ theme['main'] }}">
                         <a class="nav-link active text-{{ theme['text'] }}" aria-current="page" href="/">Home</a>
                     </li>
+                    <!-- user preference -->
+                    <li class="nav-item bg-{{ theme['main'] }}">
+                        <a class="nav-link active text-{{ theme['text'] }}" aria-current="page" href="/">Welcome {{user}}</a>
+                        <!-- href leads to user prefernece -->
+                    </li>
                     <li class="nav-item dropdown text-{{ theme['main'] }}">
                         <a class="nav-link dropdown-toggle text-{{ theme['text'] }} opacity-50" href="#" id="navbarDropdown" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">
@@ -53,7 +58,7 @@
                 <div class="d-flex">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link active text-{{ theme['text'] }}" href="settings">Settings</a>
+                            <a class="nav-link active text-{{ theme['text'] }}" href="user">Log In</a>
                         </li>
                     </ul>
                 </div>

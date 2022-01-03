@@ -42,9 +42,9 @@ def home():
 def login():
     return render_template('login.html', theme=theme)
 
-@app.route('/settings')
+@app.route('/user')
 def settings():
-    return render_template('settings.html', name="Settings", theme=theme)
+    return render_template('user.html', name="Log In", theme=theme)
 
 @app.route('/weather')
 def weather():
@@ -107,6 +107,7 @@ def log():#using the loggin button will enter the user into the sesion
     request_password = request.args['regPass']
     print(f"Hello*********, {request_password}")
     # printTable()
+    session['username'] = request_user
     return authenticate(request_user,request_password)
     # return render_template('response.html',user = request_user, name = "Logged in", theme = theme)
 
