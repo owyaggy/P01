@@ -18,13 +18,14 @@ theme = updateTheme("info","secondary")
 def home():
     # available widgets:
     # weather, news, recommendations, stocks, fun, sports, space
-    widgets = ['weather', 'news', 'recommendations', 'fun', 'sports', 'space', 'stocks'] # a complete list of all widgets
+    widgets = ['weather', 'news', 'recommendations', 'fun', 'sports', 'space'] # a complete list of all widgets
     # theme based on bootstrap colors [primary, secondary, success, danger, warning, info, light, dark]
     #theme = "dark" # should be replaced by function getting user theme from database
     packages = { # add new packages here
         'nasa': nasa_apod(),
         'weather': weather_api('New+York+City'),
-        'news': nytimes_api()
+        'news': nytimes_api(),
+        'sports': sports_api(2021)
     }
     if logged_in():
         print("LOGGED IN HOME")
@@ -76,7 +77,8 @@ def fun():
 
 @app.route('/sports')
 def sports():
-    return render_template('sports.html', name="Sports", theme=theme)
+    info = {'sports': sports_api(2021)}
+    return render_template('sports.html', name="Sports", theme=theme, packages=info)
 
 @app.route('/space')
 def space():
