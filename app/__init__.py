@@ -48,10 +48,9 @@ def settings():
 @app.route('/weather')
 def weather():
     # ONLY WORKS FOR EST TIME ZONE???
-    cities = ['New+York+City', 'Toronto', 'Mexico+City']
+    cities = ['New+York+City', 'Toronto', 'Sao+Paulo', 'California']
     try:
         city = request.args['city']
-        print(city)
     except:
         city = "New+York+City"
     info = weather_api(city)
@@ -107,6 +106,17 @@ def log():#using the loggin button will enter the user into the sesion
     # printTable()
     return authenticate(request_user,request_password)
     # return render_template('response.html',user = request_user, name = "Logged in", theme = theme)
+
+@app.route('/preference')
+def preference():
+    userThemes = ['test', 'test2', 'test3']
+    widgets = ['weather', 'news', 'recommendations', 'fun', 'sports', 'space', 'stocks', 'stocks', 'stocks', 'test'] # a complete list of all widgets
+    return render_template('preference.html', userThemes=userThemes, widgets=widgets, name='preference', theme=theme)
+
+@app.route('/preferenceSet')
+def preferenceSet():
+    
+    return preference()
 
 if __name__ == "__main__":
     app.debug = True

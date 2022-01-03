@@ -12,7 +12,7 @@ def nasa_apod(count=1):
     else:
         api_request = requests.get(f"https://api.nasa.gov/planetary/apod?api_key={key}&count={count}")
     info = {}
-    
+
     if api_request.status_code == 200:
         if count == 1:
             info["hd_link"] = api_request.json()["hdurl"]
@@ -124,7 +124,10 @@ def weather_api(city):
 
         info['wind_speed'] = api_request.json()['current']['wind_speed']
         info['wind_deg'] = api_request.json()['current']['wind_deg']
-        info['wind_gust'] = api_request.json()['current']['wind_gust']
+        try:
+            info['wind_gust'] = api_request.json()['current']['wind_gust']
+        except:
+            info['wind_gust'] = "Not Available"
         info['clouds'] = api_request.json()['current']['clouds']  # cloudiness %
         info['icon'] = api_request.json()['current']['weather'][0]['icon']
         info['main'] = api_request.json()['current']['weather'][0]['main']
