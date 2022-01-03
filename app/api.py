@@ -122,9 +122,14 @@ def weather_api(city):
         info['humidity'] = int(api_request.json()['current']['humidity'])
         info['visibility'] = int(api_request.json()['current']['visibility'] * 0.000621371)  # convert meters to miles
 
+
         info['wind_speed'] = api_request.json()['current']['wind_speed']
         info['wind_deg'] = api_request.json()['current']['wind_deg']
-        info['wind_gust'] = api_request.json()['current']['wind_gust']
+        # wind gust not available for all cities
+        try:
+            info['wind_gust'] = api_request.json()['current']['wind_gust']
+        except:
+            info['wind_guest'] = None
         info['clouds'] = api_request.json()['current']['clouds']  # cloudiness %
         info['icon'] = api_request.json()['current']['weather'][0]['icon']
         info['main'] = api_request.json()['current']['weather'][0]['main']
