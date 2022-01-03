@@ -57,7 +57,8 @@ def authenticate(user,password): #looggin in
         packages = { # add new packages here
         'nasa': nasa_apod(),
         'weather': weather_api('New+York+City'),
-        'news': nytimes_api()
+        'news': nytimes_api(),
+        'sports': sports_api(2021)
         }
         theme = updateTheme("danger", "primary") #just for testing
 

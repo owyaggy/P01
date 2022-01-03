@@ -12,7 +12,7 @@
       {% for widget in widgets %}
         <div class="col sm-6">
             <div class="card m-3 h-100">
-                <div class="card-body overflow-scroll pb-0">
+                <div class="card-body overflow-scroll pb-0 {% if widget == 'sports' %}px-0{% endif %}">
                     <!-- widgets: weather, news, recommendations, stocks, fun, sports, space -->
                     {% if widget == "weather" %} <!-- WEATHER -->
                     <h5 class="card-title">Weather Widget</h5>
@@ -22,7 +22,7 @@
                     <p class="card-text mb-0">{{ packages['weather']['minutely'] }}</p>
                     {% elif widget == "news" %} <!-- NEWS -->
                     <h5 class="card-title">News Widget</h5>
-                    <img class="card-img-top w-100 h-auto" width="auto" src="{{ packages['news']['img'][0] }}" alt="{{ packages['news']['caption'][0] }}">
+                    {% if packages['news']['img'][0] %}<img class="card-img-top w-100 h-auto" width="auto" src="{{ packages['news']['img'][0] }}" alt="{{ packages['news']['caption'][0] }}">{% endif %}
                     <h3 class="card-text">{{ packages['news']['title'][0] }}</h3>
                     <p class="card-text">{{ packages['news']['abstract'][0] }}</p>
                     <a href="{{ packages['news']['url'][0] }}" class="card-link active link-{{ theme['main'] }}">Read this article.</a>
@@ -45,15 +45,393 @@
                         I have great news for you! Soon, real fun stuff will be provided here by an API.
                     </p>
                     {% elif widget == "sports" %} <!-- SPORTS -->
-                    <h5 class="card-title">Sports Widget</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">Coming soon</h6>
-                    <p class="card-text mb-0">
-                        I have great news for you! Soon, real sports scores will be provided here by an API.
-                    </p>
+                    <h5 class="card-title mx-3">Sports Widget</h5>
+                    <div class="accordion accordion-flush" id="accordionFlushExample">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="flush-headingOne">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                                    NBA
+                                </button>
+                            </h2>
+                            <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                                <div class="accordion-body p-0">
+                                    <table class="table table-{{ theme['main'] }} table-striped">
+                                        <tr>
+                                            {% for conference in packages['sports']['nba'] %}<th>{{ conference.title() }}</th>{% endfor %}
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="dropdown">
+                                                    <button class="btn btn-{{ theme['main'] }} btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Atlantic</button>
+                                                    <ul class="dropdown-menu">
+                                                        <li><p class="dropdown-item">1. {{ packages['sports']['nba']['EASTERN CONFERENCE']['Atlantic'][1] }}</p></li>
+                                                        <li><p class="dropdown-item">2. {{ packages['sports']['nba']['EASTERN CONFERENCE']['Atlantic'][2] }}</p></li>
+                                                        <li><p class="dropdown-item">3. {{ packages['sports']['nba']['EASTERN CONFERENCE']['Atlantic'][3] }}</p></li>
+                                                        <li><p class="dropdown-item">4. {{ packages['sports']['nba']['EASTERN CONFERENCE']['Atlantic'][4] }}</p></li>
+                                                        <li><p class="dropdown-item">5. {{ packages['sports']['nba']['EASTERN CONFERENCE']['Atlantic'][5] }}</p></li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="dropdown">
+                                                    <button class="btn btn-{{ theme['main'] }} btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Northwest</button>
+                                                    <ul class="dropdown-menu">
+                                                        <li><p class="dropdown-item">1. {{ packages['sports']['nba']['WESTERN CONFERENCE']['Northwest'][1] }}</p></li>
+                                                        <li><p class="dropdown-item">2. {{ packages['sports']['nba']['WESTERN CONFERENCE']['Northwest'][2] }}</p></li>
+                                                        <li><p class="dropdown-item">3. {{ packages['sports']['nba']['WESTERN CONFERENCE']['Northwest'][3] }}</p></li>
+                                                        <li><p class="dropdown-item">4. {{ packages['sports']['nba']['WESTERN CONFERENCE']['Northwest'][4] }}</p></li>
+                                                        <li><p class="dropdown-item">5. {{ packages['sports']['nba']['WESTERN CONFERENCE']['Northwest'][5] }}</p></li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="dropdown">
+                                                    <button class="btn btn-{{ theme['main'] }} btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Central</button>
+                                                    <ul class="dropdown-menu">
+                                                        <li><p class="dropdown-item">1. {{ packages['sports']['nba']['EASTERN CONFERENCE']['Central'][1] }}</p></li>
+                                                        <li><p class="dropdown-item">2. {{ packages['sports']['nba']['EASTERN CONFERENCE']['Central'][2] }}</p></li>
+                                                        <li><p class="dropdown-item">3. {{ packages['sports']['nba']['EASTERN CONFERENCE']['Central'][3] }}</p></li>
+                                                        <li><p class="dropdown-item">4. {{ packages['sports']['nba']['EASTERN CONFERENCE']['Central'][4] }}</p></li>
+                                                        <li><p class="dropdown-item">5. {{ packages['sports']['nba']['EASTERN CONFERENCE']['Central'][5] }}</p></li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="dropdown">
+                                                    <button class="btn btn-{{ theme['main'] }} btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Pacific</button>
+                                                    <ul class="dropdown-menu">
+                                                        <li><p class="dropdown-item">1. {{ packages['sports']['nba']['WESTERN CONFERENCE']['Pacific'][1] }}</p></li>
+                                                        <li><p class="dropdown-item">2. {{ packages['sports']['nba']['WESTERN CONFERENCE']['Pacific'][2] }}</p></li>
+                                                        <li><p class="dropdown-item">3. {{ packages['sports']['nba']['WESTERN CONFERENCE']['Pacific'][3] }}</p></li>
+                                                        <li><p class="dropdown-item">4. {{ packages['sports']['nba']['WESTERN CONFERENCE']['Pacific'][4] }}</p></li>
+                                                        <li><p class="dropdown-item">5. {{ packages['sports']['nba']['WESTERN CONFERENCE']['Pacific'][5] }}</p></li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="dropdown">
+                                                    <button class="btn btn-{{ theme['main'] }} btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Southeast</button>
+                                                    <ul class="dropdown-menu">
+                                                        <li><p class="dropdown-item">1. {{ packages['sports']['nba']['EASTERN CONFERENCE']['Southeast'][1] }}</p></li>
+                                                        <li><p class="dropdown-item">2. {{ packages['sports']['nba']['EASTERN CONFERENCE']['Southeast'][2] }}</p></li>
+                                                        <li><p class="dropdown-item">3. {{ packages['sports']['nba']['EASTERN CONFERENCE']['Southeast'][3] }}</p></li>
+                                                        <li><p class="dropdown-item">4. {{ packages['sports']['nba']['EASTERN CONFERENCE']['Southeast'][4] }}</p></li>
+                                                        <li><p class="dropdown-item">5. {{ packages['sports']['nba']['EASTERN CONFERENCE']['Southeast'][5] }}</p></li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="dropdown">
+                                                    <button class="btn btn-{{ theme['main'] }} btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Southwest</button>
+                                                    <ul class="dropdown-menu">
+                                                        <li><p class="dropdown-item">1. {{ packages['sports']['nba']['WESTERN CONFERENCE']['Southwest'][1] }}</p></li>
+                                                        <li><p class="dropdown-item">2. {{ packages['sports']['nba']['WESTERN CONFERENCE']['Southwest'][2] }}</p></li>
+                                                        <li><p class="dropdown-item">3. {{ packages['sports']['nba']['WESTERN CONFERENCE']['Southwest'][3] }}</p></li>
+                                                        <li><p class="dropdown-item">4. {{ packages['sports']['nba']['WESTERN CONFERENCE']['Southwest'][4] }}</p></li>
+                                                        <li><p class="dropdown-item">5. {{ packages['sports']['nba']['WESTERN CONFERENCE']['Southwest'][5] }}</p></li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="flush-headingTwo">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                                    NFL
+                                </button>
+                            </h2>
+                            <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+                                <div class="accordion-body p-0">
+                                    <table class="table table-{{ theme['main'] }} table-striped">
+                                        <tr>
+                                            {% for conference in packages['sports']['nfl'] %}<th>{{ conference }}</th>{% endfor %}
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="dropdown">
+                                                    <button class="btn btn-{{ theme['main'] }} btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">NFC East</button>
+                                                    <ul class="dropdown-menu">
+                                                        <li><p class="dropdown-item">1. {{ packages['sports']['nfl']['NFC']['NFC East'][1] }}</p></li>
+                                                        <li><p class="dropdown-item">2. {{ packages['sports']['nfl']['NFC']['NFC East'][2] }}</p></li>
+                                                        <li><p class="dropdown-item">3. {{ packages['sports']['nfl']['NFC']['NFC East'][3] }}</p></li>
+                                                        <li><p class="dropdown-item">4. {{ packages['sports']['nfl']['NFC']['NFC East'][4] }}</p></li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="dropdown">
+                                                    <button class="btn btn-{{ theme['main'] }} btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">AFC East</button>
+                                                    <ul class="dropdown-menu">
+                                                        <li><p class="dropdown-item">1. {{ packages['sports']['nfl']['AFC']['AFC East'][1] }}</p></li>
+                                                        <li><p class="dropdown-item">2. {{ packages['sports']['nfl']['AFC']['AFC East'][2] }}</p></li>
+                                                        <li><p class="dropdown-item">3. {{ packages['sports']['nfl']['AFC']['AFC East'][3] }}</p></li>
+                                                        <li><p class="dropdown-item">4. {{ packages['sports']['nfl']['AFC']['AFC East'][4] }}</p></li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="dropdown">
+                                                    <button class="btn btn-{{ theme['main'] }} btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">NFC North</button>
+                                                    <ul class="dropdown-menu">
+                                                        <li><p class="dropdown-item">1. {{ packages['sports']['nfl']['NFC']['NFC North'][1] }}</p></li>
+                                                        <li><p class="dropdown-item">2. {{ packages['sports']['nfl']['NFC']['NFC North'][2] }}</p></li>
+                                                        <li><p class="dropdown-item">3. {{ packages['sports']['nfl']['NFC']['NFC North'][3] }}</p></li>
+                                                        <li><p class="dropdown-item">4. {{ packages['sports']['nfl']['NFC']['NFC North'][4] }}</p></li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="dropdown">
+                                                    <button class="btn btn-{{ theme['main'] }} btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">AFC North</button>
+                                                    <ul class="dropdown-menu">
+                                                        <li><p class="dropdown-item">1. {{ packages['sports']['nfl']['AFC']['AFC North'][1] }}</p></li>
+                                                        <li><p class="dropdown-item">2. {{ packages['sports']['nfl']['AFC']['AFC North'][2] }}</p></li>
+                                                        <li><p class="dropdown-item">3. {{ packages['sports']['nfl']['AFC']['AFC North'][3] }}</p></li>
+                                                        <li><p class="dropdown-item">4. {{ packages['sports']['nfl']['AFC']['AFC North'][4] }}</p></li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="dropdown">
+                                                    <button class="btn btn-{{ theme['main'] }} btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">NFC South</button>
+                                                    <ul class="dropdown-menu">
+                                                        <li><p class="dropdown-item">1. {{ packages['sports']['nfl']['NFC']['NFC South'][1] }}</p></li>
+                                                        <li><p class="dropdown-item">2. {{ packages['sports']['nfl']['NFC']['NFC South'][2] }}</p></li>
+                                                        <li><p class="dropdown-item">3. {{ packages['sports']['nfl']['NFC']['NFC South'][3] }}</p></li>
+                                                        <li><p class="dropdown-item">4. {{ packages['sports']['nfl']['NFC']['NFC South'][4] }}</p></li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="dropdown">
+                                                    <button class="btn btn-{{ theme['main'] }} btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">AFC South</button>
+                                                    <ul class="dropdown-menu">
+                                                        <li><p class="dropdown-item">1. {{ packages['sports']['nfl']['AFC']['AFC South'][1] }}</p></li>
+                                                        <li><p class="dropdown-item">2. {{ packages['sports']['nfl']['AFC']['AFC South'][2] }}</p></li>
+                                                        <li><p class="dropdown-item">3. {{ packages['sports']['nfl']['AFC']['AFC South'][3] }}</p></li>
+                                                        <li><p class="dropdown-item">4. {{ packages['sports']['nfl']['AFC']['AFC South'][4] }}</p></li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="dropdown">
+                                                    <button class="btn btn-{{ theme['main'] }} btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">NFC West</button>
+                                                    <ul class="dropdown-menu">
+                                                        <li><p class="dropdown-item">1. {{ packages['sports']['nfl']['NFC']['NFC West'][1] }}</p></li>
+                                                        <li><p class="dropdown-item">2. {{ packages['sports']['nfl']['NFC']['NFC West'][2] }}</p></li>
+                                                        <li><p class="dropdown-item">3. {{ packages['sports']['nfl']['NFC']['NFC West'][3] }}</p></li>
+                                                        <li><p class="dropdown-item">4. {{ packages['sports']['nfl']['NFC']['NFC West'][4] }}</p></li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="dropdown">
+                                                    <button class="btn btn-{{ theme['main'] }} btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">AFC South</button>
+                                                    <ul class="dropdown-menu">
+                                                        <li><p class="dropdown-item">1. {{ packages['sports']['nfl']['AFC']['AFC West'][1] }}</p></li>
+                                                        <li><p class="dropdown-item">2. {{ packages['sports']['nfl']['AFC']['AFC West'][2] }}</p></li>
+                                                        <li><p class="dropdown-item">3. {{ packages['sports']['nfl']['AFC']['AFC West'][3] }}</p></li>
+                                                        <li><p class="dropdown-item">4. {{ packages['sports']['nfl']['AFC']['AFC West'][4] }}</p></li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="flush-headingThree">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                                    MLB
+                                </button>
+                            </h2>
+                            <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+                                <div class="accordion-body p-0">
+                                    <table class="table table-{{ theme['main'] }} table-striped">
+                                        <tr>
+                                            {% for conference in packages['sports']['mlb'] %}<th>{{ conference.title() }}</th>{% endfor %}
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="dropdown">
+                                                    <button class="btn btn-{{ theme['main'] }} btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">East</button>
+                                                    <ul class="dropdown-menu">
+                                                        <li><p class="dropdown-item">1. {{ packages['sports']['mlb']['National League']['East'][1] }}</p></li>
+                                                        <li><p class="dropdown-item">2. {{ packages['sports']['mlb']['National League']['East'][2] }}</p></li>
+                                                        <li><p class="dropdown-item">3. {{ packages['sports']['mlb']['National League']['East'][3] }}</p></li>
+                                                        <li><p class="dropdown-item">4. {{ packages['sports']['mlb']['National League']['East'][4] }}</p></li>
+                                                        <li><p class="dropdown-item">5. {{ packages['sports']['mlb']['National League']['East'][5] }}</p></li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="dropdown">
+                                                    <button class="btn btn-{{ theme['main'] }} btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">East</button>
+                                                    <ul class="dropdown-menu">
+                                                        <li><p class="dropdown-item">1. {{ packages['sports']['mlb']['American League']['East'][1] }}</p></li>
+                                                        <li><p class="dropdown-item">2. {{ packages['sports']['mlb']['American League']['East'][2] }}</p></li>
+                                                        <li><p class="dropdown-item">3. {{ packages['sports']['mlb']['American League']['East'][3] }}</p></li>
+                                                        <li><p class="dropdown-item">4. {{ packages['sports']['mlb']['American League']['East'][4] }}</p></li>
+                                                        <li><p class="dropdown-item">5. {{ packages['sports']['mlb']['American League']['East'][5] }}</p></li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="dropdown">
+                                                    <button class="btn btn-{{ theme['main'] }} btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Central</button>
+                                                    <ul class="dropdown-menu">
+                                                        <li><p class="dropdown-item">1. {{ packages['sports']['mlb']['National League']['Central'][1] }}</p></li>
+                                                        <li><p class="dropdown-item">2. {{ packages['sports']['mlb']['National League']['Central'][2] }}</p></li>
+                                                        <li><p class="dropdown-item">3. {{ packages['sports']['mlb']['National League']['Central'][3] }}</p></li>
+                                                        <li><p class="dropdown-item">4. {{ packages['sports']['mlb']['National League']['Central'][4] }}</p></li>
+                                                        <li><p class="dropdown-item">5. {{ packages['sports']['mlb']['National League']['Central'][5] }}</p></li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="dropdown">
+                                                    <button class="btn btn-{{ theme['main'] }} btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Central</button>
+                                                    <ul class="dropdown-menu">
+                                                        <li><p class="dropdown-item">1. {{ packages['sports']['mlb']['American League']['Central'][1] }}</p></li>
+                                                        <li><p class="dropdown-item">2. {{ packages['sports']['mlb']['American League']['Central'][2] }}</p></li>
+                                                        <li><p class="dropdown-item">3. {{ packages['sports']['mlb']['American League']['Central'][3] }}</p></li>
+                                                        <li><p class="dropdown-item">4. {{ packages['sports']['mlb']['American League']['Central'][4] }}</p></li>
+                                                        <li><p class="dropdown-item">5. {{ packages['sports']['mlb']['American League']['Central'][5] }}</p></li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="dropdown">
+                                                    <button class="btn btn-{{ theme['main'] }} btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">West</button>
+                                                    <ul class="dropdown-menu">
+                                                        <li><p class="dropdown-item">1. {{ packages['sports']['mlb']['National League']['West'][1] }}</p></li>
+                                                        <li><p class="dropdown-item">2. {{ packages['sports']['mlb']['National League']['West'][2] }}</p></li>
+                                                        <li><p class="dropdown-item">3. {{ packages['sports']['mlb']['National League']['West'][3] }}</p></li>
+                                                        <li><p class="dropdown-item">4. {{ packages['sports']['mlb']['National League']['West'][4] }}</p></li>
+                                                        <li><p class="dropdown-item">5. {{ packages['sports']['mlb']['National League']['West'][5] }}</p></li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="dropdown">
+                                                    <button class="btn btn-{{ theme['main'] }} btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">West</button>
+                                                    <ul class="dropdown-menu">
+                                                        <li><p class="dropdown-item">1. {{ packages['sports']['mlb']['American League']['West'][1] }}</p></li>
+                                                        <li><p class="dropdown-item">2. {{ packages['sports']['mlb']['American League']['West'][2] }}</p></li>
+                                                        <li><p class="dropdown-item">3. {{ packages['sports']['mlb']['American League']['West'][3] }}</p></li>
+                                                        <li><p class="dropdown-item">4. {{ packages['sports']['mlb']['American League']['West'][4] }}</p></li>
+                                                        <li><p class="dropdown-item">5. {{ packages['sports']['mlb']['American League']['West'][5] }}</p></li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-tem">
+                            <h2 class="accordion-header" id="flush-headingFour">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
+                                    NHL
+                                </button>
+                            </h2>
+                            <div id="flush-collapseFour" class="accordion-collapse collapse" aria-labelledby="flush-headingFour" data-bs-parent="#accordionFlushExample">
+                                <div class="accordion-body p-0">
+                                    <table class="table table-{{ theme['main'] }} table-striped">
+                                        <tr>
+                                            {% for conference in packages['sports']['nhl'] %}<th>{{ conference.title() }}</th>{% endfor %}
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="dropdown">
+                                                    <button class="btn btn-{{ theme['main'] }} btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Atlantic</button>
+                                                    <ul class="dropdown-menu">
+                                                        <li><p class="dropdown-item">1. {{ packages['sports']['nhl']['EASTERN CONFERENCE']['Atlantic'][1] }}</p></li>
+                                                        <li><p class="dropdown-item">2. {{ packages['sports']['nhl']['EASTERN CONFERENCE']['Atlantic'][2] }}</p></li>
+                                                        <li><p class="dropdown-item">3. {{ packages['sports']['nhl']['EASTERN CONFERENCE']['Atlantic'][3] }}</p></li>
+                                                        <li><p class="dropdown-item">4. {{ packages['sports']['nhl']['EASTERN CONFERENCE']['Atlantic'][4] }}</p></li>
+                                                        <li><p class="dropdown-item">5. {{ packages['sports']['nhl']['EASTERN CONFERENCE']['Atlantic'][5] }}</p></li>
+                                                        <li><p class="dropdown-item">6. {{ packages['sports']['nhl']['EASTERN CONFERENCE']['Atlantic'][6] }}</p></li>
+                                                        <li><p class="dropdown-item">7. {{ packages['sports']['nhl']['EASTERN CONFERENCE']['Atlantic'][7] }}</p></li>
+                                                        <li><p class="dropdown-item">8. {{ packages['sports']['nhl']['EASTERN CONFERENCE']['Atlantic'][8] }}</p></li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="dropdown">
+                                                    <button class="btn btn-{{ theme['main'] }} btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Central</button>
+                                                    <ul class="dropdown-menu">
+                                                        <li><p class="dropdown-item">1. {{ packages['sports']['nhl']['WESTERN CONFERENCE']['Central'][1] }}</p></li>
+                                                        <li><p class="dropdown-item">2. {{ packages['sports']['nhl']['WESTERN CONFERENCE']['Central'][2] }}</p></li>
+                                                        <li><p class="dropdown-item">3. {{ packages['sports']['nhl']['WESTERN CONFERENCE']['Central'][3] }}</p></li>
+                                                        <li><p class="dropdown-item">4. {{ packages['sports']['nhl']['WESTERN CONFERENCE']['Central'][4] }}</p></li>
+                                                        <li><p class="dropdown-item">5. {{ packages['sports']['nhl']['WESTERN CONFERENCE']['Central'][5] }}</p></li>
+                                                        <li><p class="dropdown-item">6. {{ packages['sports']['nhl']['WESTERN CONFERENCE']['Central'][6] }}</p></li>
+                                                        <li><p class="dropdown-item">7. {{ packages['sports']['nhl']['WESTERN CONFERENCE']['Central'][7] }}</p></li>
+                                                        <li><p class="dropdown-item">8. {{ packages['sports']['nhl']['WESTERN CONFERENCE']['Central'][8] }}</p></li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="dropdown">
+                                                    <button class="btn btn-{{ theme['main'] }} btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Metropolitan</button>
+                                                    <ul class="dropdown-menu">
+                                                        <li><p class="dropdown-item">1. {{ packages['sports']['nhl']['EASTERN CONFERENCE']['Metropolitan'][1] }}</p></li>
+                                                        <li><p class="dropdown-item">2. {{ packages['sports']['nhl']['EASTERN CONFERENCE']['Metropolitan'][2] }}</p></li>
+                                                        <li><p class="dropdown-item">3. {{ packages['sports']['nhl']['EASTERN CONFERENCE']['Metropolitan'][3] }}</p></li>
+                                                        <li><p class="dropdown-item">4. {{ packages['sports']['nhl']['EASTERN CONFERENCE']['Metropolitan'][4] }}</p></li>
+                                                        <li><p class="dropdown-item">5. {{ packages['sports']['nhl']['EASTERN CONFERENCE']['Metropolitan'][5] }}</p></li>
+                                                        <li><p class="dropdown-item">6. {{ packages['sports']['nhl']['EASTERN CONFERENCE']['Metropolitan'][6] }}</p></li>
+                                                        <li><p class="dropdown-item">7. {{ packages['sports']['nhl']['EASTERN CONFERENCE']['Metropolitan'][7] }}</p></li>
+                                                        <li><p class="dropdown-item">8. {{ packages['sports']['nhl']['EASTERN CONFERENCE']['Metropolitan'][8] }}</p></li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="dropdown">
+                                                    <button class="btn btn-{{ theme['main'] }} btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Pacific</button>
+                                                    <ul class="dropdown-menu">
+                                                        <li><p class="dropdown-item">1. {{ packages['sports']['nhl']['WESTERN CONFERENCE']['Pacific'][1] }}</p></li>
+                                                        <li><p class="dropdown-item">2. {{ packages['sports']['nhl']['WESTERN CONFERENCE']['Pacific'][2] }}</p></li>
+                                                        <li><p class="dropdown-item">3. {{ packages['sports']['nhl']['WESTERN CONFERENCE']['Pacific'][3] }}</p></li>
+                                                        <li><p class="dropdown-item">4. {{ packages['sports']['nhl']['WESTERN CONFERENCE']['Pacific'][4] }}</p></li>
+                                                        <li><p class="dropdown-item">5. {{ packages['sports']['nhl']['WESTERN CONFERENCE']['Pacific'][5] }}</p></li>
+                                                        <li><p class="dropdown-item">6. {{ packages['sports']['nhl']['WESTERN CONFERENCE']['Pacific'][6] }}</p></li>
+                                                        <li><p class="dropdown-item">7. {{ packages['sports']['nhl']['WESTERN CONFERENCE']['Pacific'][7] }}</p></li>
+                                                        <li><p class="dropdown-item">8. {{ packages['sports']['nhl']['WESTERN CONFERENCE']['Pacific'][8] }}</p></li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     {% elif widget == "space" %} <!-- SPACE -->
                     <h5 class="card-title">Space Widget</h5>
                     <!--<img class="card-img-top w-100 h-auto mh-50" src="{{ packages['nasa']['hd_link'] }}" alt="NASA Astronomy Picture of the Day">-->
-                    <div class="img_max"><img class="card-img-top" height="100%" src="https://apod.nasa.gov/apod/image/1901/cervin1300vetter.jpg" alt="NASA Astronomy Picture of the Day"></div>
+                    <div class="img_max"><img class="card-img-top" height="100%" src="{{ packages['nasa']['hd_link'] }}" alt="NASA Astronomy Picture of the Day"></div>
                     <h3 class="card-text mb-0">{{ packages['nasa']['title'] }}</h3>
                     {% else %} <!-- WIDGET ERROR -->
                     <h5 class="card-subtitle mb-2 text-muted">Hmmmm… something's not right here</h5>
@@ -62,7 +440,7 @@
                     {% endif %}
                 </div>
                 <div class = "card-footer">
-                  <a href="/{{widget}}"><button class="btn btn-{{ theme['main'] }} btn-sm mt-0 px-3">See More</button></a>
+                  <a href="/{{ widget }}"><button class="btn btn-{{ theme['main'] }} btn-sm mt-0 px-3">See More</button></a>
                 </div>
             </div>
         </div>

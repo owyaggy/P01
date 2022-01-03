@@ -18,13 +18,14 @@ theme = updateTheme("info","secondary")
 def home():
     # available widgets:
     # weather, news, recommendations, stocks, fun, sports, space
-    widgets = ['weather', 'news', 'recommendations', 'fun', 'sports', 'space', 'stocks', 'stocks', 'stocks', 'test'] # a complete list of all widgets
+    widgets = ['weather', 'news', 'recommendations', 'fun', 'sports', 'space'] # a complete list of all widgets
     # theme based on bootstrap colors [primary, secondary, success, danger, warning, info, light, dark]
     #theme = "dark" # should be replaced by function getting user theme from database
     packages = { # add new packages here
         'nasa': nasa_apod(),
         'weather': weather_api('New+York+City'),
-        'news': nytimes_api()
+        'news': nytimes_api(),
+        'sports': sports_api(2021)
     }
     if logged_in():
         print("LOGGED IN HOME")
@@ -41,9 +42,9 @@ def home():
 def login():
     return render_template('login.html', theme=theme)
 
-@app.route('/settings')
+@app.route('/user')
 def settings():
-    return render_template('settings.html', name="Settings", theme=theme)
+    return render_template('user.html', name="Log In", theme=theme)
 
 @app.route('/weather')
 def weather():
@@ -75,7 +76,8 @@ def fun():
 
 @app.route('/sports')
 def sports():
-    return render_template('sports.html', name="Sports", theme=theme)
+    info = {'sports': sports_api(2021)}
+    return render_template('sports.html', name="Sports", theme=theme, packages=info)
 
 @app.route('/space')
 def space():
@@ -104,6 +106,7 @@ def log():#using the loggin button will enter the user into the sesion
     request_password = request.args['regPass']
     print(f"Hello*********, {request_password}")
     # printTable()
+    session['username'] = request_user
     return authenticate(request_user,request_password)
     # return render_template('response.html',user = request_user, name = "Logged in", theme = theme)
 
