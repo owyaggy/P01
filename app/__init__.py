@@ -18,7 +18,7 @@ theme = updateTheme("info","secondary")
 def home():
     # available widgets:
     # weather, news, recommendations, stocks, fun, sports, space
-    widgets = ['weather', 'news', 'recommendations', 'fun', 'sports', 'space', 'stocks', 'stocks', 'stocks', 'test'] # a complete list of all widgets
+    widgets = ['weather', 'news', 'recommendations', 'fun', 'sports', 'space', 'stocks'] # a complete list of all widgets
     # theme based on bootstrap colors [primary, secondary, success, danger, warning, info, light, dark]
     #theme = "dark" # should be replaced by function getting user theme from database
     packages = { # add new packages here

@@ -22,7 +22,7 @@
                     <p class="card-text mb-0">{{ packages['weather']['minutely'] }}</p>
                     {% elif widget == "news" %} <!-- NEWS -->
                     <h5 class="card-title">News Widget</h5>
-                    <img class="card-img-top w-100 h-auto" width="auto" src="{{ packages['news']['img'][0] }}" alt="{{ packages['news']['caption'][0] }}">
+                    {% if packages['news']['img'][0] %}<img class="card-img-top w-100 h-auto" width="auto" src="{{ packages['news']['img'][0] }}" alt="{{ packages['news']['caption'][0] }}">{% endif %}
                     <h3 class="card-text">{{ packages['news']['title'][0] }}</h3>
                     <p class="card-text">{{ packages['news']['abstract'][0] }}</p>
                     <a href="{{ packages['news']['url'][0] }}" class="card-link active link-{{ theme['main'] }}">Read this article.</a>
@@ -53,7 +53,7 @@
                     {% elif widget == "space" %} <!-- SPACE -->
                     <h5 class="card-title">Space Widget</h5>
                     <!--<img class="card-img-top w-100 h-auto mh-50" src="{{ packages['nasa']['hd_link'] }}" alt="NASA Astronomy Picture of the Day">-->
-                    <div class="img_max"><img class="card-img-top" height="100%" src="https://apod.nasa.gov/apod/image/1901/cervin1300vetter.jpg" alt="NASA Astronomy Picture of the Day"></div>
+                    <div class="img_max"><img class="card-img-top" height="100%" src="{{ packages['nasa']['hd_link'] }}" alt="NASA Astronomy Picture of the Day"></div>
                     <h3 class="card-text mb-0">{{ packages['nasa']['title'] }}</h3>
                     {% else %} <!-- WIDGET ERROR -->
                     <h5 class="card-subtitle mb-2 text-muted">Hmmmm… something's not right here</h5>
