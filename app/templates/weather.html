@@ -8,9 +8,9 @@
     <div class="row my-3 mx-auto">
       <div class="col">
         <select class="form-select form-select-sm" name="city" aria-label=".form-select-lg example">
-          <option selected>Select a location</option>
+          <option selected disabled>Select a location</option>
           {% for city in cities %} <!-- New York City, Los Angeles, Chicago, Boston, London, Beijing, Moscow, Toronto, Mexico City, Tokyo, Shaanghai, Delhi, Sao Paulo  -->
-            <option value={{city}}>{{city}}</option>
+            <option value={{city}}>{{city.replace('+', ' ')}}</option>
           {% endfor %}
         </select>
       </div>
@@ -19,7 +19,6 @@
       </div>
     </div>
   </form>
-</div>
     <div class="row my-3 mx-auto">
         <div class="col-4" style="max-width: 200px;">
             <div class="list-group" id="list-tab" role="tablist">
@@ -75,7 +74,7 @@
                     {% else %}
                     <h3>The wind speed is {{ info['wind_speed'] }} MPH</h3>
                     <p>The wind has bearing {{ info['wind_deg'] }}° ({% if info['wind_deg'] <= 22.5 %}E{% elif info['wind_deg'] <= 67.5 %}NE{% elif info['wind_deg'] <= 112.5 %}N{% elif info['wind_deg'] <= 157.5 %}NW{% elif info['wind_deg'] <= 202.5 %}W{% elif info['wind_deg'] <= 247.5 %}SW{% elif info['wind_deg'] <= 292.5 %}S{% elif info['wind_deg'] <= 337.5 %}SE{% else %}E{% endif %}).</p>
-                    <p>Wind gusts may reach speeds up to {{ info['wind_gust'] }} MPH.</p>
+                    {% if info['wind_gust'] %}<p>Wind gusts may reach speeds up to {{ info['wind_gust'] }} MPH.</p>{% endif %}
                     {% endif %}
                 </div>
                 <div class="tab-pane fade" id="list-hourly" role="tabpanel" aria-labelledby="list-hourly-list">

@@ -99,7 +99,7 @@ zhaoL -- 2021-12-12 8:18
 zhaoL -- 2021-12-12 8:40
 -session is now stored
   -can do stuff based on if there's a user logged in now
-  
+
 owenY -- 2021-12-24 02:25
 Finished weather subpage
 Modified weather API call to collect more info
@@ -126,3 +126,10 @@ williamC -- 2021-12-26 1:26
 - Made select form for cities
 - Got Toronto to work
 - Saddened by other options
+
+zhaoL --2022-01-03 8:37
+-user stays logged in with their themes intact
+-can choose theme
+-a page for users to choose their preferences and themes
+-need to add logout button w/ session.pop() [delete this before tues]
+-need to pass something to "welcome {{user}}"[delete this before tues]
