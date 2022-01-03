@@ -4,6 +4,7 @@ import os
 from api import *
 from db_builder import validate, check_existence, register, insert, printTable, updateTheme
 from db_builder import clearTable, authenticate
+
 app = Flask(__name__)    #create Flask object
 app.secret_key = os.urandom(32) #create random key
 
@@ -13,12 +14,15 @@ def logged_in():
 ### NEEDS TO BE REPLACED BY FUNCTION IN DB_BUILDER ###
 theme = updateTheme("info","secondary")
 
+symbols = ['DOW', 'NDAQ']
+info = stocks_api(symbols)
+
 @app.route('/')
 @app.route("/home")
 def home():
     # available widgets:
     # weather, news, recommendations, stocks, fun, sports, space
-    widgets = ['weather', 'news', 'recommendations', 'fun', 'sports', 'space'] # a complete list of all widgets
+    widgets = ['weather', 'news', 'recommendations', 'fun', 'sports', 'space', 'stocks'] # a complete list of all widgets
     # theme based on bootstrap colors [primary, secondary, success, danger, warning, info, light, dark]
     #theme = "dark" # should be replaced by function getting user theme from database
     packages = { # add new packages here
@@ -49,7 +53,7 @@ def settings():
 @app.route('/weather')
 def weather():
     # ONLY WORKS FOR EST TIME ZONE???
-    cities = ['New+York+City', 'Toronto', 'Sao+Paulo', 'California']
+    cities = ['New+York+City', 'Toronto', 'Ontario', 'Sao+Paulo', 'California', 'Mexico+City', 'Miami', 'Cambridge']
     try:
         city = request.args['city']
     except:
@@ -68,7 +72,7 @@ def recommendations():
 
 @app.route('/stocks')
 def stocks():
-    return render_template('stocks.html', name="Stocks", theme=theme)
+    return render_template('stocks.html', name="Stocks", info=info, symbols=symbols, theme=theme)
 
 @app.route('/fun')
 def fun():
@@ -113,12 +117,12 @@ def log():#using the loggin button will enter the user into the sesion
 @app.route('/preference')
 def preference():
     userThemes = ['test', 'test2', 'test3']
-    widgets = ['weather', 'news', 'recommendations', 'fun', 'sports', 'space', 'stocks', 'stocks', 'stocks', 'test'] # a complete list of all widgets
+    widgets = ['weather', 'news', 'recommendations', 'fun', 'sports', 'space', 'stocks'] # a complete list of all widgets
     return render_template('preference.html', userThemes=userThemes, widgets=widgets, name='preference', theme=theme)
 
 @app.route('/preferenceSet')
 def preferenceSet():
-    
+
     return preference()
 
 if __name__ == "__main__":

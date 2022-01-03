@@ -125,18 +125,11 @@ def weather_api(city):
 
         info['wind_speed'] = api_request.json()['current']['wind_speed']
         info['wind_deg'] = api_request.json()['current']['wind_deg']
-<<<<<<< HEAD
-        try:
-            info['wind_gust'] = api_request.json()['current']['wind_gust']
-        except:
-            info['wind_gust'] = "Not Available"
-=======
         # wind gust not available for all cities
         try:
             info['wind_gust'] = api_request.json()['current']['wind_gust']
         except:
             info['wind_guest'] = None
->>>>>>> a1b03f043f60a624fcd2ded965958a3d3cd79ccd
         info['clouds'] = api_request.json()['current']['clouds']  # cloudiness %
         info['icon'] = api_request.json()['current']['weather'][0]['icon']
         info['main'] = api_request.json()['current']['weather'][0]['main']
@@ -175,8 +168,6 @@ def weather_api(city):
             })
         info['daily'][0]['date'] = 'Today'
     return info
-<<<<<<< HEAD
-=======
 
 def nba_api(year):
     """Returns the NBA rankings for each division and conference"""
@@ -269,21 +260,20 @@ def sports_api(year):
 
     return info
 
-#This only has 100 calls per month, so try not to use too much
-#def stocks_api(symbols):
-#    """Returns latest end-of-day opening, high, low and closing prices for each stock in the list symbols"""
-#    with open("keys/stocks_key.txt") as api_key:
-#        key = api_key.read().rstrip('\n')
-#    info = {}
-#
-#    for symbol in symbols:
-#        info[symbol] = {}
-#        api_request = requests.get(f"http://api.marketstack.com/v1/eod?access_key={key}&symbols={symbol}")
-#        if api_request.status_code == 200:
-#            info[symbol]["open"] = api_request.json()["data"][0]["open"]
-#            info[symbol]["high"] = api_request.json()["data"][0]["high"]
-#            info[symbol]["low"] = api_request.json()["data"][0]["low"]
-#            info[symbol]["close"] = api_request.json()["data"][0]["close"]
-#
-#    return info
->>>>>>> a1b03f043f60a624fcd2ded965958a3d3cd79ccd
+# This only has 100 calls per month, so try not to use too much
+def stocks_api(symbols):
+   """Returns latest end-of-day opening, high, low and closing prices for each stock in the list symbols"""
+   with open("keys/stocks_key.txt") as api_key:
+       key = api_key.read().rstrip('\n')
+   info = {}
+
+   for symbol in symbols:
+       info[symbol] = {}
+       api_request = requests.get(f"http://api.marketstack.com/v1/eod?access_key={key}&symbols={symbol}")
+       if api_request.status_code == 200:
+           info[symbol]["open"] = api_request.json()["data"][0]["open"]
+           info[symbol]["high"] = api_request.json()["data"][0]["high"]
+           info[symbol]["low"] = api_request.json()["data"][0]["low"]
+           info[symbol]["close"] = api_request.json()["data"][0]["close"]
+
+   return info

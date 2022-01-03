@@ -1,1 +1,31 @@
 {% extends "base.html" %} <!-- extends the base template -->
+
+{% block content %}
+
+<div class="row my-3 mx-auto">
+    <div class="col-4" style="max-width: 200px;">
+      {% for symbol in symbols %}
+        <div class="list-group" id="list-tab" role="tablist">
+            <a class="list-group-item list-group-item-action {% if symbol == 'DOW' %} active bg-{{ theme['main'] }} {% endif %}" id="list-{{symbol}}-list" data-bs-toggle="list" href="#{{ symbol }}" role="tab" aria-controls="list-{{symbol}}">{{symbol}}</a>
+        </div>
+      {% endfor %}
+    </div>
+    <div class="col-8">
+      {% for symbol in symbols %}
+        <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade {% if symbol == 'DOW' %} show active {% endif %}" id={{symbol}} role="tabpanel" aria-labelledby="list-{{symbol}}-list">
+                <h3 class="">{{symbol}}</h3>
+                <h5>Open</h5>
+                <p>{{info[symbol]["open"]}}</p>
+                <h5>High</h5>
+                <p>{{info[symbol]["high"]}}</p>
+                <h5>Low</h5>
+                <p>{{info[symbol]["low"]}}</p>
+                <h5>Close</h5>
+                <p>{{info[symbol]["close"]}}</p>
+            </div>
+        </div>
+      {% endfor %}
+    </div>
+</div>
+{% endblock %}
