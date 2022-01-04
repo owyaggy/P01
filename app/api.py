@@ -195,22 +195,32 @@ def nhl_api(year):
 
     api_request = requests.get(f"https://api.sportradar.us/nhl/trial/v7/en/seasons/{year}/REG/rankings.json?api_key={key}")
     if api_request.status_code == 200:
-        leader = {}
+        leaders = []
         for conference in api_request.json()["conferences"]:
             info[conference["name"]] = {}
             for division in conference["divisions"]:
                 info[conference["name"]][division["name"]] = {}
                 for team in division["teams"]:
                     if "rank" in team.keys():
-                        info[conference["name"]][division["name"]][team["rank"]["division"]] = team["market"] + " " + team["name"]
-                    else: # API doesn't return rank for 1st overall team; this code takes note of that team
-                        leader['team'] = team['market'] + " " + team['name']
-                        leader['conference'] = conference['name']
-                        leader['division'] = division['name']
-        # inserts 1st overall team into correct spot in its division
-        # for i in range(8, 1, -1):
-        #     info[leader['conference']][leader['division']][i] = info[leader['conference']][leader['division']][i - 1]
-        # info[leader['conference']][leader['division']][1] = leader['team']
+                        info[conference["name"]][division["name"]][team["rank"]["division"]] = team["market"] + " " + \
+                                                                                               team["name"]
+                    else:  # API doesn't return rank for 1st overall team; this code takes note of that team
+                        leaders.append({
+                            'team': team['market'] + ' ' + team['name'],
+                            'conference': conference['name'],
+                            'division': division['name']
+                        })
+        # inserts 1st overall team(s) into correct spot in its division
+        for leader in leaders:
+            try:
+                for i in range(8, 1, -1):
+                    info[leader['conference']][leader['division']][i] = info[leader['conference']][leader['division']][
+                        i - 1]
+            except:
+                for i in range(7, 1, -1):
+                    info[leader['conference']][leader['division']][i] = info[leader['conference']][leader['division']][
+                        i - 1]
+            info[leader['conference']][leader['division']][1] = leader['team']
 
     return info
 
