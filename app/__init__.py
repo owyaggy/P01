@@ -116,7 +116,7 @@ def log():#using the loggin button will enter the user into the sesion
 
 @app.route('/preference')
 def preference():
-    userThemes = ['test', 'test2', 'test3']
+    userThemes = ['Light', 'Dark', 'test3']
     widgets = ['weather', 'news', 'recommendations', 'fun', 'sports', 'space', 'stocks'] # a complete list of all widgets
     return render_template('preference.html', userThemes=userThemes, widgets=widgets, name='preference', theme=theme)
 

@@ -208,9 +208,9 @@ def nhl_api(year):
                         leader['conference'] = conference['name']
                         leader['division'] = division['name']
         # inserts 1st overall team into correct spot in its division
-        for i in range(8, 1, -1):
-            info[leader['conference']][leader['division']][i] = info[leader['conference']][leader['division']][i - 1]
-        info[leader['conference']][leader['division']][1] = leader['team']
+        # for i in range(8, 1, -1):
+        #     info[leader['conference']][leader['division']][i] = info[leader['conference']][leader['division']][i - 1]
+        # info[leader['conference']][leader['division']][1] = leader['team']
 
     return info
 
