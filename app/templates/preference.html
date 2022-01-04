@@ -1,0 +1,28 @@
+{% extends "base.html" %} <!-- extends the base template -->
+
+{% block content %}
+
+<div class="container-fluid">
+  <br>
+  <form action="/preferenceSet" methods=['GET', 'POST']>
+    <div class="form-group">
+      <select class="form-select form-select-sm" name="userTheme" aria-label=".form-select-lg example">
+        <option selected>Select a Theme</option>
+        {% for userTheme in userThemes %} <!-- Themes  -->
+          <option value={{userTheme}}>{{userTheme}}</option>
+        {% endfor %}
+      </select>
+    </div>
+    {% for widget in widgets %}
+    <div class="form-check form-switch">
+      <input class="form-check-input" type="checkbox" role="switch" name={{widget}} id={{widget}}>
+      <label class="form-check-label" for={{widget}}>{{widget}}</label>
+    </div>
+    {% endfor %}
+    <div class="col">
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+  </form>
+
+</div>
+{% endblock %}

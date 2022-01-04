@@ -4,6 +4,7 @@ import os
 from api import *
 from db_builder import validate, check_existence, register, insert, printTable, updateTheme
 from db_builder import clearTable, authenticate
+
 app = Flask(__name__)    #create Flask object
 app.secret_key = os.urandom(32) #create random key
 
@@ -13,18 +14,21 @@ def logged_in():
 ### NEEDS TO BE REPLACED BY FUNCTION IN DB_BUILDER ###
 theme = updateTheme("info","secondary")
 
+symbols = ['DOW', 'NDAQ']
+info = stocks_api(symbols)
+widgets = ['weather', 'news', 'recommendations', 'fun', 'sports', 'space', 'stocks']# a complete list of all widgets
 @app.route('/')
 @app.route("/home")
 def home():
     # available widgets:
     # weather, news, recommendations, stocks, fun, sports, space
-    widgets = ['weather', 'news', 'recommendations', 'fun', 'sports', 'space', 'stocks', 'stocks', 'stocks', 'test'] # a complete list of all widgets
     # theme based on bootstrap colors [primary, secondary, success, danger, warning, info, light, dark]
     #theme = "dark" # should be replaced by function getting user theme from database
     packages = { # add new packages here
         'nasa': nasa_apod(),
         'weather': weather_api('New+York+City'),
-        'news': nytimes_api()
+        'news': nytimes_api(),
+        'sports': sports_api(2021)
     }
     if logged_in():
         print("LOGGED IN HOME")
@@ -41,17 +45,16 @@ def home():
 def login():
     return render_template('login.html', theme=theme)
 
-@app.route('/settings')
+@app.route('/user')
 def settings():
-    return render_template('settings.html', name="Settings", theme=theme)
+    return render_template('user.html', name="Log In", theme=theme)
 
 @app.route('/weather')
 def weather():
     # ONLY WORKS FOR EST TIME ZONE???
-    cities = ['New+York+City', 'Toronto', 'Mexico+City']
+    cities = ['New+York+City', 'Toronto', 'Ontario', 'Sao+Paulo', 'California', 'Mexico+City', 'Miami', 'Cambridge']
     try:
         city = request.args['city']
-        print(city)
     except:
         city = "New+York+City"
     info = weather_api(city)
@@ -68,7 +71,7 @@ def recommendations():
 
 @app.route('/stocks')
 def stocks():
-    return render_template('stocks.html', name="Stocks", theme=theme)
+    return render_template('stocks.html', name="Stocks", info=info, symbols=symbols, theme=theme)
 
 @app.route('/fun')
 def fun():
@@ -76,7 +79,8 @@ def fun():
 
 @app.route('/sports')
 def sports():
-    return render_template('sports.html', name="Sports", theme=theme)
+    info = {'sports': sports_api(2021)}
+    return render_template('sports.html', name="Sports", theme=theme, packages=info)
 
 @app.route('/space')
 def space():
@@ -105,8 +109,23 @@ def log():#using the loggin button will enter the user into the sesion
     request_password = request.args['regPass']
     print(f"Hello*********, {request_password}")
     # printTable()
+    session['username'] = request_user
     return authenticate(request_user,request_password)
     # return render_template('response.html',user = request_user, name = "Logged in", theme = theme)
+@app.route("/logout", methods = ["POST"])
+def logout():
+    if len(session) > 0 and len(session.get("userID")) > 0: #If username does exist, remove it from session and return the login page
+        session.pop("userID")
+    return render_template('home.html', login_html = "")
+
+@app.route('/preference')
+def preference():
+    userThemes = ['Light', 'Dark', 'test3']
+    return render_template('preference.html', userThemes=userThemes, widgets=widgets, name='preference', theme=theme)
+
+@app.route('/preferenceSet')
+def preferenceSet():
+    return preference()
 
 if __name__ == "__main__":
     app.debug = True

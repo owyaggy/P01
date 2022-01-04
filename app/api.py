@@ -12,7 +12,7 @@ def nasa_apod(count=1):
     else:
         api_request = requests.get(f"https://api.nasa.gov/planetary/apod?api_key={key}&count={count}")
     info = {}
-    
+
     if api_request.status_code == 200:
         if count == 1:
             info["hd_link"] = api_request.json()["hdurl"]
@@ -122,9 +122,14 @@ def weather_api(city):
         info['humidity'] = int(api_request.json()['current']['humidity'])
         info['visibility'] = int(api_request.json()['current']['visibility'] * 0.000621371)  # convert meters to miles
 
+
         info['wind_speed'] = api_request.json()['current']['wind_speed']
         info['wind_deg'] = api_request.json()['current']['wind_deg']
-        info['wind_gust'] = api_request.json()['current']['wind_gust']
+        # wind gust not available for all cities
+        try:
+            info['wind_gust'] = api_request.json()['current']['wind_gust']
+        except:
+            info['wind_guest'] = None
         info['clouds'] = api_request.json()['current']['clouds']  # cloudiness %
         info['icon'] = api_request.json()['current']['weather'][0]['icon']
         info['main'] = api_request.json()['current']['weather'][0]['main']
@@ -190,13 +195,32 @@ def nhl_api(year):
 
     api_request = requests.get(f"https://api.sportradar.us/nhl/trial/v7/en/seasons/{year}/REG/rankings.json?api_key={key}")
     if api_request.status_code == 200:
+        leaders = []
         for conference in api_request.json()["conferences"]:
             info[conference["name"]] = {}
             for division in conference["divisions"]:
                 info[conference["name"]][division["name"]] = {}
                 for team in division["teams"]:
                     if "rank" in team.keys():
-                        info[conference["name"]][division["name"]][team["rank"]["division"]] = team["market"] + " " + team["name"]
+                        info[conference["name"]][division["name"]][team["rank"]["division"]] = team["market"] + " " + \
+                                                                                               team["name"]
+                    else:  # API doesn't return rank for 1st overall team; this code takes note of that team
+                        leaders.append({
+                            'team': team['market'] + ' ' + team['name'],
+                            'conference': conference['name'],
+                            'division': division['name']
+                        })
+        # inserts 1st overall team(s) into correct spot in its division
+        for leader in leaders:
+            try:
+                for i in range(8, 1, -1):
+                    info[leader['conference']][leader['division']][i] = info[leader['conference']][leader['division']][
+                        i - 1]
+            except:
+                for i in range(7, 1, -1):
+                    info[leader['conference']][leader['division']][i] = info[leader['conference']][leader['division']][
+                        i - 1]
+            info[leader['conference']][leader['division']][1] = leader['team']
 
     return info
 
@@ -246,20 +270,20 @@ def sports_api(year):
 
     return info
 
-#This only has 100 calls per month, so try not to use too much
-#def stocks_api(symbols):
-#    """Returns latest end-of-day opening, high, low and closing prices for each stock in the list symbols"""
-#    with open("keys/stocks_key.txt") as api_key:
-#        key = api_key.read().rstrip('\n')
-#    info = {}
-#
-#    for symbol in symbols:
-#        info[symbol] = {}
-#        api_request = requests.get(f"http://api.marketstack.com/v1/eod?access_key={key}&symbols={symbol}")
-#        if api_request.status_code == 200:
-#            info[symbol]["open"] = api_request.json()["data"][0]["open"]
-#            info[symbol]["high"] = api_request.json()["data"][0]["high"]
-#            info[symbol]["low"] = api_request.json()["data"][0]["low"]
-#            info[symbol]["close"] = api_request.json()["data"][0]["close"]
-#
-#    return info
+# This only has 100 calls per month, so try not to use too much
+def stocks_api(symbols):
+   """Returns latest end-of-day opening, high, low and closing prices for each stock in the list symbols"""
+   with open("keys/stocks_key.txt") as api_key:
+       key = api_key.read().rstrip('\n')
+   info = {}
+
+   for symbol in symbols:
+       info[symbol] = {}
+       api_request = requests.get(f"http://api.marketstack.com/v1/eod?access_key={key}&symbols={symbol}")
+       if api_request.status_code == 200:
+           info[symbol]["open"] = api_request.json()["data"][0]["open"]
+           info[symbol]["high"] = api_request.json()["data"][0]["high"]
+           info[symbol]["low"] = api_request.json()["data"][0]["low"]
+           info[symbol]["close"] = api_request.json()["data"][0]["close"]
+
+   return info
