@@ -133,3 +133,7 @@ zhaoL --2022-01-03 8:37
 -a page for users to choose their preferences and themes
 -need to add logout button w/ session.pop() [delete this before tues]
 -need to pass something to "welcome {{user}}"[delete this before tues]
+
+zhaoL --2022-01-04 *:20
+-preference page
+-logout button uhhh
