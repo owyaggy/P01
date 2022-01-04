@@ -137,10 +137,9 @@ williamC -- 2021-12-26 1:26
 - Got Toronto to work
 - Saddened by other options
 
-<<<<<<< HEAD
 justinM -- 2021-12-31 13:40
 Created API functions for stocks and each sport, along with one for all sports
-=======
+
 zhaoL --2022-01-03 8:37
 -user stays logged in with their themes intact
 -can choose theme
@@ -151,4 +150,17 @@ zhaoL --2022-01-03 8:37
 zhaoL --2022-01-04 *:20
 -preference page
 -logout button uhhh
->>>>>>> 461b9826c2fd92585cc6e19d058e1b841b550f8b
+
+owenY -- 2021-01-03 01:00
+Added sports widget and page
+
+owenY -- 2021-01-04 08:00
+Fixed NHL API rankings problem
+
+owenY -- 2021-01-04 18:00
+Added fun API
+Added recommendations API
+Added fun widget
+Added recommendations widget
+Refactored API functions
+Only the API calls required by displayed widgets are now called

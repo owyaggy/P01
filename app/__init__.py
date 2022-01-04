@@ -24,12 +24,11 @@ def home():
     # weather, news, recommendations, stocks, fun, sports, space
     # theme based on bootstrap colors [primary, secondary, success, danger, warning, info, light, dark]
     #theme = "dark" # should be replaced by function getting user theme from database
-    packages = { # add new packages here
-        'nasa': nasa_apod(),
-        'weather': weather_api('New+York+City'),
-        'news': nytimes_api(),
-        'sports': sports_api(2021)
-    }
+    packages = {}
+
+    for widget in widgets:
+        packages[widget] = get_api(widget)
+
     if logged_in():
         print("LOGGED IN HOME")
         username = session['username']
@@ -62,7 +61,7 @@ def weather():
 
 @app.route('/news')
 def news():
-    info = nytimes_api()
+    info = news_api()
     return render_template('news.html', name="News", theme=theme, info=info)
 
 @app.route('/recommendations')
@@ -84,7 +83,7 @@ def sports():
 
 @app.route('/space')
 def space():
-    info = nasa_apod(3)
+    info = space_api(3)
     return render_template('space.html', name="Space", theme=theme, info=info)
 
 @app.route('/reg1', methods= ["GET", "POST"])
