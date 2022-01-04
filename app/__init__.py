@@ -16,13 +16,12 @@ theme = updateTheme("info","secondary")
 
 symbols = ['DOW', 'NDAQ']
 info = stocks_api(symbols)
-
+widgets = ['weather', 'news', 'recommendations', 'fun', 'sports', 'space', 'stocks']# a complete list of all widgets
 @app.route('/')
 @app.route("/home")
 def home():
     # available widgets:
     # weather, news, recommendations, stocks, fun, sports, space
-    widgets = ['weather', 'news', 'recommendations', 'fun', 'sports', 'space', 'stocks'] # a complete list of all widgets
     # theme based on bootstrap colors [primary, secondary, success, danger, warning, info, light, dark]
     #theme = "dark" # should be replaced by function getting user theme from database
     packages = { # add new packages here
@@ -113,16 +112,19 @@ def log():#using the loggin button will enter the user into the sesion
     session['username'] = request_user
     return authenticate(request_user,request_password)
     # return render_template('response.html',user = request_user, name = "Logged in", theme = theme)
+@app.route("/logout", methods = ["POST"])
+def logout():
+    if len(session) > 0 and len(session.get("userID")) > 0: #If username does exist, remove it from session and return the login page
+        session.pop("userID")
+    return render_template('home.html', login_html = "")
 
 @app.route('/preference')
 def preference():
     userThemes = ['Light', 'Dark', 'test3']
-    widgets = ['weather', 'news', 'recommendations', 'fun', 'sports', 'space', 'stocks'] # a complete list of all widgets
     return render_template('preference.html', userThemes=userThemes, widgets=widgets, name='preference', theme=theme)
 
 @app.route('/preferenceSet')
 def preferenceSet():
-
     return preference()
 
 if __name__ == "__main__":

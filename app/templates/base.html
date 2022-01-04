@@ -63,9 +63,20 @@
                     </ul>
                 </div>
                 <div class="d-flex">
+                  <ul class="navbar-nav">
+                      <li class="nav-item">
+
+                          <a class="nav-link active text-{{ theme['text'] }}" <form action="/logout" method="post">
+			<input type="submit" name="logout" value = "Logout"> <!-- This adds a button to logout for logged-in users-->
+    </form>
+
+                        <!-- <a class="nav-link active text-{{ theme['text'] }}" href="user">Log In</a> -->
+
+                      </li>
+                  </ul>
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link active text-{{ theme['text'] }}" href="user">Log In</a>
+                          <a class="nav-link active text-{{ theme['text'] }}" href="user">Log In</a>
                         </li>
                     </ul>
                 </div>
