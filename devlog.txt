@@ -30,6 +30,10 @@ zhaoL -- 2021-12-14 8:40
 -worked on register in auth.py
 -added comments to yesterday's work for easy use in the future
 
+justinM -- 2021-12-14 8:00
+Finding APIs for widgets
+Creating API keys
+
 owenY -- 2021-12-15 08:00
 Updated design doc to remove routes.py from structure
 
@@ -58,6 +62,9 @@ zhaoL -- 2021-12-17 8:26
 -NameError: name 'request' is not defined
 -update discobandit to create a data table
 
+justinM -- 2021-12-17 8:00
+Created NASA API
+
 zhaoL -- 2021-12-20 8:40
 -response.html
   -resposne pg for logging in sucessfully
@@ -67,6 +74,9 @@ zhaoL -- 2021-12-20 8:40
 owenY -- 2021-12-20 08:00
 Implemented NASA API into working site
 Worked on formatting for homepage
+
+justinM -- 2021-12-20 08:00
+Created weather API function
 
 owenY -- 2021-12-21 08:00
 Simplified how formatting is passed to templates
@@ -126,3 +136,6 @@ williamC -- 2021-12-26 1:26
 - Made select form for cities
 - Got Toronto to work
 - Saddened by other options
+
+justinM -- 2021-12-31 13:40
+Created API functions for stocks and each sport, along with one for all sports
