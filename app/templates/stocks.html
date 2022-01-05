@@ -4,16 +4,16 @@
 
 <div class="row my-3 mx-auto">
     <div class="col-4" style="max-width: 200px;">
-      {% for symbol in symbols %}
         <div class="list-group" id="list-tab" role="tablist">
-            <a class="list-group-item list-group-item-action {% if symbol == 'DOW' %} active bg-{{ theme['main'] }} {% endif %}" id="list-{{symbol}}-list" data-bs-toggle="list" href="#{{ symbol }}" role="tab" aria-controls="list-{{symbol}}">{{symbol}}</a>
+          {% for symbol in symbols %}
+            <a class="list-group-item list-group-item-action" id="list-{{symbol}}-list" data-bs-toggle="list" href="#list-{{ symbol }}" role="tab" aria-controls="list-{{symbol}}">{{symbol}}</a>
+          {% endfor %}
         </div>
-      {% endfor %}
     </div>
     <div class="col-8">
         <div class="tab-content" id="nav-tabContent">
           {% for symbol in symbols %}
-            <div class="tab-pane fade {% if symbol == 'DOW' %} show active {% endif %}" id={{symbol}} role="tabpanel" aria-labelledby="list-{{symbol}}-list">
+            <div class="tab-pane fade" id="list-{{symbol}}" role="tabpanel" aria-labelledby="list-{{symbol}}-list">
                 <h3 class="">{{symbol}}</h3>
                 <h5>Open</h5>
                 <p>{{info[symbol]["open"]}}</p>
