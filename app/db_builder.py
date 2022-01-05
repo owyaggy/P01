@@ -38,8 +38,12 @@ def register(request_user,request_password):
         # session["userID"] = request_user
         insert(request_user, request_password)
         print("**** Sucessionfully registered")
-        widgets = ['weather', 'news', 'recommendations', 'fun', 'sports', 'space', 'stocks']
-        return render_template('response.html',user = request_user, wdigets = widgets, name = "Logged in", theme = theme)
+        widgets = ['weather', 'news', 'recommendations', 'fun', 'sports', 'space']
+        themes = updateTheme("danger", "primary")
+        packages = {}
+        for widget in widgets:
+            packages[widget] = get_api(widget)
+        return render_template('home.html', name="Home", widgets=widgets, theme=themes, packages=packages, username = request_user, logged_in = True)
             # ADD USERID TO THE DB HERE
     print("***** Registration failed")
     return render_template('register.html', error = error, theme = theme)

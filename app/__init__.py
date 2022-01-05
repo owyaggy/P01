@@ -27,8 +27,6 @@ def home():
     # weather, news, recommendations, stocks, fun, sports, space
     # theme based on bootstrap colors [primary, secondary, success, danger, warning, info, light, dark]
     # theme = "dark" # should be replaced by function getting user theme from database
-
-
     if logged_in():
         print("LOGGED IN HOME")
         username = session['username']
@@ -38,6 +36,7 @@ def home():
     else:
         print("NOT LOGGED IN HOME")
         theme = updateTheme("info", "secondary")
+        # widgets_gatekeeping = ['weather', 'news', 'recommendations']
         return render_template('home.html', name="Home", widgets=widgets, theme=theme, packages=packages)
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -124,7 +123,8 @@ def preference():
 @app.route('/preferenceSet')
 def preferenceSet():
     return preference()
-
+def update():
+    return True
 if __name__ == "__main__":
     app.debug = True
     app.run()
