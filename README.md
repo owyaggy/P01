@@ -1,9 +1,9 @@
 # Daily Drop by Harold Huggers
 Owen Yaggy - Project Manager, widget and subpage creation
 <br>
-Justin Morrill
+Justin Morrill - API god
 <br>
-William Chen
+William Chen - Database management
 <br>
 Zhao Yu Lin - User databases. Login, logout, signup. Customizable themes and widgets for individual users.
 <br>
