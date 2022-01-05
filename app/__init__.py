@@ -31,13 +31,16 @@ def home():
     if logged_in():
         print("LOGGED IN HOME")
         username = session['username']
-        #~~
-        #theme of page: pageTheme = getInfo(session['username'], "theme")
-        #theme = updateTheme(pageTheme, "secondary")
-        #~~
+        #~
+        page_theme = getInfo(session['username'], "theme")
+        print(f"PAGE THEME:, {page_theme}")
+        theme = updateTheme("info", page_theme)
+        print(theme)
+        home_widgets = updateWidget(session['username'])
+        #~
         # widgets = db_builder.enabledWidgets() # get only the selected widgets from the user's preferences
-        theme = updateTheme("danger", "primary") #just for testing
-        return render_template('home.html', name="Home", widgets=widgets, theme=theme, packages=packages, user = username, username = username, logged_in = logged_in())
+         #just for testing
+        return render_template('home.html', name="Home", widgets=home_widgets, theme=theme, packages=packages, user = username, username = username, logged_in = logged_in())
     else:
         print("NOT LOGGED IN HOME")
         theme = updateTheme("info", "secondary")

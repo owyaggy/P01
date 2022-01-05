@@ -42,7 +42,7 @@ def register(request_user,request_password):
         for widget in widgets:
             packages[widget] = get_api(widget)
         #~when a user is registered, their default theme is  info and everything is enabled
-        editInfo(session['username'], "theme", "info")
+        editInfo(session['username'], "theme", "primary")
         editInfo(session['username'], "weather", "1")
         editInfo(session['username'], "news", "1")
         editInfo(session['username'], "sports", "1")
