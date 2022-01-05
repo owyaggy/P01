@@ -70,7 +70,8 @@ def authenticate(user,password): #looggin in
         return render_template('home.html', name="Home", widgets=widgets, theme=theme, packages=packages, username = user, logged_in = True)
         #returns home page with modified theme, kind of scuffed and bad code as of now
     else:
-        return render_template('login.html', login_fail = response) #Else, return the response telling you what's wrong
+        theme = updateTheme("info", "secondary")
+        return render_template('user.html', login_fail = response, theme = theme) #Else, return the response telling you what's wrong
 
 def validate(name, value):
     error_message = ""
