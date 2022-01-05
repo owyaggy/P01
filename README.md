@@ -5,7 +5,7 @@ Justin Morrill
 <br>
 William Chen
 <br>
-Zhao Yu Lin
+Zhao Yu Lin- User databases. Login, logout, signup. Customizable themes and widgets for individual users.
 <br>
 SoftDev Pd1
 
