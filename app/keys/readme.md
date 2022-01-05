@@ -1,0 +1,12 @@
+WeatherAPI
+ForecastAPI
+Random Useless Facts API
+NYTimes API
+- Popular article
+SportRadar
+- NBA
+- NHL
+- MLB
+- NFL
+Nasa OpenAPI
+Open Library API
