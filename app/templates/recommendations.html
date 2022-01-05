@@ -1,4 +1,5 @@
-{% extends "base.html" %} <!-- extends the base template -->
+{% extends "base.html" %}
+<!-- extends the base template -->
 
 {% block content %}
 <div class="container-fluid">
@@ -6,9 +7,8 @@
         {% for i in range(3) %}
         <div class="col sm-6">
             <div class="card m-3 h-100">
-                {% if info[i]['cover'] %}<img class="card-img-top"
-                        width="auto" src="{{ info[i]['cover'] }}"
-                        alt="{{ info[i]['title'] }}">{% endif %}
+                {% if info[i]['cover'] %}<img class="card-img-top" width="auto" src="{{ info[i]['cover'] }}"
+                    alt="{{ info[i]['title'] }}">{% endif %}
                 <div class="card-body overflow-scroll">
                     <h3 class="card-text">{{ info[i]['title'] }}</h3>
                     <p class="card-text">By {{ info[i]['author'] }}</p>
