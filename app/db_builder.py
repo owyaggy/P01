@@ -49,6 +49,8 @@ def register(request_user,request_password):
         editInfo(session['username'], "space", "1")
         editInfo(session['username'], "fun", "1")
         editInfo(session['username'], "recommendations", "1")
+        
+        #~
         page_theme = getInfo(request_user, "theme")
         print(f"PAGE THEME:, {page_theme}")
         theme = updateTheme("info", page_theme)
@@ -70,16 +72,18 @@ def authenticate(user,password): #looggin in
     #checks if user exists and password matches user
     if(response == "TRY AGAIN: "):
         # session['userID'] = user
-        theme = updateTheme("danger", "primary") #just for testing
-
-        widgets = ['weather', 'news', 'recommendations', 'fun', 'sports', 'space']
-
+        page_theme = getInfo(user, "theme")
+        print(f"PAGE THEME:, {page_theme}")
+        theme = updateTheme("info", page_theme)
+        print(theme)
+        home_widgets = updateWidget(user)
+        widgets = updateWidget(user)
         packages = {}
         for widget in widgets:
             packages[widget] = get_api(widget)
 
         # return render_template('response.html',user = user, widgets = widgets, name = "Logged in", theme = theme)
-        return render_template('home.html', name="Home", widgets=widgets, theme=theme, packages=packages, username = user, logged_in = True)
+        return render_template('home.html', name="Home", widgets=home_widgets, theme=theme, packages=packages, username = user, logged_in = True)
         #returns home page with modified theme, kind of scuffed and bad code as of now
     else:
         theme = updateTheme("info", "secondary")
