@@ -42,16 +42,22 @@ def register(request_user,request_password):
         for widget in widgets:
             packages[widget] = get_api(widget)
         #~when a user is registered, their default theme is  info and everything is enabled
-        editInfo(session['username'], "theme", "info")
+        editInfo(session['username'], "theme", "primary")
         editInfo(session['username'], "weather", "1")
         editInfo(session['username'], "news", "1")
         editInfo(session['username'], "sports", "1")
         editInfo(session['username'], "space", "1")
         editInfo(session['username'], "fun", "1")
         editInfo(session['username'], "recommendations", "1")
-    
+        
         #~
-        return render_template('home.html', name="Home", widgets=widgets, theme=themes, packages=packages, username = request_user, logged_in = True)
+        page_theme = getInfo(request_user, "theme")
+        print(f"PAGE THEME:, {page_theme}")
+        theme = updateTheme("info", page_theme)
+        print(theme)
+        home_widgets = updateWidget(request_user)
+        #~
+        return render_template('home.html', name="Home", widgets=home_widgets, theme=theme, packages=packages, username = request_user, logged_in = True)
             # ADD USERID TO THE DB HERE
     print("***** Registration failed")
     return render_template('register.html', error = error, theme = theme)
@@ -66,16 +72,18 @@ def authenticate(user,password): #looggin in
     #checks if user exists and password matches user
     if(response == "TRY AGAIN: "):
         # session['userID'] = user
-        theme = updateTheme("danger", "primary") #just for testing
-
-        widgets = ['weather', 'news', 'recommendations', 'fun', 'sports', 'space']
-
+        page_theme = getInfo(user, "theme")
+        print(f"PAGE THEME:, {page_theme}")
+        theme = updateTheme("info", page_theme)
+        print(theme)
+        home_widgets = updateWidget(user)
+        widgets = updateWidget(user)
         packages = {}
         for widget in widgets:
             packages[widget] = get_api(widget)
 
         # return render_template('response.html',user = user, widgets = widgets, name = "Logged in", theme = theme)
-        return render_template('home.html', name="Home", widgets=widgets, theme=theme, packages=packages, username = user, logged_in = True)
+        return render_template('home.html', name="Home", widgets=home_widgets, theme=theme, packages=packages, username = user, logged_in = True)
         #returns home page with modified theme, kind of scuffed and bad code as of now
     else:
         theme = updateTheme("info", "secondary")
