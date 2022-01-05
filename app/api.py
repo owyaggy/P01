@@ -18,7 +18,10 @@ def space_api(count=1):
 
         if api_request.status_code == 200:
             if count == 1:
-                info["hd_link"] = api_request.json()["hdurl"]
+                try:
+                    info["hd_link"] = api_request.json()["hdurl"]
+                except:
+                    info['hd_link'] = api_request.json()['url']
                 info["title"] = api_request.json()["title"]
                 info["description"] = api_request.json()["explanation"]
             else:
@@ -27,7 +30,10 @@ def space_api(count=1):
                 info['title'] = []
                 info['description'] = []
                 for n in range(count):
-                    info["hd_link"].append(api_request[n]["hdurl"])
+                    try:
+                        info["hd_link"].append(api_request[n]["hdurl"])
+                    except:
+                        info['hd_link'].append(api_request[n]['url'])
                     info["title"].append(api_request[n]["title"])
                     info["description"].append(api_request[n]["explanation"])
         return info

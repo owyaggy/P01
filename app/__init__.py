@@ -2,7 +2,7 @@ from flask import Flask, render_template, redirect, url_for, request, session
 import os
 
 from api import *
-from db_builder import createTables, validate, check_existence, register, insert, printTable, updateTheme
+from db_builder import createTables, validate, check_existence, register, insert, updateTheme # # printTable
 from db_builder import clearTable, authenticate, getInfo, editInfo, updateWidget, createTables
 app = Flask(__name__)    #create Flask object
 app.secret_key = os.urandom(32) #create random key
@@ -11,9 +11,9 @@ def user_info():
     username = session['username']
     # ~
     page_theme = getInfo(session['username'], "theme")
-    print(f"PAGE THEME:, {page_theme}")
+    # print(f"PAGE THEME:, {page_theme}")
     theme = updateTheme(page_theme, "light")
-    print(theme)
+    # print(theme)
     home_widgets = updateWidget(session['username'])
     return username, theme, home_widgets
 
@@ -38,15 +38,15 @@ def home():
     # theme based on bootstrap colors [primary, light, success, danger, warning, info, light, dark]
     # theme = "dark" # should be replaced by function getting user theme from database
     if logged_in():
-        print("LOGGED IN HOME")
+        # print("LOGGED IN HOME")
         username, theme, home_widgets = user_info()
-        print(f'HOME PAGE THEME: {theme}')
+        # print(f'HOME PAGE THEME: {theme}')
         #~
         # widgets = db_builder.enabledWidgets() # get only the selected widgets from the user's preferences
          #just for testing
         return render_template('home.html', name="Home", theme=theme, packages=packages, username = username, logged_in = logged_in(), widgets=home_widgets)
     else:
-        print("NOT LOGGED IN HOME")
+        # print("NOT LOGGED IN HOME")
         theme = updateTheme("info", "light")
         # widgets_gatekeeping = ['weather', 'news', 'recommendations']
         return render_template('home.html', name="Home", widgets=widgets, theme=theme, packages=packages)
@@ -130,49 +130,49 @@ def reg1():
     return render_template("register.html", name = "Reg1", theme = theme)
 @app.route('/reg2', methods= ["GET", "POST"])
 def reg2():#registers a user
-    print("DELETED TABLE!~")
+    # print("DELETED TABLE!~")
     # clearTable()
     request_user = request.args['regUser']
     request_password = request.args['regPass']
-    print(f"Hello*********, {request_user}")
-    print (f"Hello*********, {request_password}")
+    # print(f"Hello*********, {request_user}")
+    # print (f"Hello*********, {request_password}")
     createTables()
-    print("PRINTINTG TABLE")
-    printTable()
+    # print("# printINTG TABLE")
+    # printTable()
     session["username"] = request_user #puts user into session
-    print(f"session length: {len(session)}")
+    # print(f"session length: {len(session)}")
 
     return register(request_user,request_password) #puts username and pw into database, returns response.html
 @app.route("/auth", methods=['GET', 'POST'])
 def log():#using the loggin button will enter the user into the sesion
 
     request_user = request.args['regUser']
-    print(f"Hello*********, {request_user}")
+    # print(f"Hello*********, {request_user}")
     request_password = request.args['regPass']
-    print(f"Hello*********, {request_password}")
-    # printTable()
+    # print(f"Hello*********, {request_password}")
+    # # printTable()
 
     session['username'] = request_user
-    print(f"***USERNAME IN SESSION*, {session['username']}")
+    # print(f"***USERNAME IN SESSION*, {session['username']}")
     huh = getInfo(session['username'], "theme")
     #gets theme
-    print(f"***THEME IN SESSION*, {huh}")
+    # print(f"***THEME IN SESSION*, {huh}")
     # editInfo(session['username'], "theme", "RED")
     # editInfo(session['username'], "sports", "0")
     #updates theme and sports
 
     updateTheme = getInfo(session['username'], "theme") #gets theme
-    print(f"***THEME IN SESSION*, {updateTheme}")#prints theme
+    # print(f"***THEME IN SESSION*, {updateTheme}")## prints theme
 
     list = updateWidget(session['username'])
-    print(f"***WDIGETS*, {list}, for {session['username']}")
-    printTable()
+    # print(f"***WDIGETS*, {list}, for {session['username']}")
+    # printTable()
 
     return authenticate(request_user,request_password)
     # return render_template('response.html',user = request_user, name = "Logged in", theme = theme)
 @app.route("/logout", methods = ["GET","POST"])
 def logout():
-    print("HITTING LOG OUT")
+    # print("HITTING LOG OUT")
     session.pop("username")
     return render_template('home.html', name="Home", widgets=widgets, theme=theme, packages=packages)
 
@@ -196,20 +196,20 @@ def preferenceSet():
     #clear list
 
     home_widgets = updateWidget(session['username'])
-    print(request.args['color'])
+    # print(request.args['color'])
     if request.args['color'] != "Select a Theme":
         themes = updateTheme(request.args['color'], 'light')
         color = request.args['color']
-        print(f"COLOR:, {color}" )
+        # print(f"COLOR:, {color}" )
         editInfo(session['username'], "theme", color)
 
-    printTable()
+    # printTable()
 
     # clear list
     widgets = []
     space = news = sports = fun = recommendations = weather = True
-    print("WIDGETS")
-    print(request.args.keys())
+    # print("WIDGETS")
+    # print(request.args.keys())
     for widget in request.args.keys():
         if widget == 'space':
             editInfo(session['username'], "space", '1')
