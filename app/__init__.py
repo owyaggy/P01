@@ -17,14 +17,13 @@ def user_info():
     home_widgets = updateWidget(session['username'])
     return username, theme, home_widgets
 
-
 def logged_in():
     return "username" in session
 
 ### NEEDS TO BE REPLACED BY FUNCTION IN DB_BUILDER ###
-theme = updateTheme("info","secondary")
+theme = updateTheme("info","light")
 #theme of page: pageTheme = getInfo(session['username'], "theme")
-#theme = updateTheme(pageTheme, "secondary")
+#theme = updateTheme(pageTheme, "light")
 symbols = ['DOW', 'NDAQ']
 info = stocks_api(symbols)
 widgets = ['weather', 'news', 'recommendations', 'fun', 'sports', 'space']
@@ -36,7 +35,7 @@ for widget in widgets:
 def home():
     # available widgets:
     # weather, news, recommendations, stocks, fun, sports, space
-    # theme based on bootstrap colors [primary, secondary, success, danger, warning, info, light, dark]
+    # theme based on bootstrap colors [primary, light, success, danger, warning, info, light, dark]
     # theme = "dark" # should be replaced by function getting user theme from database
     if logged_in():
         print("LOGGED IN HOME")
@@ -48,7 +47,7 @@ def home():
         return render_template('home.html', name="Home", theme=theme, packages=packages, username = username, logged_in = logged_in(), widgets=home_widgets)
     else:
         print("NOT LOGGED IN HOME")
-        theme = updateTheme("info", "secondary")
+        theme = updateTheme("info", "light")
         # widgets_gatekeeping = ['weather', 'news', 'recommendations']
         return render_template('home.html', name="Home", widgets=widgets, theme=theme, packages=packages)
 
@@ -73,7 +72,7 @@ def weather():
         username, theme, home_widgets = user_info()
         return render_template('weather.html', name="Weather", theme=theme, info=info, cities=cities, username = username, logged_in = logged_in())
     else:
-        theme = updateTheme("info","secondary")
+        theme = updateTheme("info","light")
         return render_template('weather.html', name="Weather", theme=theme, info=info, cities=cities)
 
 @app.route('/news')
@@ -83,7 +82,7 @@ def news():
         username, theme, home_widgets = user_info()
         return render_template('news.html', name="News", theme=theme, info=info, username = username, logged_in = logged_in())
     else:
-        theme = updateTheme("info","secondary")
+        theme = updateTheme("info","light")
         return render_template('news.html', name="News", theme=theme, info=info)
 
 @app.route('/recommendations')
@@ -93,7 +92,7 @@ def recommendations():
         username, theme, home_widgets = user_info()
         return render_template('recommendations.html', name="Recommendations", theme=theme, info=info, username = username, logged_in = logged_in())
     else:
-        theme = updateTheme("info","secondary")
+        theme = updateTheme("info","light")
         return render_template('recommendations.html', name="Recommendations", theme=theme, info=info)
 
 @app.route('/fun')
@@ -103,7 +102,7 @@ def fun():
         username, theme, home_widgets = user_info()
         return render_template('fun.html', name="Fun", theme=theme, info=info, username = username, logged_in = logged_in())
     else:
-        theme = updateTheme("info","secondary")
+        theme = updateTheme("info","light")
         return render_template('fun.html', name="Fun", theme=theme, info=info)
 
 @app.route('/sports')
@@ -113,7 +112,7 @@ def sports():
         username, theme, home_widgets = user_info()
         return render_template('sports.html', name="Sports", theme=theme, packages=info, username = username, logged_in = logged_in())
     else:
-        theme = updateTheme("info","secondary")
+        theme = updateTheme("info","light")
         return render_template('sports.html', name="Sports", theme=theme, packages=info)
 
 @app.route('/space')
@@ -123,7 +122,7 @@ def space():
         username, theme, home_widgets = user_info()
         return render_template('space.html', name="Space", theme=theme, info=info, username = username, logged_in = logged_in())
     else:
-        theme = updateTheme("info","secondary")
+        theme = updateTheme("info","light")
         return render_template('space.html', name="Space", theme=theme, info=info)
 
 @app.route('/reg1', methods= ["GET", "POST"])
@@ -179,12 +178,12 @@ def logout():
 
 @app.route('/preference')
 def preference():
-    userThemes = ['danger', 'warning', 'success', 'info']
+    userThemes = ['danger', 'warning', 'success', 'info', 'primary']
     if logged_in():
         username, theme, home_widgets = user_info()
-        if theme['main'] not in ['danger', 'warning', 'success', 'info']:
+        if theme['main'] not in ['danger', 'warning', 'success', 'info', 'primary']:
             theme['main'] = 'info'
-        return render_template('preference.html', userThemes=userThemes, widgets=widgets, name='Settings', theme=theme, username=username, logged_in = logged_in())
+        return render_template('preference.html', home_widgets=home_widgets, userThemes=userThemes, widgets=widgets, name='Settings', theme=theme, username=username, logged_in = logged_in())
     else:
         home()
 
@@ -199,7 +198,7 @@ def preferenceSet():
     home_widgets = updateWidget(session['username'])
     print(request.args['color'])
     if request.args['color'] != "Select a Theme":
-        themes = updateTheme(request.args['color'], 'secondary')
+        themes = updateTheme(request.args['color'], 'light')
         color = request.args['color']
         print(f"COLOR:, {color}" )
         editInfo(session['username'], "theme", color)
@@ -208,21 +207,34 @@ def preferenceSet():
 
     # clear list
     widgets = []
+    space = news = sports = fun = recommendations = weather = True
+    print("WIDGETS")
+    print(request.args.keys())
     for widget in request.args.keys():
         if widget == 'space':
-            widgets.append('space')
+            editInfo(session['username'], "space", '1')
         if widget == 'news':
-            widgets.append('news')
+            editInfo(session['username'], "news", "1")
         if widget == 'sports':
-            widgets.append('sports')
-        if widget == 'stocks':
-            widgets.append('stocks')
+            editInfo(session['username'], "sports", '1')
         if widget == 'fun':
-            widgets.append('fun')
+            editInfo(session['username'], "fun", '1')
         if widget == 'recommendations':
-            widgets.append('recommendations')
+            editInfo(session['username'], "recommendations", '1')
         if widget == 'weather':
-            widgets.append('weather')
+            editInfo(session['username'], "weather", '1')
+    if 'space' not in request.args.keys():
+        editInfo(session['username'], 'space', '0')
+    if 'news' not in request.args.keys():
+        editInfo(session['username'], 'news', '0')
+    if 'sports' not in request.args.keys():
+        editInfo(session['username'], 'sports', '0')
+    if 'fun' not in request.args.keys():
+        editInfo(session['username'], 'fun', '0')
+    if 'recommendations' not in request.args.keys():
+        editInfo(session['username'], 'recommendations', '0')
+    if 'weather' not in request.args.keys():
+        editInfo(session['username'], 'weather', '0')
 
     # # add to list
     # # set equals to one in the library

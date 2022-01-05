@@ -8,7 +8,7 @@ DB_FILE = "discobandit.db"
 def updateTheme(c,t):
     theme = dict(main=c, text =t)
     return theme
-theme = updateTheme("info", "secondary")
+theme = updateTheme("info", "light")
 def createTables():
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
@@ -37,12 +37,11 @@ def register(request_user,request_password):
         insert(request_user, request_password)
         print("**** Sucessionfully registered")
         widgets = ['weather', 'news', 'recommendations', 'fun', 'sports', 'space']
-        themes = updateTheme("danger", "primary")
         packages = {}
         for widget in widgets:
             packages[widget] = get_api(widget)
-        #~when a user is registered, their default theme is  info and everything is enabled
-        editInfo(session['username'], "theme", "primary")
+        #~when a user is registered, their default theme is info and everything is enabled
+        editInfo(session['username'], "theme", "info")
         editInfo(session['username'], "weather", "1")
         editInfo(session['username'], "news", "1")
         editInfo(session['username'], "sports", "1")
@@ -53,7 +52,7 @@ def register(request_user,request_password):
         #~
         page_theme = getInfo(request_user, "theme")
         print(f"PAGE THEME:, {page_theme}")
-        theme = updateTheme("info", page_theme)
+        theme = updateTheme(page_theme, 'light')
         print(theme)
         home_widgets = updateWidget(request_user)
         #~
@@ -79,7 +78,7 @@ def authenticate(user,password): #looggin in
         # session['userID'] = user
         page_theme = getInfo(user, "theme")
         print(f"PAGE THEME:, {page_theme}")
-        theme = updateTheme("info", page_theme)
+        theme = updateTheme(page_theme, "light")
         print(theme)
         home_widgets = updateWidget(user)
         widgets = updateWidget(user)
@@ -91,7 +90,7 @@ def authenticate(user,password): #looggin in
         return render_template('home.html', name="Home", widgets=home_widgets, theme=theme, packages=packages, username = user, logged_in = True)
         #returns home page with modified theme, kind of scuffed and bad code as of now
     else:
-        theme = updateTheme("info", "secondary")
+        theme = updateTheme("info", "light")
         return render_template('user.html', login_fail = response, theme = theme) #Else, return the response telling you what's wrong
 
 def validate(name, value):
