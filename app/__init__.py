@@ -1,7 +1,7 @@
 from flask import Flask, render_template, redirect, url_for, request, session
 import os
 
-from api import *   
+from api import *
 from db_builder import createTables, validate, check_existence, register, insert, printTable, updateTheme
 from db_builder import clearTable, authenticate, getInfo, editInfo, updateWidget, createTables
 app = Flask(__name__)    #create Flask object
@@ -102,7 +102,7 @@ def reg2():#registers a user
     printTable()
     session["username"] = request_user #puts user into session
     print(f"session length: {len(session)}")
-    
+
     return register(request_user,request_password) #puts username and pw into database, returns response.html
 @app.route("/auth", methods=['GET', 'POST'])
 def log():#using the loggin button will enter the user into the sesion
@@ -121,10 +121,10 @@ def log():#using the loggin button will enter the user into the sesion
     editInfo(session['username'], "theme", "RED")
     editInfo(session['username'], "sports", "0")
     #updates theme and sports
-    
+
     updateTheme = getInfo(session['username'], "theme") #gets theme
     print(f"***THEME IN SESSION*, {updateTheme}")#prints theme
-    
+
     list = updateWidget(session['username'])
     print(f"***WDIGETS*, {list}, for {session['username']}")
     printTable()
@@ -139,7 +139,7 @@ def logout():
 
 @app.route('/preference')
 def preference():
-    userThemes = ['Light', 'Dark', 'test3']
+    userThemes = ['Light', 'Dark', 'Red']
     return render_template('preference.html', userThemes=userThemes, widgets=widgets, name='preference', theme=theme,)
 
 @app.route('/preferenceSet')
@@ -149,13 +149,27 @@ def preferenceSet():
     # editInfo(session['username'], "theme", request.args)
 
     #clear list
-    list = request.args.values()
-    print(list)
-    # if request.args.get(color, -1) > 0:
-    #     themes = updateTheme(request.args[color])
+    if request.args['color'] != "Select a Theme":
+        themes = updateTheme(request.args['color'], 'secondary')
 
     # clear list
-    # for
+    widgets = []
+    for widget in request.args.keys():
+        if widget == 'space':
+            widgets.append('space')
+        if widget == 'news':
+            widgets.append('news')
+        if widget == 'sports':
+            widgets.append('sports')
+        if widget == 'stocks':
+            widgets.append('stocks')
+        if widget == 'fun':
+            widgets.append('fun')
+        if widget == 'recommendations':
+            widgets.append('recommendations')
+        if widget == 'weather':
+            widgets.append('weather')
+
     # # add to list
     # # set equals to one in the library
     # else
