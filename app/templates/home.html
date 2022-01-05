@@ -28,7 +28,7 @@
                     <a href="{{ packages['news']['url'][0] }}" class="card-link active link-{{ theme['main'] }}">Read this article.</a>
                     {% elif widget == "recommendations" %} <!-- RECOMMENDATIONS -->
                     <h5 class="card-title">Recommendations Widget</h5>
-                    {% if packages['recommendations'][0]['cover'] %}<img class="card-img-top w-50 h-auto mx-auto" width="auto" src="{{ packages['recommendations'][0]['cover'] }}" alt="{{ packages['recommendations'][0]['title'] }}">{% endif %}
+                    {% if packages['recommendations'][0]['cover'] %}<img class="card-img-top h-auto mx-auto w-50" width="auto" src="{{ packages['recommendations'][0]['cover'] }}" alt="{{ packages['recommendations'][0]['title'] }}">{% endif %}
                     <h3 class="card-text">{{ packages['recommendations'][0]['title'] }}</h3>
                     <p class="card-text">By {{ packages['recommendations'][0]['author'] }}</p>
                     <p class="card-subtitle text-muted">{{ packages['recommendations'][0]['pages'] }} pages</p>
