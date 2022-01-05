@@ -67,7 +67,7 @@ def news():
 @app.route('/recommendations')
 def recommendations():
     info = recommendations_api(3)
-    return render_template('recommendations.html', name="Recommendations", theme=theme)
+    return render_template('recommendations.html', name="Recommendations", theme=theme, info=info)
 
 @app.route('/stocks')
 def stocks():
