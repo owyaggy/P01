@@ -1,11 +1,11 @@
 # Daily Drop by Harold Huggers
-Owen Yaggy - Project Manager
+Owen Yaggy - Project Manager, widget and subpage creation
 <br>
-Justin Morrill
+Justin Morrill - API god
 <br>
-William Chen
+William Chen - Database management
 <br>
-Zhao Yu Lin
+Zhao Yu Lin - User databases. Login, logout, signup. Customizable themes and widgets for individual users.
 <br>
 SoftDev Pd1
 
@@ -20,9 +20,10 @@ The hardest part of any day is starting it. **Daily Drop** exists to provide all
 # Launch Codes
 1. Open a command line shell.
 2. Clone this repository with `git clone https://github.com/owyaggy/p01.git`
-4. Create a virtual environment with `python3 -m venv /path/to/venv` (where /path/to/venv is whereever you want the virtual environment to be and what it's called)
-6. Activate the virtual envrionment with `source <venv>/bin/activate` (where <venv> is the path to the venv)
-7. Run `pip install -r requirements.txt`
-8. Cd into /p01/app
-9. Run `python3 __init__.py`
-10. Enter `localhost:5000` into a web broswer
+4. Create a virtual environment with `python3 -m venv ~/venv` (you can replace venv with whatever virtual environment name you prefer!)
+6. Activate the virtual envrionment with `source ~/venv/bin/activate` 
+7. Cd into /p01
+8. Run `pip install -r requirements.txt`
+9. Cd into /p01/app
+10. Run `python3 __init__.py`
+11. Enter `localhost:5000` into a web broswer
