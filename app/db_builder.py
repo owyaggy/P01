@@ -54,7 +54,7 @@ def authenticate(user,password): #looggin in
     #checks if user exists and password matches user
     if(response == "TRY AGAIN: "):
         # session['userID'] = user
-        theme = updateTheme("danger", "primary") #just for testing
+        theme = updateTheme("success", "primary") #just for testing
 
         widgets = ['weather', 'news', 'recommendations', 'fun', 'sports', 'space', 'stocks']
 
@@ -63,7 +63,7 @@ def authenticate(user,password): #looggin in
             packages[widget] = get_api(widget)
 
         # return render_template('response.html',user = user, widgets = widgets, name = "Logged in", theme = theme)
-        return render_template('home.html', name="Home", widgets=widgets, theme=theme, packages=packages, username = user)
+        return render_template('home.html', name="Home", widgets=widgets, theme=theme, packages=packages, username = user, logged_in = True)
         #returns home page with modified theme, kind of scuffed and bad code as of now
     else:
         return render_template('login.html', login_fail = response) #Else, return the response telling you what's wrong

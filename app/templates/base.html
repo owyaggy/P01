@@ -1,18 +1,23 @@
 <!-- base templates for all pages -->
 <!doctype html>
 <html>
-  <head>
-      <!-- Required meta tags -->
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
 
-      <!-- Bootstrap CSS -->
-      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<head>
+    <!-- Required meta tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-      <title>{% block title %}{{ name }}{% endblock %}</title>
-  </head>
-  <body>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+
+    <title>{% block title %}{{ name }}{% endblock %}</title>
+</head>
+
+<body>
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-{{ theme['main'] }} sticky-md-top">
         <div class="container-fluid">
@@ -29,28 +34,42 @@
                     </li>
                     <!-- user preference -->
                     <li class="nav-item bg-{{ theme['main'] }}">
-                        <a class="nav-link active text-{{ theme['text'] }}" aria-current="page" href="/">Welcome {{user}}</a>
+                        <a class="nav-link active text-{{ theme['text'] }}" aria-current="page" href="/">Welcome
+                            {{user}}</a>
                         <!-- href leads to user prefernece -->
                     </li>
                     <li class="nav-item dropdown text-{{ theme['main'] }}">
-                        <a class="nav-link dropdown-toggle text-{{ theme['text'] }} opacity-50" href="#" id="navbarDropdown" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle text-{{ theme['text'] }} opacity-50" href="#"
+                            id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Subpages
                         </a>
                         <!-- All subpages: weather, news, recommendations, stocks, fun, sports, space -->
                         <ul class="dropdown-menu bg-{{ theme['text'] }}" aria-labelledby="navbarDropdown">
                             <li><a class="dropdown-item link-{{ theme['main'] }}" href="/weather">Weather</a></li>
-                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
                             <li><a class="dropdown-item link-{{ theme['main'] }}" href="/news">News</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item link-{{ theme['main'] }}" href="/recommendations">Recommendations</a></li>
-                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item link-{{ theme['main'] }}"
+                                    href="/recommendations">Recommendations</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
                             <li><a class="dropdown-item link-{{ theme['main'] }}" href="/stocks">Stocks</a></li>
-                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
                             <li><a class="dropdown-item link-{{ theme['main'] }}" href="/fun">Fun</a></li>
-                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
                             <li><a class="dropdown-item link-{{ theme['main'] }}" href="/sports">Sports</a></li>
-                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
                             <li><a class="dropdown-item link-{{ theme['main'] }}" href="/space">Space</a></li>
                         </ul>
                     </li>
@@ -62,25 +81,17 @@
                         </li>
                     </ul>
                 </div>
-                <div class="d-flex">
-                  <ul class="navbar-nav">
-                      <li class="nav-item">
-
-                          <a class="nav-link active text-{{ theme['text'] }}" <form action="/logout" method="post">
-			<input type="submit" name="logout" value = "Logout"> <!-- This adds a button to logout for logged-in users-->
-    </form>
-
-                        <!-- <a class="nav-link active text-{{ theme['text'] }}" href="user">Log In</a> -->
-
-                      </li>
-                  </ul>
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                          <a class="nav-link active text-{{ theme['text'] }}" href="user">Log In</a>
-                        </li>
-                    </ul>
-                </div>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        {% if logged_in == True %}
+                        <a class="nav-link active text-{{ theme['text'] }}" href="logout">Log Out</a>
+                        {% else %}
+                        <a class="nav-link active text-{{ theme['text'] }}" href="user">Log In</a>
+                        {% endif %}
+                    </li>
+                </ul>
             </div>
+        </div>
         </div>
     </nav>
     <!-- End Navbar -->
@@ -104,9 +115,11 @@
     <!-- Footer -->
     <div class="position-fixed bottom-0  mt-auto py-3 bg-{{ theme['main'] }}" style="width: 100%">
         <div class="container">
-            <span class="text-{{ theme['text'] }}">&copy; 2022 Harold Huggers Inc. View us on <a class="link-{{ theme['text'] }}" href="https://github.com/owyaggy/p01">Github</a>.</span>
+            <span class="text-{{ theme['text'] }}">&copy; 2022 Harold Huggers Inc. View us on <a
+                    class="link-{{ theme['text'] }}" href="https://github.com/owyaggy/p01">Github</a>.</span>
         </div>
     </div>
     <!-- End Footer -->
-  </body>
+</body>
+
 </html>

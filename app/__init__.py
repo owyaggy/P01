@@ -17,6 +17,10 @@ theme = updateTheme("info","secondary")
 symbols = ['DOW', 'NDAQ']
 info = stocks_api(symbols)
 widgets = ['weather', 'news', 'recommendations', 'fun', 'sports', 'space', 'stocks']# a complete list of all widgets
+packages = {}
+
+for widget in widgets:
+    packages[widget] = get_api(widget)
 @app.route('/')
 @app.route("/home")
 def home():
@@ -24,17 +28,14 @@ def home():
     # weather, news, recommendations, stocks, fun, sports, space
     # theme based on bootstrap colors [primary, secondary, success, danger, warning, info, light, dark]
     #theme = "dark" # should be replaced by function getting user theme from database
-    packages = {}
 
-    for widget in widgets:
-        packages[widget] = get_api(widget)
 
     if logged_in():
         print("LOGGED IN HOME")
         username = session['username']
         # widgets = db_builder.enabledWidgets() # get only the selected widgets from the user's preferences
-        theme = updateTheme("success", "primary") #just for testing
-        return render_template('home.html', name="Home", widgets=widgets, theme=theme, packages=packages, username = username)
+        theme = updateTheme("danger", "primary") #just for testing
+        return render_template('home.html', name="Home", widgets=widgets, theme=theme, packages=packages, username = username, logged_in = logged_in())
     else:
         print("NOT LOGGED IN HOME")
         theme = updateTheme("info", "secondary")
@@ -102,7 +103,6 @@ def reg2():#registers a user
     return register(request_user,request_password) #puts username and pw into database, returns response.html
 @app.route("/auth", methods=['GET', 'POST'])
 def log():#using the loggin button will enter the user into the sesion
-    widgets = ['weather', 'news', 'recommendations', 'fun', 'sports', 'space', 'stocks', 'stocks', 'stocks', 'test']
     request_user = request.args['regUser']
     print(f"Hello*********, {request_user}")
     request_password = request.args['regPass']
@@ -111,11 +111,12 @@ def log():#using the loggin button will enter the user into the sesion
     session['username'] = request_user
     return authenticate(request_user,request_password)
     # return render_template('response.html',user = request_user, name = "Logged in", theme = theme)
-@app.route("/logout", methods = ["POST"])
+@app.route("/logout", methods = ["GET","POST"])
 def logout():
-    if len(session) > 0 and len(session.get("userID")) > 0: #If username does exist, remove it from session and return the login page
-        session.pop("userID")
-    return render_template('home.html', login_html = "")
+    print("HITTTING LOG OUT")
+    # if len(session) > 0 and len(session.get("userID")) > 0: #If username does exist, remove it from session and return the login page
+    #     session.pop("userID")
+    return render_template('home.html', name="Home", widgets=widgets, theme=theme, packages=packages)
 
 @app.route('/preference')
 def preference():
