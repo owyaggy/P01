@@ -3,10 +3,24 @@
 {% block content %}
 <div class="container-fluid">
     <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for i in range(3) %}
         <div class="col sm-6">
             <div class="card m-3 h-100">
+                {% if info[i]['cover'] %}<img class="card-img-top"
+                        width="auto" src="{{ info[i]['cover'] }}"
+                        alt="{{ info[i]['title'] }}">{% endif %}
+                <div class="card-body overflow-scroll">
+                    <h3 class="card-text">{{ info[i]['title'] }}</h3>
+                    <p class="card-text">By {{ info[i]['author'] }}</p>
+                    {% if info[i]['pages'] != None %}
+                    <p class="card-subtitle text-muted">
+                        {{ info[i]['pages'] }} pages
+                    </p>
+                    {% endif %}
+                </div>
             </div>
         </div>
+        {% endfor %}
     </div>
 </div>
 {% endblock %}
