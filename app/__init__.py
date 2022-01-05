@@ -112,9 +112,8 @@ def log():#using the loggin button will enter the user into the sesion
     # return render_template('response.html',user = request_user, name = "Logged in", theme = theme)
 @app.route("/logout", methods = ["GET","POST"])
 def logout():
-    print("HITTTING LOG OUT")
-    # if len(session) > 0 and len(session.get("userID")) > 0: #If username does exist, remove it from session and return the login page
-    #     session.pop("userID")
+    print("HITTING LOG OUT")
+    session.pop("username")
     return render_template('home.html', name="Home", widgets=widgets, theme=theme, packages=packages)
 
 @app.route('/preference')

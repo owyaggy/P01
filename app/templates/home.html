@@ -14,7 +14,7 @@
             <div class="card m-3 h-100">
                 <div class="card-body overflow-scroll pb-0 {% if widget == 'sports' %}px-0{% endif %}">
                     <!-- widgets: weather, news, recommendations, stocks, fun, sports, space -->
-                    {% if widget == "weather" %}
+                    {% if widget == "weather" and packages['weather'] %}
                     <!-- WEATHER -->
                     <h5 class="card-title">Weather Widget</h5>
                     <img class="img-thumbnail"
@@ -25,7 +25,7 @@
                         packages['weather']['temp_max'] }}°F and a low of {{ packages['weather']['temp_min'] }}°F. It
                         currently feels {{ packages['weather']['feels_like'] }}°F.</p>
                     <p class="card-text mb-0">{{ packages['weather']['minutely'] }}</p>
-                    {% elif widget == "news" %}
+                    {% elif widget == "news" and packages['news'] %}
                     <!-- NEWS -->
                     <h5 class="card-title">News Widget</h5>
                     {% if packages['news']['img'][0] %}<img class="card-img-top w-100 h-auto" width="auto"
@@ -34,7 +34,7 @@
                     <p class="card-text">{{ packages['news']['abstract'][0] }}</p>
                     <a href="{{ packages['news']['url'][0] }}" class="card-link active link-{{ theme['main'] }}">Read
                         this article.</a>
-                    {% elif widget == "recommendations" %}
+                    {% elif widget == "recommendations" and packages['recommendations'] %}
                     <!-- RECOMMENDATIONS -->
                     <h5 class="card-title">Recommendations Widget</h5>
                     {% if packages['recommendations'][0]['cover'] %}<img class="card-img-top h-auto mx-auto w-50"
@@ -43,21 +43,21 @@
                     <h3 class="card-text">{{ packages['recommendations'][0]['title'] }}</h3>
                     <p class="card-text">By {{ packages['recommendations'][0]['author'] }}</p>
                     <p class="card-subtitle text-muted">{{ packages['recommendations'][0]['pages'] }} pages</p>
-                    {% elif widget == "stocks" %}
+                    {% elif widget == "stocks" and packages['stocks'] %}
                     <!-- STOCKS -->
                     <h5 class="card-title">Stocks Widget</h5>
                     <h6 class="card-subtitle mb-2 text-muted">Coming soon</h6>
                     <p class="card-text mb-0">
                         I have great news for you! Soon, real stocks will be provided here by an API.
                     </p>
-                    {% elif widget == "fun" %}
+                    {% elif widget == "fun" and packages['fun'] %}
                     <!-- FUN -->
                     <h5 class="card-title">Fun Widget</h5>
                     <h3 class="card-text">Random Fact</h3>
                     <p class="card-text">{{ packages['fun']['facts'][0] }}</p>
                     <h3 class="card-text">&#128520; Kanye Quote &#128520;</h3>
                     <p class="card-text">{{ packages['fun']['kanye'][0] }}</p>
-                    {% elif widget == "sports" %}
+                    {% elif widget == "sports" and packages['sports'] %}
                     <!-- SPORTS -->
                     <h5 class="card-title mx-3">Sports Widget</h5>
                     <div class="accordion accordion-flush" id="accordionFlushExample">
@@ -86,28 +86,23 @@
                                                     <ul class="dropdown-menu">
                                                         <li>
                                                             <p class="dropdown-item">1. {{
-                                                                packages['sports']['nba']['EASTERN
-                                                                CONFERENCE']['Atlantic'][1] }}</p>
+                                                                packages['sports']['nba']['EASTERN CONFERENCE']['Atlantic'][1] }}</p>
                                                         </li>
                                                         <li>
                                                             <p class="dropdown-item">2. {{
-                                                                packages['sports']['nba']['EASTERN
-                                                                CONFERENCE']['Atlantic'][2] }}</p>
+                                                                packages['sports']['nba']['EASTERN CONFERENCE']['Atlantic'][2] }}</p>
                                                         </li>
                                                         <li>
                                                             <p class="dropdown-item">3. {{
-                                                                packages['sports']['nba']['EASTERN
-                                                                CONFERENCE']['Atlantic'][3] }}</p>
+                                                                packages['sports']['nba']['EASTERN CONFERENCE']['Atlantic'][3] }}</p>
                                                         </li>
                                                         <li>
                                                             <p class="dropdown-item">4. {{
-                                                                packages['sports']['nba']['EASTERN
-                                                                CONFERENCE']['Atlantic'][4] }}</p>
+                                                                packages['sports']['nba']['EASTERN CONFERENCE']['Atlantic'][4] }}</p>
                                                         </li>
                                                         <li>
                                                             <p class="dropdown-item">5. {{
-                                                                packages['sports']['nba']['EASTERN
-                                                                CONFERENCE']['Atlantic'][5] }}</p>
+                                                                packages['sports']['nba']['EASTERN CONFERENCE']['Atlantic'][5] }}</p>
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -120,28 +115,23 @@
                                                     <ul class="dropdown-menu">
                                                         <li>
                                                             <p class="dropdown-item">1. {{
-                                                                packages['sports']['nba']['WESTERN
-                                                                CONFERENCE']['Northwest'][1] }}</p>
+                                                                packages['sports']['nba']['WESTERN CONFERENCE']['Northwest'][1] }}</p>
                                                         </li>
                                                         <li>
                                                             <p class="dropdown-item">2. {{
-                                                                packages['sports']['nba']['WESTERN
-                                                                CONFERENCE']['Northwest'][2] }}</p>
+                                                                packages['sports']['nba']['WESTERN CONFERENCE']['Northwest'][2] }}</p>
                                                         </li>
                                                         <li>
                                                             <p class="dropdown-item">3. {{
-                                                                packages['sports']['nba']['WESTERN
-                                                                CONFERENCE']['Northwest'][3] }}</p>
+                                                                packages['sports']['nba']['WESTERN CONFERENCE']['Northwest'][3] }}</p>
                                                         </li>
                                                         <li>
                                                             <p class="dropdown-item">4. {{
-                                                                packages['sports']['nba']['WESTERN
-                                                                CONFERENCE']['Northwest'][4] }}</p>
+                                                                packages['sports']['nba']['WESTERN CONFERENCE']['Northwest'][4] }}</p>
                                                         </li>
                                                         <li>
                                                             <p class="dropdown-item">5. {{
-                                                                packages['sports']['nba']['WESTERN
-                                                                CONFERENCE']['Northwest'][5] }}</p>
+                                                                packages['sports']['nba']['WESTERN CONFERENCE']['Northwest'][5] }}</p>
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -156,28 +146,23 @@
                                                     <ul class="dropdown-menu">
                                                         <li>
                                                             <p class="dropdown-item">1. {{
-                                                                packages['sports']['nba']['EASTERN
-                                                                CONFERENCE']['Central'][1] }}</p>
+                                                                packages['sports']['nba']['EASTERN CONFERENCE']['Central'][1] }}</p>
                                                         </li>
                                                         <li>
                                                             <p class="dropdown-item">2. {{
-                                                                packages['sports']['nba']['EASTERN
-                                                                CONFERENCE']['Central'][2] }}</p>
+                                                                packages['sports']['nba']['EASTERN CONFERENCE']['Central'][2] }}</p>
                                                         </li>
                                                         <li>
                                                             <p class="dropdown-item">3. {{
-                                                                packages['sports']['nba']['EASTERN
-                                                                CONFERENCE']['Central'][3] }}</p>
+                                                                packages['sports']['nba']['EASTERN CONFERENCE']['Central'][3] }}</p>
                                                         </li>
                                                         <li>
                                                             <p class="dropdown-item">4. {{
-                                                                packages['sports']['nba']['EASTERN
-                                                                CONFERENCE']['Central'][4] }}</p>
+                                                                packages['sports']['nba']['EASTERN CONFERENCE']['Central'][4] }}</p>
                                                         </li>
                                                         <li>
                                                             <p class="dropdown-item">5. {{
-                                                                packages['sports']['nba']['EASTERN
-                                                                CONFERENCE']['Central'][5] }}</p>
+                                                                packages['sports']['nba']['EASTERN CONFERENCE']['Central'][5] }}</p>
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -190,28 +175,23 @@
                                                     <ul class="dropdown-menu">
                                                         <li>
                                                             <p class="dropdown-item">1. {{
-                                                                packages['sports']['nba']['WESTERN
-                                                                CONFERENCE']['Pacific'][1] }}</p>
+                                                                packages['sports']['nba']['WESTERN CONFERENCE']['Pacific'][1] }}</p>
                                                         </li>
                                                         <li>
                                                             <p class="dropdown-item">2. {{
-                                                                packages['sports']['nba']['WESTERN
-                                                                CONFERENCE']['Pacific'][2] }}</p>
+                                                                packages['sports']['nba']['WESTERN CONFERENCE']['Pacific'][2] }}</p>
                                                         </li>
                                                         <li>
                                                             <p class="dropdown-item">3. {{
-                                                                packages['sports']['nba']['WESTERN
-                                                                CONFERENCE']['Pacific'][3] }}</p>
+                                                                packages['sports']['nba']['WESTERN CONFERENCE']['Pacific'][3] }}</p>
                                                         </li>
                                                         <li>
                                                             <p class="dropdown-item">4. {{
-                                                                packages['sports']['nba']['WESTERN
-                                                                CONFERENCE']['Pacific'][4] }}</p>
+                                                                packages['sports']['nba']['WESTERN CONFERENCE']['Pacific'][4] }}</p>
                                                         </li>
                                                         <li>
                                                             <p class="dropdown-item">5. {{
-                                                                packages['sports']['nba']['WESTERN
-                                                                CONFERENCE']['Pacific'][5] }}</p>
+                                                                packages['sports']['nba']['WESTERN CONFERENCE']['Pacific'][5] }}</p>
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -226,28 +206,23 @@
                                                     <ul class="dropdown-menu">
                                                         <li>
                                                             <p class="dropdown-item">1. {{
-                                                                packages['sports']['nba']['EASTERN
-                                                                CONFERENCE']['Southeast'][1] }}</p>
+                                                                packages['sports']['nba']['EASTERN CONFERENCE']['Southeast'][1] }}</p>
                                                         </li>
                                                         <li>
                                                             <p class="dropdown-item">2. {{
-                                                                packages['sports']['nba']['EASTERN
-                                                                CONFERENCE']['Southeast'][2] }}</p>
+                                                                packages['sports']['nba']['EASTERN CONFERENCE']['Southeast'][2] }}</p>
                                                         </li>
                                                         <li>
                                                             <p class="dropdown-item">3. {{
-                                                                packages['sports']['nba']['EASTERN
-                                                                CONFERENCE']['Southeast'][3] }}</p>
+                                                                packages['sports']['nba']['EASTERN CONFERENCE']['Southeast'][3] }}</p>
                                                         </li>
                                                         <li>
                                                             <p class="dropdown-item">4. {{
-                                                                packages['sports']['nba']['EASTERN
-                                                                CONFERENCE']['Southeast'][4] }}</p>
+                                                                packages['sports']['nba']['EASTERN CONFERENCE']['Southeast'][4] }}</p>
                                                         </li>
                                                         <li>
                                                             <p class="dropdown-item">5. {{
-                                                                packages['sports']['nba']['EASTERN
-                                                                CONFERENCE']['Southeast'][5] }}</p>
+                                                                packages['sports']['nba']['EASTERN CONFERENCE']['Southeast'][5] }}</p>
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -260,28 +235,23 @@
                                                     <ul class="dropdown-menu">
                                                         <li>
                                                             <p class="dropdown-item">1. {{
-                                                                packages['sports']['nba']['WESTERN
-                                                                CONFERENCE']['Southwest'][1] }}</p>
+                                                                packages['sports']['nba']['WESTERN CONFERENCE']['Southwest'][1] }}</p>
                                                         </li>
                                                         <li>
                                                             <p class="dropdown-item">2. {{
-                                                                packages['sports']['nba']['WESTERN
-                                                                CONFERENCE']['Southwest'][2] }}</p>
+                                                                packages['sports']['nba']['WESTERN CONFERENCE']['Southwest'][2] }}</p>
                                                         </li>
                                                         <li>
                                                             <p class="dropdown-item">3. {{
-                                                                packages['sports']['nba']['WESTERN
-                                                                CONFERENCE']['Southwest'][3] }}</p>
+                                                                packages['sports']['nba']['WESTERN CONFERENCE']['Southwest'][3] }}</p>
                                                         </li>
                                                         <li>
                                                             <p class="dropdown-item">4. {{
-                                                                packages['sports']['nba']['WESTERN
-                                                                CONFERENCE']['Southwest'][4] }}</p>
+                                                                packages['sports']['nba']['WESTERN CONFERENCE']['Southwest'][4] }}</p>
                                                         </li>
                                                         <li>
                                                             <p class="dropdown-item">5. {{
-                                                                packages['sports']['nba']['WESTERN
-                                                                CONFERENCE']['Southwest'][5] }}</p>
+                                                                packages['sports']['nba']['WESTERN CONFERENCE']['Southwest'][5] }}</p>
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -614,28 +584,23 @@
                                                     <ul class="dropdown-menu">
                                                         <li>
                                                             <p class="dropdown-item">1. {{
-                                                                packages['sports']['mlb']['National
-                                                                League']['Central'][1] }}</p>
+                                                                packages['sports']['mlb']['National League']['Central'][1] }}</p>
                                                         </li>
                                                         <li>
                                                             <p class="dropdown-item">2. {{
-                                                                packages['sports']['mlb']['National
-                                                                League']['Central'][2] }}</p>
+                                                                packages['sports']['mlb']['National League']['Central'][2] }}</p>
                                                         </li>
                                                         <li>
                                                             <p class="dropdown-item">3. {{
-                                                                packages['sports']['mlb']['National
-                                                                League']['Central'][3] }}</p>
+                                                                packages['sports']['mlb']['National League']['Central'][3] }}</p>
                                                         </li>
                                                         <li>
                                                             <p class="dropdown-item">4. {{
-                                                                packages['sports']['mlb']['National
-                                                                League']['Central'][4] }}</p>
+                                                                packages['sports']['mlb']['National League']['Central'][4] }}</p>
                                                         </li>
                                                         <li>
                                                             <p class="dropdown-item">5. {{
-                                                                packages['sports']['mlb']['National
-                                                                League']['Central'][5] }}</p>
+                                                                packages['sports']['mlb']['National League']['Central'][5] }}</p>
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -648,28 +613,23 @@
                                                     <ul class="dropdown-menu">
                                                         <li>
                                                             <p class="dropdown-item">1. {{
-                                                                packages['sports']['mlb']['American
-                                                                League']['Central'][1] }}</p>
+                                                                packages['sports']['mlb']['American League']['Central'][1] }}</p>
                                                         </li>
                                                         <li>
                                                             <p class="dropdown-item">2. {{
-                                                                packages['sports']['mlb']['American
-                                                                League']['Central'][2] }}</p>
+                                                                packages['sports']['mlb']['American League']['Central'][2] }}</p>
                                                         </li>
                                                         <li>
                                                             <p class="dropdown-item">3. {{
-                                                                packages['sports']['mlb']['American
-                                                                League']['Central'][3] }}</p>
+                                                                packages['sports']['mlb']['American League']['Central'][3] }}</p>
                                                         </li>
                                                         <li>
                                                             <p class="dropdown-item">4. {{
-                                                                packages['sports']['mlb']['American
-                                                                League']['Central'][4] }}</p>
+                                                                packages['sports']['mlb']['American League']['Central'][4] }}</p>
                                                         </li>
                                                         <li>
                                                             <p class="dropdown-item">5. {{
-                                                                packages['sports']['mlb']['American
-                                                                League']['Central'][5] }}</p>
+                                                                packages['sports']['mlb']['American League']['Central'][5] }}</p>
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -774,43 +734,35 @@
                                                     <ul class="dropdown-menu">
                                                         <li>
                                                             <p class="dropdown-item">1. {{
-                                                                packages['sports']['nhl']['EASTERN
-                                                                CONFERENCE']['Atlantic'][1] }}</p>
+                                                                packages['sports']['nhl']['EASTERN CONFERENCE']['Atlantic'][1] }}</p>
                                                         </li>
                                                         <li>
                                                             <p class="dropdown-item">2. {{
-                                                                packages['sports']['nhl']['EASTERN
-                                                                CONFERENCE']['Atlantic'][2] }}</p>
+                                                                packages['sports']['nhl']['EASTERN CONFERENCE']['Atlantic'][2] }}</p>
                                                         </li>
                                                         <li>
                                                             <p class="dropdown-item">3. {{
-                                                                packages['sports']['nhl']['EASTERN
-                                                                CONFERENCE']['Atlantic'][3] }}</p>
+                                                                packages['sports']['nhl']['EASTERN CONFERENCE']['Atlantic'][3] }}</p>
                                                         </li>
                                                         <li>
                                                             <p class="dropdown-item">4. {{
-                                                                packages['sports']['nhl']['EASTERN
-                                                                CONFERENCE']['Atlantic'][4] }}</p>
+                                                                packages['sports']['nhl']['EASTERN CONFERENCE']['Atlantic'][4] }}</p>
                                                         </li>
                                                         <li>
                                                             <p class="dropdown-item">5. {{
-                                                                packages['sports']['nhl']['EASTERN
-                                                                CONFERENCE']['Atlantic'][5] }}</p>
+                                                                packages['sports']['nhl']['EASTERN CONFERENCE']['Atlantic'][5] }}</p>
                                                         </li>
                                                         <li>
                                                             <p class="dropdown-item">6. {{
-                                                                packages['sports']['nhl']['EASTERN
-                                                                CONFERENCE']['Atlantic'][6] }}</p>
+                                                                packages['sports']['nhl']['EASTERN CONFERENCE']['Atlantic'][6] }}</p>
                                                         </li>
                                                         <li>
                                                             <p class="dropdown-item">7. {{
-                                                                packages['sports']['nhl']['EASTERN
-                                                                CONFERENCE']['Atlantic'][7] }}</p>
+                                                                packages['sports']['nhl']['EASTERN CONFERENCE']['Atlantic'][7] }}</p>
                                                         </li>
                                                         <li>
                                                             <p class="dropdown-item">8. {{
-                                                                packages['sports']['nhl']['EASTERN
-                                                                CONFERENCE']['Atlantic'][8] }}</p>
+                                                                packages['sports']['nhl']['EASTERN CONFERENCE']['Atlantic'][8] }}</p>
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -823,43 +775,35 @@
                                                     <ul class="dropdown-menu">
                                                         <li>
                                                             <p class="dropdown-item">1. {{
-                                                                packages['sports']['nhl']['WESTERN
-                                                                CONFERENCE']['Central'][1] }}</p>
+                                                                packages['sports']['nhl']['WESTERN CONFERENCE']['Central'][1] }}</p>
                                                         </li>
                                                         <li>
                                                             <p class="dropdown-item">2. {{
-                                                                packages['sports']['nhl']['WESTERN
-                                                                CONFERENCE']['Central'][2] }}</p>
+                                                                packages['sports']['nhl']['WESTERN CONFERENCE']['Central'][2] }}</p>
                                                         </li>
                                                         <li>
                                                             <p class="dropdown-item">3. {{
-                                                                packages['sports']['nhl']['WESTERN
-                                                                CONFERENCE']['Central'][3] }}</p>
+                                                                packages['sports']['nhl']['WESTERN CONFERENCE']['Central'][3] }}</p>
                                                         </li>
                                                         <li>
                                                             <p class="dropdown-item">4. {{
-                                                                packages['sports']['nhl']['WESTERN
-                                                                CONFERENCE']['Central'][4] }}</p>
+                                                                packages['sports']['nhl']['WESTERN CONFERENCE']['Central'][4] }}</p>
                                                         </li>
                                                         <li>
                                                             <p class="dropdown-item">5. {{
-                                                                packages['sports']['nhl']['WESTERN
-                                                                CONFERENCE']['Central'][5] }}</p>
+                                                                packages['sports']['nhl']['WESTERN CONFERENCE']['Central'][5] }}</p>
                                                         </li>
                                                         <li>
                                                             <p class="dropdown-item">6. {{
-                                                                packages['sports']['nhl']['WESTERN
-                                                                CONFERENCE']['Central'][6] }}</p>
+                                                                packages['sports']['nhl']['WESTERN CONFERENCE']['Central'][6] }}</p>
                                                         </li>
                                                         <li>
                                                             <p class="dropdown-item">7. {{
-                                                                packages['sports']['nhl']['WESTERN
-                                                                CONFERENCE']['Central'][7] }}</p>
+                                                                packages['sports']['nhl']['WESTERN CONFERENCE']['Central'][7] }}</p>
                                                         </li>
                                                         <li>
                                                             <p class="dropdown-item">8. {{
-                                                                packages['sports']['nhl']['WESTERN
-                                                                CONFERENCE']['Central'][8] }}</p>
+                                                                packages['sports']['nhl']['WESTERN CONFERENCE']['Central'][8] }}</p>
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -874,43 +818,35 @@
                                                     <ul class="dropdown-menu">
                                                         <li>
                                                             <p class="dropdown-item">1. {{
-                                                                packages['sports']['nhl']['EASTERN
-                                                                CONFERENCE']['Metropolitan'][1] }}</p>
+                                                                packages['sports']['nhl']['EASTERN CONFERENCE']['Metropolitan'][1] }}</p>
                                                         </li>
                                                         <li>
                                                             <p class="dropdown-item">2. {{
-                                                                packages['sports']['nhl']['EASTERN
-                                                                CONFERENCE']['Metropolitan'][2] }}</p>
+                                                                packages['sports']['nhl']['EASTERN CONFERENCE']['Metropolitan'][2] }}</p>
                                                         </li>
                                                         <li>
                                                             <p class="dropdown-item">3. {{
-                                                                packages['sports']['nhl']['EASTERN
-                                                                CONFERENCE']['Metropolitan'][3] }}</p>
+                                                                packages['sports']['nhl']['EASTERN CONFERENCE']['Metropolitan'][3] }}</p>
                                                         </li>
                                                         <li>
                                                             <p class="dropdown-item">4. {{
-                                                                packages['sports']['nhl']['EASTERN
-                                                                CONFERENCE']['Metropolitan'][4] }}</p>
+                                                                packages['sports']['nhl']['EASTERN CONFERENCE']['Metropolitan'][4] }}</p>
                                                         </li>
                                                         <li>
                                                             <p class="dropdown-item">5. {{
-                                                                packages['sports']['nhl']['EASTERN
-                                                                CONFERENCE']['Metropolitan'][5] }}</p>
+                                                                packages['sports']['nhl']['EASTERN CONFERENCE']['Metropolitan'][5] }}</p>
                                                         </li>
                                                         <li>
                                                             <p class="dropdown-item">6. {{
-                                                                packages['sports']['nhl']['EASTERN
-                                                                CONFERENCE']['Metropolitan'][6] }}</p>
+                                                                packages['sports']['nhl']['EASTERN CONFERENCE']['Metropolitan'][6] }}</p>
                                                         </li>
                                                         <li>
                                                             <p class="dropdown-item">7. {{
-                                                                packages['sports']['nhl']['EASTERN
-                                                                CONFERENCE']['Metropolitan'][7] }}</p>
+                                                                packages['sports']['nhl']['EASTERN CONFERENCE']['Metropolitan'][7] }}</p>
                                                         </li>
                                                         <li>
                                                             <p class="dropdown-item">8. {{
-                                                                packages['sports']['nhl']['EASTERN
-                                                                CONFERENCE']['Metropolitan'][8] }}</p>
+                                                                packages['sports']['nhl']['EASTERN CONFERENCE']['Metropolitan'][8] }}</p>
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -923,43 +859,35 @@
                                                     <ul class="dropdown-menu">
                                                         <li>
                                                             <p class="dropdown-item">1. {{
-                                                                packages['sports']['nhl']['WESTERN
-                                                                CONFERENCE']['Pacific'][1] }}</p>
+                                                                packages['sports']['nhl']['WESTERN CONFERENCE']['Pacific'][1] }}</p>
                                                         </li>
                                                         <li>
                                                             <p class="dropdown-item">2. {{
-                                                                packages['sports']['nhl']['WESTERN
-                                                                CONFERENCE']['Pacific'][2] }}</p>
+                                                                packages['sports']['nhl']['WESTERN CONFERENCE']['Pacific'][2] }}</p>
                                                         </li>
                                                         <li>
                                                             <p class="dropdown-item">3. {{
-                                                                packages['sports']['nhl']['WESTERN
-                                                                CONFERENCE']['Pacific'][3] }}</p>
+                                                                packages['sports']['nhl']['WESTERN CONFERENCE']['Pacific'][3] }}</p>
                                                         </li>
                                                         <li>
                                                             <p class="dropdown-item">4. {{
-                                                                packages['sports']['nhl']['WESTERN
-                                                                CONFERENCE']['Pacific'][4] }}</p>
+                                                                packages['sports']['nhl']['WESTERN CONFERENCE']['Pacific'][4] }}</p>
                                                         </li>
                                                         <li>
                                                             <p class="dropdown-item">5. {{
-                                                                packages['sports']['nhl']['WESTERN
-                                                                CONFERENCE']['Pacific'][5] }}</p>
+                                                                packages['sports']['nhl']['WESTERN CONFERENCE']['Pacific'][5] }}</p>
                                                         </li>
                                                         <li>
                                                             <p class="dropdown-item">6. {{
-                                                                packages['sports']['nhl']['WESTERN
-                                                                CONFERENCE']['Pacific'][6] }}</p>
+                                                                packages['sports']['nhl']['WESTERN CONFERENCE']['Pacific'][6] }}</p>
                                                         </li>
                                                         <li>
                                                             <p class="dropdown-item">7. {{
-                                                                packages['sports']['nhl']['WESTERN
-                                                                CONFERENCE']['Pacific'][7] }}</p>
+                                                                packages['sports']['nhl']['WESTERN CONFERENCE']['Pacific'][7] }}</p>
                                                         </li>
                                                         <li>
                                                             <p class="dropdown-item">8. {{
-                                                                packages['sports']['nhl']['WESTERN
-                                                                CONFERENCE']['Pacific'][8] }}</p>
+                                                                packages['sports']['nhl']['WESTERN CONFERENCE']['Pacific'][8] }}</p>
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -970,7 +898,7 @@
                             </div>
                         </div>
                     </div>
-                    {% elif widget == "space" %}
+                    {% elif widget == "space" and packages['space'] %}
                     <!-- SPACE -->
                     <h5 class="card-title">Space Widget</h5>
                     <!--<img class="card-img-top w-100 h-auto mh-50" src="{{ packages['space']['hd_link'] }}" alt="NASA Astronomy Picture of the Day">-->
