@@ -144,12 +144,10 @@ zhaoL --2022-01-03 8:37
 -user stays logged in with their themes intact
 -can choose theme
 -a page for users to choose their preferences and themes
--need to add logout button w/ session.pop() [delete this before tues]
--need to pass something to "welcome {{user}}"[delete this before tues]
 
 zhaoL --2022-01-04 *:20
 -preference page
--logout button uhhh
+-logout button 
 
 owenY -- 2021-01-03 01:00
 Added sports widget and page
@@ -164,3 +162,9 @@ Added fun widget
 Added recommendations widget
 Refactored API functions
 Only the API calls required by displayed widgets are now called
+
+zhaoL -- 2022-01-04 21:48
+-log out button
+-visual representation of a user being logged in
+-registering brings user to home page
+-set theme across logging in, registering, clicking home
