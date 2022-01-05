@@ -3,7 +3,7 @@ Owen Yaggy - Project Manager, widget and subpage creation
 <br>
 Justin Morrill - API god
 <br>
-William Chen - Database management
+William Chen - Subpage creation and form development
 <br>
 Zhao Yu Lin - User databases. Login, logout, signup. Customizable themes and widgets for individual users.
 <br>
