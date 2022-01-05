@@ -54,9 +54,9 @@ def authenticate(user,password): #looggin in
     #checks if user exists and password matches user
     if(response == "TRY AGAIN: "):
         # session['userID'] = user
-        theme = updateTheme("success", "primary") #just for testing
+        theme = updateTheme("danger", "primary") #just for testing
 
-        widgets = ['weather', 'news', 'recommendations', 'fun', 'sports', 'space', 'stocks']
+        widgets = ['weather', 'news', 'recommendations', 'fun', 'sports', 'space']
 
         packages = {}
         for widget in widgets:

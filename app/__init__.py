@@ -16,18 +16,17 @@ theme = updateTheme("info","secondary")
 
 symbols = ['DOW', 'NDAQ']
 info = stocks_api(symbols)
-widgets = ['weather', 'news', 'recommendations', 'fun', 'sports', 'space', 'stocks']# a complete list of all widgets
+widgets = ['weather', 'news', 'recommendations', 'fun', 'sports', 'space']
 packages = {}
-
 for widget in widgets:
-    packages[widget] = get_api(widget)
+    packages[widget] = get_api(widget)#, 'stocks']# a complete list of all widgets
 @app.route('/')
 @app.route("/home")
 def home():
     # available widgets:
     # weather, news, recommendations, stocks, fun, sports, space
     # theme based on bootstrap colors [primary, secondary, success, danger, warning, info, light, dark]
-    #theme = "dark" # should be replaced by function getting user theme from database
+    # theme = "dark" # should be replaced by function getting user theme from database
 
 
     if logged_in():
