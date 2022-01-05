@@ -1,12 +1,10 @@
-- WeatherAPI
-- ForecastAPI
-- Random Useless Facts API
-- NYTimes API
-- - Popular article
-- SportRadar
-- - NBA
-- - NHL
-- - MLB
-- - NFL
-- Nasa OpenAPI
-- Open Library API
+forecast_key.txt
+mlb_key.txt
+nasa_key.txt
+nba_key.txt
+nfl_key.txt
+nhl_key.txt
+nytimes_key.txt
+soccer_key.txt
+stocks_key.txt
+weather_key.txt
