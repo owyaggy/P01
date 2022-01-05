@@ -1,8 +1,10 @@
 """Module containing functions that can be used to obtain necessary info"""
+import random
+
 import requests
 from datetime import datetime
 
-def nasa_apod(count=1):
+def space_api(count=1):
     """Returns the NASA astronomy picture of the day, or {count} random images"""
     with open("keys/nasa_key.txt") as api_key:
         key = api_key.read().rstrip('\n')
@@ -29,7 +31,7 @@ def nasa_apod(count=1):
                 info["description"].append(api_request[n]["explanation"])
     return info
 
-def nytimes_api(days=1):
+def news_api(days=1):
     """Returns the most viewed NYTimes articles from the past {days} days"""
     with open('keys/nytimes_key.txt') as api_key:
         key = api_key.read().rstrip('\n')
@@ -195,22 +197,32 @@ def nhl_api(year):
 
     api_request = requests.get(f"https://api.sportradar.us/nhl/trial/v7/en/seasons/{year}/REG/rankings.json?api_key={key}")
     if api_request.status_code == 200:
-        leader = {}
+        leaders = []
         for conference in api_request.json()["conferences"]:
             info[conference["name"]] = {}
             for division in conference["divisions"]:
                 info[conference["name"]][division["name"]] = {}
                 for team in division["teams"]:
                     if "rank" in team.keys():
-                        info[conference["name"]][division["name"]][team["rank"]["division"]] = team["market"] + " " + team["name"]
-                    else: # API doesn't return rank for 1st overall team; this code takes note of that team
-                        leader['team'] = team['market'] + " " + team['name']
-                        leader['conference'] = conference['name']
-                        leader['division'] = division['name']
-        # inserts 1st overall team into correct spot in its division
-        for i in range(8, 1, -1):
-            info[leader['conference']][leader['division']][i] = info[leader['conference']][leader['division']][i - 1]
-        info[leader['conference']][leader['division']][1] = leader['team']
+                        info[conference["name"]][division["name"]][team["rank"]["division"]] = team["market"] + " " + \
+                                                                                               team["name"]
+                    else:  # API doesn't return rank for 1st overall team; this code takes note of that team
+                        leaders.append({
+                            'team': team['market'] + ' ' + team['name'],
+                            'conference': conference['name'],
+                            'division': division['name']
+                        })
+        # inserts 1st overall team(s) into correct spot in its division
+        for leader in leaders:
+            try:
+                for i in range(8, 1, -1):
+                    info[leader['conference']][leader['division']][i] = info[leader['conference']][leader['division']][
+                        i - 1]
+            except:
+                for i in range(7, 1, -1):
+                    info[leader['conference']][leader['division']][i] = info[leader['conference']][leader['division']][
+                        i - 1]
+            info[leader['conference']][leader['division']][1] = leader['team']
 
     return info
 
@@ -262,18 +274,104 @@ def sports_api(year):
 
 # This only has 100 calls per month, so try not to use too much
 def stocks_api(symbols):
-   """Returns latest end-of-day opening, high, low and closing prices for each stock in the list symbols"""
-   with open("keys/stocks_key.txt") as api_key:
-       key = api_key.read().rstrip('\n')
-   info = {}
+    """Returns latest end-of-day opening, high, low and closing prices for each stock in the list symbols"""
+    with open("keys/stocks_key.txt") as api_key:
+        key = api_key.read().rstrip('\n')
+    info = {}
 
-   for symbol in symbols:
-       info[symbol] = {}
-       api_request = requests.get(f"http://api.marketstack.com/v1/eod?access_key={key}&symbols={symbol}")
-       if api_request.status_code == 200:
-           info[symbol]["open"] = api_request.json()["data"][0]["open"]
-           info[symbol]["high"] = api_request.json()["data"][0]["high"]
-           info[symbol]["low"] = api_request.json()["data"][0]["low"]
-           info[symbol]["close"] = api_request.json()["data"][0]["close"]
+    for symbol in symbols:
+        info[symbol] = {}
+        api_request = requests.get(f"http://api.marketstack.com/v1/eod?access_key={key}&symbols={symbol}")
+        if api_request.status_code == 200:
+            info[symbol]["open"] = api_request.json()["data"][0]["open"]
+            info[symbol]["high"] = api_request.json()["data"][0]["high"]
+            info[symbol]["low"] = api_request.json()["data"][0]["low"]
+            info[symbol]["close"] = api_request.json()["data"][0]["close"]
+        else:
+            info[symbol]['open'] = 'Error'
+            info[symbol]['high'] = 'Error'
+            info[symbol]['low'] = 'Error'
+            info[symbol]['close'] = 'Error'
 
-   return info
+    return info
+
+def facts_api(n=1):
+    """Returns n random facts"""
+    info = {}
+    for i in range(n):
+        api_request = requests.get("https://uselessfacts.jsph.pl/random.json?language=en")
+        if api_request.status_code == 200:
+            info[i] = api_request.json()['text']
+        else:
+            info[i] = 'There was a problem retrieving this fact'
+
+    return info
+
+def kanye_api(n=1):
+    """Returns n random Kanye quotes"""
+    info = {}
+    for i in range(n):
+        api_request = requests.get('https://api.kanye.rest/')
+        if api_request.status_code == 200:
+            info[i] = api_request.json()['quote']
+        else:
+            info[i] = 'There was a problem retrieving this Kanye quote'
+
+    return info
+
+def fun_api(n=1):
+    """Compiles random facts and Kanye quotes"""
+    info = {}
+    info = {
+        'facts': facts_api(n),
+        'kanye': kanye_api(n)
+    }
+
+    return info
+
+def recommendations_api(n=1):
+    with open('ISBN.txt') as isbn:
+        codes = isbn.readlines()
+    for i in range(len(codes)):
+        codes[i] = codes[i].rstrip('\n')
+    info = {}
+    for i in range(n):
+        isbn = random.choice(codes)
+        api_request = requests.get(f"https://openlibrary.org/api/books?bibkeys=ISBN:{isbn}&format=json&jscmd=data")
+        # print(f"https://openlibrary.org/api/books?bibkeys=ISBN:{isbn}&format=json&jscmd=data")
+        if api_request.status_code == 200:
+            # print(api_request.json())
+            # print(f'key: ISBN:{isbn}')
+            info[i] = {
+                'title': api_request.json()[f'ISBN:{isbn}']['title'],
+                'author': api_request.json()[f'ISBN:{isbn}']['authors'][0]['name']
+            }
+            try:
+                info[i]['pages'] = api_request.json()[f'ISBN:{isbn}']['number_of_pages']
+            except:
+                info[i]['pages'] = None
+            try:
+                info[i]['cover'] = api_request.json()[f'ISBN:{isbn}']['cover']['large']
+            except:
+                info[i]['cover'] = None
+        else:
+            info[i] = 'There was a problem retrieving this book'
+
+    return info
+
+def get_api(widget):
+    if widget == 'space':
+        return space_api()
+    if widget == 'weather':
+        return weather_api('New+York+City')
+    if widget == 'news':
+        return news_api()
+    if widget == 'sports':
+        return sports_api(2021)
+    if widget == 'stocks':
+        return stocks_api('AAPL')
+    if widget == 'fun':
+        return fun_api()
+    if widget == 'recommendations':
+        return recommendations_api()
+    return {}

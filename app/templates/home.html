@@ -28,10 +28,10 @@
                     <a href="{{ packages['news']['url'][0] }}" class="card-link active link-{{ theme['main'] }}">Read this article.</a>
                     {% elif widget == "recommendations" %} <!-- RECOMMENDATIONS -->
                     <h5 class="card-title">Recommendations Widget</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">Coming soon</h6>
-                    <p class="card-text mb-0">
-                        I have great recommendations for you! Soon, real recommendations will be provided here by an API.
-                    </p>
+                    {% if packages['recommendations'][0]['cover'] %}<img class="card-img-top w-50 h-auto mx-auto" width="auto" src="{{ packages['recommendations'][0]['cover'] }}" alt="{{ packages['recommendations'][0]['title'] }}">{% endif %}
+                    <h3 class="card-text">{{ packages['recommendations'][0]['title'] }}</h3>
+                    <p class="card-text">By {{ packages['recommendations'][0]['author'] }}</p>
+                    <p class="card-subtitle text-muted">{{ packages['recommendations'][0]['pages'] }} pages</p>
                     {% elif widget == "stocks" %} <!-- STOCKS -->
                     <h5 class="card-title">Stocks Widget</h5>
                     <h6 class="card-subtitle mb-2 text-muted">Coming soon</h6>
@@ -40,10 +40,10 @@
                     </p>
                     {% elif widget == "fun" %} <!-- FUN -->
                     <h5 class="card-title">Fun Widget</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">Coming soon</h6>
-                    <p class="card-text mb-0">
-                        I have great news for you! Soon, real fun stuff will be provided here by an API.
-                    </p>
+                    <h3 class="card-text">Random Fact</h3>
+                    <p class="card-text">{{ packages['fun']['facts'][0] }}</p>
+                    <h3 class="card-text">&#128520; Kanye Quote &#128520;</h3>
+                    <p class="card-text">{{ packages['fun']['kanye'][0] }}</p>
                     {% elif widget == "sports" %} <!-- SPORTS -->
                     <h5 class="card-title mx-3">Sports Widget</h5>
                     <div class="accordion accordion-flush" id="accordionFlushExample">
@@ -430,9 +430,9 @@
                     </div>
                     {% elif widget == "space" %} <!-- SPACE -->
                     <h5 class="card-title">Space Widget</h5>
-                    <!--<img class="card-img-top w-100 h-auto mh-50" src="{{ packages['nasa']['hd_link'] }}" alt="NASA Astronomy Picture of the Day">-->
-                    <div class="img_max"><img class="card-img-top" height="100%" src="{{ packages['nasa']['hd_link'] }}" alt="NASA Astronomy Picture of the Day"></div>
-                    <h3 class="card-text mb-0">{{ packages['nasa']['title'] }}</h3>
+                    <!--<img class="card-img-top w-100 h-auto mh-50" src="{{ packages['space']['hd_link'] }}" alt="NASA Astronomy Picture of the Day">-->
+                    <div class="img_max"><img class="card-img-top" height="100%" src="{{ packages['space']['hd_link'] }}" alt="NASA Astronomy Picture of the Day"></div>
+                    <h3 class="card-text mb-0">{{ packages['space']['title'] }}</h3>
                     {% else %} <!-- WIDGET ERROR -->
                     <h5 class="card-subtitle mb-2 text-muted">Hmmmm… something's not right here</h5>
                     <p class="card-text">It seems like someone tried to use a widget that isn't available.</p>

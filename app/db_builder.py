@@ -38,7 +38,7 @@ def register(request_user,request_password):
         # session["userID"] = request_user
         insert(request_user, request_password)
         print("**** Sucessionfully registered")
-        widgets = ['weather', 'news', 'recommendations', 'fun', 'sports', 'space', 'stocks', 'stocks', 'stocks', 'test']
+        widgets = ['weather', 'news', 'recommendations', 'fun', 'sports', 'space', 'stocks']
         return render_template('response.html',user = request_user, wdigets = widgets, name = "Logged in", theme = theme)
             # ADD USERID TO THE DB HERE
     print("***** Registration failed")
@@ -54,20 +54,20 @@ def authenticate(user,password): #looggin in
     #checks if user exists and password matches user
     if(response == "TRY AGAIN: "):
         # session['userID'] = user
-        packages = { # add new packages here
-        'nasa': nasa_apod(),
-        'weather': weather_api('New+York+City'),
-        'news': nytimes_api(),
-        'sports': sports_api(2021)
-        }
         theme = updateTheme("danger", "primary") #just for testing
 
-        widgets = ['weather', 'news', 'recommendations', 'fun', 'sports', 'space', 'stocks', 'stocks', 'stocks', 'test']
-        # return render_template('response.html',user = user, wdigets = widgets, name = "Logged in", theme = theme)
+        widgets = ['weather', 'news', 'recommendations', 'fun', 'sports', 'space', 'stocks']
+
+        packages = {}
+        for widget in widgets:
+            packages[widget] = get_api(widget)
+
+        # return render_template('response.html',user = user, widgets = widgets, name = "Logged in", theme = theme)
         return render_template('home.html', name="Home", widgets=widgets, theme=theme, packages=packages, username = user)
         #returns home page with modified theme, kind of scuffed and bad code as of now
     else:
         return render_template('login.html', login_fail = response) #Else, return the response telling you what's wrong
+
 def validate(name, value):
     error_message = ""
     if name == "userID":
@@ -83,7 +83,7 @@ def validate(name, value):
         # if(value != request.args['pass']):
         #     error_message += " | Passwords must match"
     if error_message == "":
-        return "";
+        return ""
     else:
         return error_message + " |"
 
@@ -97,7 +97,8 @@ def check_existence(c_name, value):
             return False
         return True
 def loggin():
-    return true
+    return True
+
 createTables()
 
 
