@@ -49,9 +49,13 @@ def register(request_user,request_password):
         editInfo(session['username'], "space", "1")
         editInfo(session['username'], "fun", "1")
         editInfo(session['username'], "recommendations", "1")
-    
+        page_theme = getInfo(request_user, "theme")
+        print(f"PAGE THEME:, {page_theme}")
+        theme = updateTheme("info", page_theme)
+        print(theme)
+        home_widgets = updateWidget(request_user)
         #~
-        return render_template('home.html', name="Home", widgets=widgets, theme=themes, packages=packages, username = request_user, logged_in = True)
+        return render_template('home.html', name="Home", widgets=home_widgets, theme=theme, packages=packages, username = request_user, logged_in = True)
             # ADD USERID TO THE DB HERE
     print("***** Registration failed")
     return render_template('register.html', error = error, theme = theme)
