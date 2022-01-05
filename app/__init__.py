@@ -121,7 +121,7 @@ def logout():
 @app.route('/preference')
 def preference():
     userThemes = ['Light', 'Dark', 'test3']
-    return render_template('preference.html', userThemes=userThemes, widgets=widgets, name='preference', theme=theme)
+    return render_template('preference.html', userThemes=userThemes, widgets=widgets, name='preference', theme=theme,)
 
 @app.route('/preferenceSet')
 def preferenceSet():
