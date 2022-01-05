@@ -42,7 +42,11 @@
                         alt="{{ packages['recommendations'][0]['title'] }}">{% endif %}
                     <h3 class="card-text">{{ packages['recommendations'][0]['title'] }}</h3>
                     <p class="card-text">By {{ packages['recommendations'][0]['author'] }}</p>
-                    <p class="card-subtitle text-muted">{{ packages['recommendations'][0]['pages'] }} pages</p>
+                    {% if packages['recommendations'][0]['pages'] != None %}
+                    <p class="card-subtitle text-muted">
+                        {{ packages['recommendations'][0]['pages'] }} pages
+                    </p>
+                    {% endif %}
                     {% elif widget == "stocks" and packages['stocks'] %}
                     <!-- STOCKS -->
                     <h5 class="card-title">Stocks Widget</h5>

@@ -19,7 +19,7 @@ def createTables():
     theme TEXT,
     weather INTEGER,
     news INTEGER,
-    recommendation INTEGER,
+    recommendations INTEGER,
     fun INTEGER,
     sports INTEGER,
     space INTEGER);"""
@@ -41,6 +41,16 @@ def register(request_user,request_password):
         packages = {}
         for widget in widgets:
             packages[widget] = get_api(widget)
+        #~when a user is registered, their default theme is  info and everything is enabled
+        editInfo(session['username'], "theme", "info")
+        editInfo(session['username'], "weather", "1")
+        editInfo(session['username'], "news", "1")
+        editInfo(session['username'], "sports", "1")
+        editInfo(session['username'], "space", "1")
+        editInfo(session['username'], "fun", "1")
+        editInfo(session['username'], "recommendations", "1")
+    
+        #~
         return render_template('home.html', name="Home", widgets=widgets, theme=themes, packages=packages, username = request_user, logged_in = True)
             # ADD USERID TO THE DB HERE
     print("***** Registration failed")
@@ -142,3 +152,25 @@ def editInfo(username, col, value):
             c.execute("UPDATE userinfo SET " + col + " =? WHERE username = ?;", (value, username))
             db.commit()
             
+def updateWidget(user):
+    weather = getInfo(user, "weather")
+    news = getInfo(user, "news")
+    recommendations = getInfo(user, "recommendations")
+    fun = getInfo(user, "fun")
+    sports = getInfo(user, "sports")
+    space = getInfo(user, "space")
+    list = []
+    if weather == 1:
+        list.append("weather")
+    if news == 1:
+        list.append("news")
+    if recommendations == 1:
+        list.append("recommendations")
+    if fun == 1:
+        list.append("fun")
+    if sports == 1:
+        list.append("sports")
+    if space == 1:
+        list.append("space")  
+    return list 
+    

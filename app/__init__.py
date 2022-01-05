@@ -1,11 +1,9 @@
 from flask import Flask, render_template, redirect, url_for, request, session
 import os
 
-from api import *
-# from app.db_builder import getValue
-from db_builder import validate, check_existence, register, insert, printTable, updateTheme
-from db_builder import clearTable, authenticate, getInfo, editInfo
-
+from api import *   
+from db_builder import createTables, validate, check_existence, register, insert, printTable, updateTheme
+from db_builder import clearTable, authenticate, getInfo, editInfo, updateWidget, createTables
 app = Flask(__name__)    #create Flask object
 app.secret_key = os.urandom(32) #create random key
 
@@ -14,13 +12,14 @@ def logged_in():
 
 ### NEEDS TO BE REPLACED BY FUNCTION IN DB_BUILDER ###
 theme = updateTheme("info","secondary")
-
+#theme of page: pageTheme = getInfo(session['username'], "theme")
+#theme = updateTheme(pageTheme, "secondary")
 symbols = ['DOW', 'NDAQ']
 info = stocks_api(symbols)
 widgets = ['weather', 'news', 'recommendations', 'fun', 'sports', 'space']
 packages = {}
 for widget in widgets:
-    packages[widget] = get_api(widget)#, 'stocks']# a complete list of all widgets
+    packages[widget] = get_api(widget)
 @app.route('/')
 @app.route("/home")
 def home():
@@ -31,6 +30,10 @@ def home():
     if logged_in():
         print("LOGGED IN HOME")
         username = session['username']
+        #~~
+        #theme of page: pageTheme = getInfo(session['username'], "theme")
+        #theme = updateTheme(pageTheme, "secondary")
+        #~~
         # widgets = db_builder.enabledWidgets() # get only the selected widgets from the user's preferences
         theme = updateTheme("danger", "primary") #just for testing
         return render_template('home.html', name="Home", widgets=widgets, theme=theme, packages=packages, user = username, username = username, logged_in = logged_in())
@@ -66,11 +69,8 @@ def news():
 
 @app.route('/recommendations')
 def recommendations():
-    return render_template('recommendations.html', name="Recommendations", theme=theme)
-
-@app.route('/stocks')
-def stocks():
-    return render_template('stocks.html', name="Stocks", info=info, symbols=symbols, theme=theme)
+    info = recommendations_api(3)
+    return render_template('recommendations.html', name="Recommendations", theme=theme, info=info)
 
 @app.route('/fun')
 def fun():
@@ -91,14 +91,18 @@ def reg1():
     return render_template("register.html", name = "Reg1", theme = theme)
 @app.route('/reg2', methods= ["GET", "POST"])
 def reg2():#registers a user
+    print("DELETED TABLE!~")
+    # clearTable()
     request_user = request.args['regUser']
     request_password = request.args['regPass']
     print(f"Hello*********, {request_user}")
     print (f"Hello*********, {request_password}")
-    clearTable()
+    createTables()
+    print("PRINTINTG TABLE")
     printTable()
     session["username"] = request_user #puts user into session
     print(f"session length: {len(session)}")
+    
     return register(request_user,request_password) #puts username and pw into database, returns response.html
 @app.route("/auth", methods=['GET', 'POST'])
 def log():#using the loggin button will enter the user into the sesion
@@ -112,12 +116,17 @@ def log():#using the loggin button will enter the user into the sesion
     session['username'] = request_user
     print(f"***USERNAME IN SESSION*, {session['username']}")
     huh = getInfo(session['username'], "theme")
+    #gets theme
     print(f"***THEME IN SESSION*, {huh}")
     editInfo(session['username'], "theme", "RED")
-    editInfo(session['username'], "sports", "1")
-
-    updateTheme = getInfo(session['username'], "theme")
-    print(f"***THEME IN SESSION*, {updateTheme}")
+    editInfo(session['username'], "sports", "0")
+    #updates theme and sports
+    
+    updateTheme = getInfo(session['username'], "theme") #gets theme
+    print(f"***THEME IN SESSION*, {updateTheme}")#prints theme
+    
+    list = updateWidget(session['username'])
+    print(f"***WDIGETS*, {list}, for {session['username']}")
     printTable()
 
     return authenticate(request_user,request_password)
@@ -135,7 +144,9 @@ def preference():
 
 @app.route('/preferenceSet')
 def preferenceSet():
+    #updates theme
     #themes = updateTheme(request.args[color])
+    # editInfo(session['username'], "theme", request.args)
 
     #clear list
     list = request.args.values()
