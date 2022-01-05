@@ -47,33 +47,6 @@
                         {{ packages['recommendations'][0]['pages'] }} pages
                     </p>
                     {% endif %}
-                    {% elif widget == "stocks" and packages['stocks'] %}
-                    <!-- STOCKS -->
-                    <h5 class="card-title">Stocks Widget</h5>
-                  <div class="accordion accordion-flush" id="accordionFlushExample">
-                    {% for symbol in packages['stock'][info] %}
-                      <div class="accordion-item">
-                          <h2 class="accordion-header" id="flush-headingOne">
-                              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                                  {{symbol}}
-                              </button>
-                          </h2>
-                        <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-                          <div class="accordion-body p-0">
-                            <h3 class="">{{symbol}}</h3>
-                            <h5>Open</h5>
-                            <p>{{packages['stock'][info][symbol]["open"]}}</p>
-                            <h5>High</h5>
-                            <p>{packages['stock'][info][symbol]["high"]}}</p>
-                            <h5>Low</h5>
-                            <p>{{packages['stock'][info][symbol]["low"]}}</p>
-                            <h5>Close</h5>
-                            <p>{{packages['stock'][info][symbol]["close"]}}</p>
-                          </div>
-                        </div>
-                      </div>
-                    {% endfor %}
-                    </div>
                     {% elif widget == "fun" and packages['fun'] %}
                     <!-- FUN -->
                     <h5 class="card-title">Fun Widget</h5>

@@ -7,6 +7,17 @@ from db_builder import clearTable, authenticate, getInfo, editInfo, updateWidget
 app = Flask(__name__)    #create Flask object
 app.secret_key = os.urandom(32) #create random key
 
+def user_info():
+    username = session['username']
+    # ~
+    page_theme = getInfo(session['username'], "theme")
+    print(f"PAGE THEME:, {page_theme}")
+    theme = updateTheme(page_theme, "light")
+    print(theme)
+    home_widgets = updateWidget(session['username'])
+    return username, theme, home_widgets
+
+
 def logged_in():
     return "username" in session
 
@@ -29,17 +40,12 @@ def home():
     # theme = "dark" # should be replaced by function getting user theme from database
     if logged_in():
         print("LOGGED IN HOME")
-        username = session['username']
-        #~
-        page_theme = getInfo(session['username'], "theme")
-        print(f"PAGE THEME:, {page_theme}")
-        theme = updateTheme("info", page_theme)
-        print(theme)
-        home_widgets = updateWidget(session['username'])
+        username, theme, home_widgets = user_info()
+        print(f'HOME PAGE THEME: {theme}')
         #~
         # widgets = db_builder.enabledWidgets() # get only the selected widgets from the user's preferences
          #just for testing
-        return render_template('home.html', name="Home", widgets=home_widgets, theme=theme, packages=packages, user = username, username = username, logged_in = logged_in())
+        return render_template('home.html', name="Home", theme=theme, packages=packages, username = username, logged_in = logged_in(), widgets=home_widgets)
     else:
         print("NOT LOGGED IN HOME")
         theme = updateTheme("info", "secondary")
@@ -63,31 +69,62 @@ def weather():
     except:
         city = "New+York+City"
     info = weather_api(city)
-    return render_template('weather.html', name="Weather", theme=theme, info=info, cities=cities)
+    if logged_in():
+        username, theme, home_widgets = user_info()
+        return render_template('weather.html', name="Weather", theme=theme, info=info, cities=cities, username = username, logged_in = logged_in())
+    else:
+        theme = updateTheme("info","secondary")
+        return render_template('weather.html', name="Weather", theme=theme, info=info, cities=cities)
 
 @app.route('/news')
 def news():
     info = news_api()
-    return render_template('news.html', name="News", theme=theme, info=info)
+    if logged_in():
+        username, theme, home_widgets = user_info()
+        return render_template('news.html', name="News", theme=theme, info=info, username = username, logged_in = logged_in())
+    else:
+        theme = updateTheme("info","secondary")
+        return render_template('news.html', name="News", theme=theme, info=info)
 
 @app.route('/recommendations')
 def recommendations():
     info = recommendations_api(3)
-    return render_template('recommendations.html', name="Recommendations", theme=theme, info=info)
+    if logged_in():
+        username, theme, home_widgets = user_info()
+        return render_template('recommendations.html', name="Recommendations", theme=theme, info=info, username = username, logged_in = logged_in())
+    else:
+        theme = updateTheme("info","secondary")
+        return render_template('recommendations.html', name="Recommendations", theme=theme, info=info)
 
 @app.route('/fun')
 def fun():
-    return render_template('fun.html', name="Fun", theme=theme)
+    info = fun_api(3)
+    if logged_in():
+        username, theme, home_widgets = user_info()
+        return render_template('fun.html', name="Fun", theme=theme, info=info, username = username, logged_in = logged_in())
+    else:
+        theme = updateTheme("info","secondary")
+        return render_template('fun.html', name="Fun", theme=theme, info=info)
 
 @app.route('/sports')
 def sports():
     info = {'sports': sports_api(2021)}
-    return render_template('sports.html', name="Sports", theme=theme, packages=info)
+    if logged_in():
+        username, theme, home_widgets = user_info()
+        return render_template('sports.html', name="Sports", theme=theme, packages=info, username = username, logged_in = logged_in())
+    else:
+        theme = updateTheme("info","secondary")
+        return render_template('sports.html', name="Sports", theme=theme, packages=info)
 
 @app.route('/space')
 def space():
     info = space_api(3)
-    return render_template('space.html', name="Space", theme=theme, info=info)
+    if logged_in():
+        username, theme, home_widgets = user_info()
+        return render_template('space.html', name="Space", theme=theme, info=info, username = username, logged_in = logged_in())
+    else:
+        theme = updateTheme("info","secondary")
+        return render_template('space.html', name="Space", theme=theme, info=info)
 
 @app.route('/reg1', methods= ["GET", "POST"])
 def reg1():
@@ -121,8 +158,8 @@ def log():#using the loggin button will enter the user into the sesion
     huh = getInfo(session['username'], "theme")
     #gets theme
     print(f"***THEME IN SESSION*, {huh}")
-    editInfo(session['username'], "theme", "RED")
-    editInfo(session['username'], "sports", "0")
+    # editInfo(session['username'], "theme", "RED")
+    # editInfo(session['username'], "sports", "0")
     #updates theme and sports
 
     updateTheme = getInfo(session['username'], "theme") #gets theme
@@ -142,8 +179,14 @@ def logout():
 
 @app.route('/preference')
 def preference():
-    userThemes = ['Light', 'Dark', 'Red']
-    return render_template('preference.html', userThemes=userThemes, widgets=widgets, name='preference', theme=theme,)
+    userThemes = ['danger', 'warning', 'success', 'info']
+    if logged_in():
+        username, theme, home_widgets = user_info()
+        if theme['main'] not in ['danger', 'warning', 'success', 'info']:
+            theme['main'] = 'info'
+        return render_template('preference.html', userThemes=userThemes, widgets=widgets, name='Settings', theme=theme, username=username, logged_in = logged_in())
+    else:
+        home()
 
 @app.route('/preferenceSet')
 def preferenceSet():
@@ -152,8 +195,16 @@ def preferenceSet():
     # editInfo(session['username'], "theme", request.args)
 
     #clear list
+
+    home_widgets = updateWidget(session['username'])
+    print(request.args['color'])
     if request.args['color'] != "Select a Theme":
         themes = updateTheme(request.args['color'], 'secondary')
+        color = request.args['color']
+        print(f"COLOR:, {color}" )
+        editInfo(session['username'], "theme", color)
+
+    printTable()
 
     # clear list
     widgets = []
