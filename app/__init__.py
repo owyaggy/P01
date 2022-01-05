@@ -20,7 +20,7 @@ info = stocks_api(symbols)
 widgets = ['weather', 'news', 'recommendations', 'fun', 'sports', 'space']
 packages = {}
 for widget in widgets:
-    packages[widget] = get_api(widget)#, 'stocks']# a complete list of all widgets
+    packages[widget] = get_api(widget)
 @app.route('/')
 @app.route("/home")
 def home():
@@ -72,10 +72,6 @@ def news():
 def recommendations():
     info = recommendations_api(3)
     return render_template('recommendations.html', name="Recommendations", theme=theme, info=info)
-
-@app.route('/stocks')
-def stocks():
-    return render_template('stocks.html', name="Stocks", info=info, symbols=symbols, theme=theme)
 
 @app.route('/fun')
 def fun():
