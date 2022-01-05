@@ -1,1 +1,26 @@
 {% extends "base.html" %} <!-- extends the base template -->
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for i in range(3) %}
+        <div class="col sm-6">
+            <div class="card m-3 h-100">
+                <div class="card-body overflow-scroll">
+                    <h5 class="card-text">&#128218; Fun fact &#128218;</h5>
+                    <h3 class="card-text">{{ info['facts'][i] }}</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col sm-6">
+            <div class="card m-3 h-100">
+                <div class="card-body overflow-scroll">
+                    <h5 class="card-text">&#128520; Kanye says… &#128520;</h5>
+                    <h3 class="card-text">{{ info['kanye'][i] }}</h3>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
