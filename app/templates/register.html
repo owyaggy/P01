@@ -1,25 +1,27 @@
-<!DOCTYPE html>
-
 {% extends "base.html" %}
 
 {% block content %}
-
-<body>
-    <form action="/reg2" methods=['GET', 'POST' ]>
-        <label for="Username" class="form-label">Username:</label>
-        <input type="text" placeholder="Username" name="regUser">
-        <label for="Password" class="form-label">Password:</label>
-        <input type="text" placeholder="Enter Password" name="regPass">
-        <!-- <label for="Confirm" class="form-label">Confirm Password:</label>
-        <input type="text" placeholder = "Confirm Password" name="conPass"> -->
-        <br>
-        <br>
-        <input type="submit" name="regSub" value="Register">
-    </form>
-
-    <p> {{error}}
-    </p>
-</body>
+<div class="row row-cols row-cols-lg-3">
+    <div class="col">
+        <div class="card m-3">
+            <div class="card-body">
+                <form action="/reg2" methods=['GET', 'POST' ]>
+                    <div class="form-group">
+                        <label for="Username" class="form-label">Username</label>
+                        <input type="text" class="form-control" name="regUser" id="inputUsername"
+                            aria-describedby="usernameHelp" placeholder="Enter username">
+                    </div>
+                    <div class="form-group">
+                        <label for="Password">Password</label>
+                        <input type="password" class="form-control" name="regPass" id="inputPassword"
+                            aria-describedby="passwordHelp" placeholder="Enter password">
+                    </div>
+                    <button type="submit" class="btn btn-{{ theme['main'] }} mt-2" name="regSub"
+                        value="Register">Register</button>
+                </form>
+                <p>{{ error }}</p>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
-
-</html>
