@@ -3,8 +3,7 @@ import os
 
 from api import *   
 from db_builder import createTables, validate, check_existence, register, insert, printTable, updateTheme
-from db_builder import clearTable, authenticate, getInfo, editInfo, updateWidget
-createTables
+from db_builder import clearTable, authenticate, getInfo, editInfo, updateWidget, createTables
 app = Flask(__name__)    #create Flask object
 app.secret_key = os.urandom(32) #create random key
 
