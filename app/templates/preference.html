@@ -6,7 +6,7 @@
   <br>
   <form action="/preferenceSet" methods=['GET', 'POST']>
     <div class="form-group">
-      <select class="form-select form-select-sm" name="userTheme" aria-label=".form-select-lg example">
+      <select class="form-select form-select-sm" name="color" aria-label=".form-select-lg example">
         <option selected>Select a Theme</option>
         {% for userTheme in userThemes %} <!-- Themes  -->
           <option value={{userTheme}}>{{userTheme}}</option>

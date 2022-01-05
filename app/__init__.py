@@ -138,21 +138,27 @@ def preferenceSet():
     #themes = updateTheme(request.args[color])
 
     #clear list
-    #if request.args = on
-    #add to list
-    #set equals to one in the library
-    #else
-    #set equals to zero in the library
+    list = request.args.values()
+    print(list)
+    # if request.args.get(color, -1) > 0:
+    #     themes = updateTheme(request.args[color])
 
-    #if integer of a widget = 0 or none
+    # clear list
+    # for
+    # # add to list
+    # # set equals to one in the library
+    # else
+    # set equals to zero in the library
+    #
+    # if integer of a widget = 0 or none
 
-    #theme = getInfo(session['username'], "theme")
-    #sports = getInfo(session['username'], "sports")
-
+    # theme = getInfo(session['username'], "theme")
+    # sports = getInfo(session['username'], "sports")
+    #
     # editInfo(session['username'], "theme", request.args[])
-    #if integer of a wdiget = 1 or none, show
-    #new_widgets = list.insert(1, request.args)
-    #  
+    # if integer of a wdiget = 1 or none, show
+    # new_widgets = list.insert(1, request.args)
+
     return preference()
 def update():
     return True
