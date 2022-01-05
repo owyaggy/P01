@@ -33,7 +33,7 @@ def home():
         print("LOGGED IN HOME")
         username = session['username']
         # widgets = db_builder.enabledWidgets() # get only the selected widgets from the user's preferences
-        theme = updateTheme("success", "primary") #just for testing
+        theme = updateTheme("success", "primary") # just for testing
         return render_template('home.html', name="Home", widgets=widgets, theme=theme, packages=packages, username = username)
     else:
         print("NOT LOGGED IN HOME")
