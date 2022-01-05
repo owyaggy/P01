@@ -162,6 +162,9 @@ Added fun widget
 Added recommendations widget
 Refactored API functions
 Only the API calls required by displayed widgets are now called
+Fun and recommendations subpages
+Fixed bugs
+Added bootstrap to login
 
 zhaoL -- 2022-01-04 21:48
 -log out button
