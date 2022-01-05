@@ -19,12 +19,10 @@ def createTables():
     theme TEXT,
     weather INTEGER,
     news INTEGER,
-    book INTEGER,
-    stock INTEGER,
-    facts INTEGER,
-    space INTEGER,
+    recommendation INTEGER,
+    fun INTEGER,
     sports INTEGER,
-    time INTEGER);"""
+    space INTEGER);"""
     )
     db.commit()
     db.close()
@@ -129,3 +127,18 @@ def clearTable():
             c = db.cursor()
             c.execute("DELETE from userinfo;")
             db.commit()
+
+def getInfo(username, col):
+    with sqlite3.connect(DB_FILE) as db:
+            #open if file exists, otherwise create
+            c = db.cursor()
+            info = c.execute("SELECT " + col + " FROM userinfo where username = ?", [username]).fetchone()[0]
+            db.commit()
+            return info
+def editInfo(username, col, value):
+    with sqlite3.connect(DB_FILE) as db:
+            #open if file exists, otherwise create
+            c = db.cursor()
+            c.execute("UPDATE userinfo SET " + col + " =? WHERE username = ?;", (value, username))
+            db.commit()
+            
