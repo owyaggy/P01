@@ -168,3 +168,6 @@ zhaoL -- 2022-01-04 21:48
 -visual representation of a user being logged in
 -registering brings user to home page
 -set theme across logging in, registering, clicking home
+zhaoL --2022-01-04 23:40
+-edit table info
+-return table info
